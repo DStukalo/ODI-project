@@ -1,12 +1,12 @@
 import { Route, Routes } from 'react-router';
 
-import { NotFoundPage } from './pages/404/NotFoundPage';
-import { AuthorizationPage } from './pages/Authorization page/Authorization';
-import { BoardPage } from './pages/Board page/Board';
-import { WelcomePage } from './pages/Welcome page/WelcomePage';
 import { Layout } from './components/Layout/Layout';
-import { ProfilePage } from './pages/Profile page/ProfilePage';
+import { WelcomePage } from './pages/Welcome page/WelcomePage';
 import { MainPage } from './pages/Main page/MainPage';
+import { BoardPage } from './pages/Board page/Board';
+import { AuthorizationPage } from './pages/Authorization page/Authorization';
+import { ProfilePage } from './pages/Profile page/ProfilePage';
+import { NotFoundPage } from './pages/404/NotFoundPage';
 
 function App() {
 	return (
