@@ -1,0 +1,20 @@
+.navigation__item {
+  padding: 4px;
+  box-sizing: border-box;
+  color: inherit;
+  text-decoration: none;
+  transition: color 1000ms linear;
+
+  &:hover {
+    color: #b57118;
+  }
+}
+
+.active {
+  color: #b57118;
+  text-decoration: underline;
+}
+
+.list__item {
+  list-style: none;
+}
