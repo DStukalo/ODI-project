@@ -1,0 +1,25 @@
+.navigation__img {
+  overflow: visible;
+  width: 80px;
+  height: 80px;
+  fill: var(--color-a2);
+  transition: all 1000ms linear;
+
+  &:hover {
+    fill: var(--color-a1);
+    cursor: pointer;
+  }
+}
+
+.active > .navigation__img {
+  overflow: visible;
+  width: 80px;
+  height: 80px;
+  fill: var(--color-a1);
+  transition: all 1000ms linear;
+
+  &:hover {
+    fill: var(--color-a2);
+    cursor: pointer;
+  }
+}
