@@ -8,11 +8,11 @@
     overflow: visible;
     width: 80px;
     height: 80px;
-    fill: var(--color-a2);
+    fill: var(--color-primary-white-a1);
     transition: all 1000ms linear;
 
     &:hover {
-      fill: var(--color-a1);
+      fill: var(--color-primary-orange-a1);
       cursor: pointer;
     }
   }
