@@ -1,20 +1,20 @@
 .hexagon-btn {
   width: 36px;
   height: 20px;
-  background-color: var(--color-a2);
+  background-color: var(--color-primary-white-a1);
   position: relative;
   border: none;
   transition: all 800ms linear;
 
   &:hover {
     cursor: pointer;
-    background-color: var(--color-a1);
-    color: var(--color-a2);
+    background-color: var(--color-primary-orange-a1);
+    color: var(--color-primary-white);
     &:before {
-      border-bottom: 10px solid var(--color-a1);
+      border-bottom: 10px solid var(--color-primary-orange-a1);
     }
     &:after {
-      border-top: 10px solid var(--color-a1);
+      border-top: 10px solid var(--color-primary-orange-a1);
     }
   }
 
@@ -27,7 +27,7 @@
     height: 0;
     border-left: 18px solid transparent;
     border-right: 18px solid transparent;
-    border-bottom: 10px solid var(--color-a2);
+    border-bottom: 10px solid var(--color-primary-white-a1);
     transition: all 700ms linear;
   }
 
@@ -40,7 +40,7 @@
     height: 0;
     border-left: 18px solid transparent;
     border-right: 18px solid transparent;
-    border-top: 10px solid var(--color-a2);
+    border-top: 10px solid var(--color-primary-white-a1);
     transition: all 900ms linear;
   }
 }
@@ -55,7 +55,7 @@
   transition: all 900ms linear;
   &:hover {
     cursor: pointer;
-    background-color: var(--color-a1);
-    color: var(--color-a2);
+    background-color: var(--color-primary-orange-a1);
+    color: var(--color-primary-white-a1);
   }
 }
