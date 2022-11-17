@@ -1,8 +1,7 @@
-import styles from './Navigation.module.scss';
+import { Button } from '@/components/Button/Button';
 import { NavItem } from './NavItem/NavItem';
 import { Logo } from './Logo/Logo';
-import { Button } from '../../Button/Button';
-// import { ReactComponent as Logo } from '../../../assets/logo.svg';
+import styles from './Navigation.module.scss';
 
 type TNavProps = {
 	logged: string;
@@ -29,7 +28,6 @@ export function Navigation(props: TNavProps) {
 	const isEngland = localStorage.getItem('isEngland');
 	return (
 		<nav role="navigation" className={styles.navigation}>
-			{/* <Logo className={styles.navigation__img} /> */}
 			<Logo />
 			{
 				logged === 'true'
