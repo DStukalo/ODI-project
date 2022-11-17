@@ -4,38 +4,22 @@ import styles from './NavItem.module.scss';
 
 type TNavItemProps = {
 	path: string;
-	textRU: string;
-	textEN: string;
+	text: string;
 }
 
 export function NavItem(props: TNavItemProps) {
-	const isEngland = localStorage.getItem('isEngland') || true;
-	const { path, textRU, textEN } = props;
+	const { path, text } = props;
 	return (
 		<li className={styles.list__item}>
-			{
-				isEngland === 'true'
-					? (
-						<NavLink
-							className={({ isActive }) => (isActive
-								? `${styles.active}`
-								: `${styles.navigation__item}`)}
-							to={`/${path}`}
-						>
-							{textEN}
-						</NavLink>
-					)
-					: (
-						<NavLink
-							className={({ isActive }) => (isActive
-								? `${styles.active}`
-								: `${styles.navigation__item}`)}
-							to={`/${path}`}
-						>
-							{textRU}
-						</NavLink>
-					)
-			}
+			<NavLink
+				className={({ isActive }) => (isActive
+					? `${styles.active}`
+					: `${styles.navigation__item}`)}
+				to={`/${path}`}
+			>
+				{text}
+			</NavLink>
+
 		</li>
 
 	);
