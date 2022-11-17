@@ -1,5 +1,18 @@
-.container {
+.header {
   background-color: var(--color-background-primary-grey-a1);
+  width: 100%;
+  position: fixed;
+}
+
+.is-sticky {
+  background-color: var(--color-background-primary-grey-a2);
+  position: fixed;
+  width: 100%;
+  z-index: 999;
+  transition: all 1000ms ease-in-out;
+}
+
+.container {
   display: flex;
   align-items: center;
   justify-content: center;
