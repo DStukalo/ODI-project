@@ -1,13 +1,5 @@
-/* eslint-disable react/require-default-props */
 import styles from './Button.module.scss';
-
-type TButtonProps = {
-	text: string;
-  classes: string;
-	callback?: { (): void };
-	image?: string;
-
-}
+import { TButtonProps } from './ButtonTypes';
 
 export function Button(props: TButtonProps) {
 	const {

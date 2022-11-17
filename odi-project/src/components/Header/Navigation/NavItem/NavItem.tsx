@@ -1,11 +1,7 @@
 import { NavLink } from 'react-router-dom';
 
 import styles from './NavItem.module.scss';
-
-type TNavItemProps = {
-	path: string;
-	text: string;
-}
+import { TNavItemProps } from './NavItemTypes';
 
 export function NavItem(props: TNavItemProps) {
 	const { path, text } = props;
@@ -19,7 +15,6 @@ export function NavItem(props: TNavItemProps) {
 			>
 				{text}
 			</NavLink>
-
 		</li>
 
 	);

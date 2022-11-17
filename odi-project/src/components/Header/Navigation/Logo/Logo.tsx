@@ -5,7 +5,6 @@ import { ReactComponent as LogoSVG } from '../../../../assets/logo.svg';
 
 export function Logo() {
 	return (
-		// <LogoSVG className={styles.navigation__img} />
 		<NavLink
 			className={({ isActive }) => (isActive
 				? `${styles.active}`

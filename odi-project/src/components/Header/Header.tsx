@@ -5,7 +5,7 @@ import { Navigation } from './Navigation/Navigation';
 
 export function Header() {
 	const isLogged = localStorage.getItem('isLogged') || 'false';
-
+	// будет использоваться redux для состояния
 	const [sticky, setSticky] = useState('');
 
 	const isSticky = () => {

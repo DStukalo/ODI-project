@@ -5,45 +5,19 @@ import { Button } from '@/components/Button/Button';
 import { NavItem } from './NavItem/NavItem';
 import { Logo } from './Logo/Logo';
 import styles from './Navigation.module.scss';
-// import { translations } from '@/locales/translations';
-
-type TNavProps = {
-	logged: string;
-}
+import { TNavProps, TTransl } from './NavigationTypes';
 
 function changeLang() {
-	console.log('change lang');
+	console.log('change lang');// будет использоваться redux для смени языка
 }
 
 function logOut() {
 	localStorage.setItem('isLogged', 'false');
-	window.location.reload();
-}
-
-type TTransl = {
-	en: {
-			main: string;
-			profile: string;
-			newBoard: string;
-			btnLang: string;
-			signin: string;
-			signup: string;
-	};
-	ru: {
-			main: string;
-			profile: string;
-			newBoard: string;
-			btnLang: string;
-			signin: string;
-			signup: string;
-	};
+	window.location.reload();// будет использоваться redux для смени состояния
 }
 
 export function Navigation(props: TNavProps) {
 	const { logged } = props;
-	if (!localStorage.getItem('isEngland')) {
-		localStorage.setItem('isEngland', 'true');
-	}
 	const useTranslation = () => useContext(TranslationContext);
 	const { translations, language } = useTranslation();
 	const newLocal = (translations as TTransl)[language as keyof TTransl];
