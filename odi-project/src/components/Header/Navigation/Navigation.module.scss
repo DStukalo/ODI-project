@@ -1,0 +1,25 @@
+.navigation {
+  width: 1200px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &__img {
+    overflow: visible;
+    width: 80px;
+    fill: var(--color-primary-white-a1);
+    transition: all 1000ms linear;
+
+    &:hover {
+      fill: var(--color-primary-orange-a1);
+      cursor: pointer;
+    }
+  }
+}
+
+.list {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
