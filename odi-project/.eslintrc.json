@@ -5,7 +5,17 @@
     },
     "settings": {
         "import/resolver": {
-            "typescript": {}
+            "typescript": {},
+            "alias": {
+                "map": [
+                  // And all your import aliases
+                  ["@components", "./src/components"],
+                  ["@pages", "./src/pages"],
+                  ["@store", "./src/store"],
+                  ["@assets", "./src/assets"]
+                ],
+                "extensions": [".ts", ".js", ".jsx", ".json"]
+              }
         }
     },
     "extends": [
