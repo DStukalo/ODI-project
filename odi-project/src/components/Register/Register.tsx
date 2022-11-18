@@ -6,65 +6,73 @@ export function Register() {
 		firstName: '',
 		lastName: '',
 		username: '',
-		password: ''
+		password: '',
 	});
 
 	function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
 		const { name, value } = e.target;
-		setUser((user) => ({ ...user, [name]: value }));
+		setUser((item) => ({ ...item, [name]: value }));
 	}
 
-	function handleSubmit (e: { preventDefault: () => void }) {
+	function handleSubmit(e: { preventDefault: () => void }) {
 		e.preventDefault();
-	};
+	}
 
 	return (
 		<div className="form-auth">
 			<h2>Register</h2>
 			<form className="register-form" onSubmit={handleSubmit}>
 				<div className="form-group">
-					<label htmlFor="firstname">First name</label>
-					<input
-						type="text"
-						name="firstName"
-						value={user.firstName}
-						onChange={handleChange}
-						id="name"
-						placeholder="First name"
-					/>
+					<label htmlFor="name">
+						First name
+						<input
+							type="text"
+							name="firstName"
+							value={user.firstName}
+							onChange={handleChange}
+							placeholder="First name"
+							id="name"
+						/>
+					</label>
 				</div>
 				<div className="form-group">
-					<label htmlFor="lastname">Last name</label>
-					<input
-						type="text"
-						name="lastname"
-						value={user.lastName}
-						onChange={handleChange}
-						id="lastname"
-						placeholder="Last name"
-					/>
+					<label htmlFor="lastname">
+						Last name
+						<input
+							type="text"
+							name="lastname"
+							value={user.lastName}
+							onChange={handleChange}
+							id="lastname"
+							placeholder="Last name"
+						/>
+					</label>
 				</div>
 				<div className="form-group">
-					<label htmlFor="username">Username</label>
-					<input
-						type="text"
-						name="username"
-						value={user.username}
-						onChange={handleChange}
-						id="username"
-						placeholder="Username"
-					/>
+					<label htmlFor="username">
+						Username
+						<input
+							type="text"
+							name="username"
+							value={user.username}
+							onChange={handleChange}
+							id="username"
+							placeholder="Username"
+						/>
+					</label>
 				</div>
 				<div className="form-group">
-					<label htmlFor="password">Password</label>
-					<input
-						type="password"
-						name="password"
-						value={user.password}
-						onChange={handleChange}
-						id="password"
-						placeholder="Password"
-					/>
+					<label htmlFor="password">
+						Password
+						<input
+							type="password"
+							name="password"
+							value={user.password}
+							onChange={handleChange}
+							id="password"
+							placeholder="Password"
+						/>
+					</label>
 				</div>
 				<div className="form-button">
 					<button type="submit">Register</button>
