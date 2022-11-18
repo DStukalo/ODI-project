@@ -10,7 +10,6 @@ import { ProfilePage } from './pages/Profile page/ProfilePage';
 import { NotFoundPage } from './pages/404/NotFoundPage';
 import { Register } from './components/Register/Register';
 import { Login } from './components/Login/Login';
-
 import { initialState } from './locales/initialState';
 
 export const TranslationContext = createContext(initialState);
