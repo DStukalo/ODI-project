@@ -19,39 +19,37 @@ export function Login() {
 	}
 
 	return (
-		<div className={styles.form_login}>
-			<h2>Login</h2>
-			<form onSubmit={handleSubmit}>
-				<div className={styles.form_group}>
-					<label htmlFor="username">
-						Username
-						<input
-							type="text"
-							name="username"
-							value={username}
-							onChange={handleChange}
-							id="username"
-							placeholder="Username"
-						/>
-					</label>
-				</div>
-				<div className={styles.form_group}>
-					<label htmlFor="password">
-						Password
-						<input
-							type="password"
-							name="password"
-							value={password}
-							onChange={handleChange}
-							id="password"
-							placeholder="Password"
-						/>
-					</label>
-				</div>
-				<button type="submit">Log in</button>
-				<Link to="/register" className="button button-link">
+		<div className={styles.login}>
+			<h2>Sign in</h2>
+			<form onSubmit={handleSubmit} className={styles.form_login}>
+				<fieldset className={styles.form_fieldset}>
+					{/* <legend>Username</legend> */}
+					<input
+						type="text"
+						name="username"
+						value={username}
+						onChange={handleChange}
+						id="username"
+						className={styles.form_input}
+						placeholder="Username"
+					/>
+				</fieldset>
+				<fieldset className={styles.form_fieldset}>
+					{/* <legend>Password</legend> */}
+					<input
+						type="password"
+						name="password"
+						value={password}
+						onChange={handleChange}
+						id="password"
+						className={styles.form_input}
+						placeholder="Password"
+					/>
+				</fieldset>
+				<Link to="/authorization/register" className={styles.form_link}>
 					Don&apos;t have an account? Register here.
 				</Link>
+				<button type="submit" className={styles.form_button}>Log in</button>
 			</form>
 		</div>
 	);
