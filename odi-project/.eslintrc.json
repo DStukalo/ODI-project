@@ -9,6 +9,7 @@
             "alias": {
                 "map": [
                   // And all your import aliases
+                  ["@", "./src"],
                   ["@components", "./src/components"],
                   ["@pages", "./src/pages"],
                   ["@store", "./src/store"],

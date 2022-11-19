@@ -1,0 +1,56 @@
+.wrapper {
+	width: 100%;
+	height: 1500px;
+	background: linear-gradient(#cfdbe7,#fff,#fff,#cfdbe7);
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	padding: 90px 0;
+}
+
+.welcomeSection{
+	width: 100%;
+	max-width: 1200px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 500px;
+	gap: 40px;
+}
+
+@media (max-width: 1240px) {
+	.wrapper {
+		padding: 90px 20px;
+		width: calc(100% - 40px);
+	}
+}
+
+.descriptionBlock{
+	width: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+}
+
+.mainTittle{
+	font-family: "Raleway", sans-serif;
+	font-weight: 600;
+	color: var(--color-background-primary-grey-a1);
+	font-size: var(--font-size-a1);
+	text-shadow: 1px 2px 4px #6f7282;
+}
+
+.description{
+	font-size: var(--font-size-a2);
+	padding-bottom: 24px;
+}
+
+.welcomeImg{
+	width:40vw;
+	height: 500px;
+	background-image: url("/assets/welcome-img.png");
+	background-size:contain;
+	background-repeat: no-repeat;
+	background-position: center;
+}
