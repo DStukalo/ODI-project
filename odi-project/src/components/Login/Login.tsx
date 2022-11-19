@@ -8,6 +8,7 @@ export function Login() {
 		password: '',
 	});
 	const { username, password } = inputs;
+	const [submit, setSubmit] = useState(false);
 
 	function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
 		const { name, value } = e.target;
@@ -16,6 +17,7 @@ export function Login() {
 
 	function handleSubmit(e: { preventDefault: () => void }) {
 		e.preventDefault();
+		setSubmit(true);
 	}
 
 	return (
@@ -23,7 +25,9 @@ export function Login() {
 			<h2>Sign in</h2>
 			<form onSubmit={handleSubmit} className={styles.form_login}>
 				<fieldset className={styles.form_fieldset}>
-					{/* <legend>Username</legend> */}
+					{submit && !username && (
+						<legend className={styles.error}>Username is required</legend>
+					)}
 					<input
 						type="text"
 						name="username"
@@ -35,7 +39,9 @@ export function Login() {
 					/>
 				</fieldset>
 				<fieldset className={styles.form_fieldset}>
-					{/* <legend>Password</legend> */}
+					{submit && !password && (
+						<legend className={styles.error}>Password is required</legend>
+					)}
 					<input
 						type="password"
 						name="password"

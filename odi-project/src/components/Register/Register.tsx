@@ -9,6 +9,7 @@ export function Register() {
 		username: '',
 		password: '',
 	});
+	const [submit, setSubmit] = useState(false);
 
 	function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
 		const { name, value } = e.target;
@@ -17,6 +18,7 @@ export function Register() {
 
 	function handleSubmit(e: { preventDefault: () => void }) {
 		e.preventDefault();
+		setSubmit(true);
 	}
 
 	return (
@@ -24,6 +26,9 @@ export function Register() {
 			<h2>Sign up</h2>
 			<form onSubmit={handleSubmit} className={styles.form_register}>
 				<fieldset className={styles.form_fieldset}>
+					{submit && !user.firstName && (
+						<legend className={styles.error}>First name is required</legend>
+					)}
 					<input
 						type="text"
 						name="firstName"
@@ -35,6 +40,9 @@ export function Register() {
 					/>
 				</fieldset>
 				<fieldset className={styles.form_fieldset}>
+					{submit && !user.lastName && (
+						<legend className={styles.error}>Last name is required</legend>
+					)}
 					<input
 						type="text"
 						name="lastname"
@@ -46,6 +54,9 @@ export function Register() {
 					/>
 				</fieldset>
 				<fieldset className={styles.form_fieldset}>
+					{submit && !user.username && (
+						<legend className={styles.error}>Username is required</legend>
+					)}
 					<input
 						type="text"
 						name="username"
@@ -57,6 +68,9 @@ export function Register() {
 					/>
 				</fieldset>
 				<fieldset className={styles.form_fieldset}>
+					{submit && !user.password && (
+						<legend className={styles.error}>Password is required</legend>
+					)}
 					<input
 						type="password"
 						name="password"
