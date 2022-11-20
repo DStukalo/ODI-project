@@ -1,4 +1,4 @@
-import { ReactComponent as LogoSVG } from '../../assets/rs_school_js-logo.svg';
+import { ReactComponent as LogoSVG } from '@/assets/rs_school_js-logo.svg';
 import styles from './Footer.module.scss';
 
 export function Footer() {
