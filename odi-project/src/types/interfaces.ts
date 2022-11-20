@@ -1,13 +1,17 @@
-import { TDataResponseSignup } from './types';
-
-export interface IAuthentication {
+export interface AuthenticationData {
 	data: {
 		token: string;
 	};
 	status: number;
 }
 
-export interface ISignupResponse {
-	data: TDataResponseSignup;
+export interface UserData {
+	_id: 'string';
+	name: 'string';
+	login: 'string';
+}
+
+export interface UserDataWithStatus {
+	data: UserData;
 	status: number;
 }

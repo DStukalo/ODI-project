@@ -1,16 +1,16 @@
 import axios from 'axios';
 
-import { IAuthentication, ISignupResponse } from '@/types/interfaces';
+import { AuthenticationData, UserDataWithStatus } from '@/types/interfaces';
 import { BASE_URL } from './consts';
 
 export class AuthToAPI {
-	path: string;
+	public path: string;
 
-	constructor() {
-		this.path = 'auth/';
+	constructor(path = '/') {
+		this.path = path;
 	}
 
-	async signup(name: string, login: string, pass: string): Promise<ISignupResponse> {
+	async signup(name: string, login: string, pass: string): Promise<UserDataWithStatus> {
 		const res = await axios.post(`${BASE_URL}${this.path}signup`, {
 			name: `${name}`,
 			login: `${login}`,
@@ -19,7 +19,7 @@ export class AuthToAPI {
 		return { data: res.data, status: res.status };
 	}
 
-	async signin(login: string, pass: string): Promise<IAuthentication> {
+	async signin(login: string, pass: string): Promise<AuthenticationData> {
 		const res = await axios.post(`${BASE_URL}${this.path}signin`, {
 			login: `${login}`,
 			password: `${pass}`,
