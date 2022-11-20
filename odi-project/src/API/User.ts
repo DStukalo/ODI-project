@@ -10,7 +10,7 @@ export class UserToAPI {
 		this.path = path;
 	}
 
-	async users(token: string): Promise< AllUsersData > {
+	async getUsers(token: string): Promise< AllUsersData > {
 		const res = await axios({
 			method: 'get',
 			url: `${BASE_URL}${this.path}`,
@@ -22,7 +22,7 @@ export class UserToAPI {
 		return { data: res.data, status: res.status };
 	}
 
-	async userByID(token: string, ID: string): Promise< UserDataWithStatus > {
+	async getUserByID(token: string, ID: string): Promise< UserDataWithStatus > {
 		const res = await axios({
 			method: 'get',
 			url: `${BASE_URL}${this.path}${ID}`,
