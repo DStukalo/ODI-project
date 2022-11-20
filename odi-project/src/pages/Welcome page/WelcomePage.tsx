@@ -1,14 +1,16 @@
 import { Button } from '@/components/Button/Button';
 import { AboutBlock } from '@/components/AboutBlock/AboutBlock';
+import { NavLink } from 'react-router-dom';
 import styles from './WelcomePage.module.scss';
+
+let path = 'main';
 
 function switchPage() {
 	if (localStorage.getItem('isLogged') === 'false') {
-		window.location.href = 'main';// будет использоваться redux для смени состояния
+		path = 'main';// будет использоваться redux для смени состояния
 	} else {
-		window.location.href = 'authorization';// будет использоваться redux для смени состояния
+		path = 'authorization';// будет использоваться redux для смени состояния
 	}
-
 }
 
 export function WelcomePage() {
@@ -23,12 +25,14 @@ export function WelcomePage() {
 						Let clients and team members collaborate easily in real-time by
 						sharing tasks, information, and comments, anytime and from anywhere
 					</p>
-					<Button
-						text="Get started"
-						classes="welcome__btn"
-						image="/images/icon-start.png"
-						callback={switchPage}
-					/>
+					<NavLink to={`/${path}`}>
+						<Button
+							text="Get started"
+							classes="welcome__btn"
+							image="/images/icon-start.png"
+							callback={switchPage}
+						/>
+					</NavLink>
 				</div>
 				<div className={styles.welcomeImg} />
 			</section>

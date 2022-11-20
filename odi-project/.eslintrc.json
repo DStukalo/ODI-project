@@ -48,7 +48,7 @@
 		"quotes": [ "error", "single" ],
 		"semi": [ "error", "always" ],
         "max-len": ["error", 100, 2],
-        "max-lines-per-function": ["error", 50],
+        "max-lines-per-function": ["error", 250],
         "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
         "import/prefer-default-export": "off",
         "import/extensions": [
