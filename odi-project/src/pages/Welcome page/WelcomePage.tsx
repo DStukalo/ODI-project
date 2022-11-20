@@ -1,4 +1,5 @@
 import { Button } from '@/components/Button/Button';
+import { AboutBlock } from '@/components/AboutBlock/AboutBlock';
 import styles from './WelcomePage.module.scss';
 
 function switchPage() {
@@ -12,8 +13,8 @@ function switchPage() {
 
 export function WelcomePage() {
 	return (
-		<section className={styles.wrapper}>
-			<div className={styles.welcomeSection}>
+		<div className={styles.wrapper}>
+			<section className={styles.welcomeSection}>
 				<div className={styles.descriptionBlock}>
 					<h1 className={styles.mainTittle}>ODI project - best task management for teams</h1>
 					<p className={styles.description}>
@@ -30,7 +31,31 @@ export function WelcomePage() {
 					/>
 				</div>
 				<div className={styles.welcomeImg} />
-			</div>
-		</section>
+			</section>
+			<section className={styles.aboutWrapper}>
+				<h2 className={styles.aboutTittle}>Our team</h2>
+				<AboutBlock
+					tittle="Dmytro Stukalo (Team lead)"
+					text="Координация команды и организация митингов. Реализация меню навигации,
+					 настройка роутинга, отправки данных на сервер..."
+					classes="img-wrapper-dmytro"
+					wrapper="about-card-left"
+				/>
+				<AboutBlock
+					tittle="Igor Novitski (Developer)"
+					text="Участие в митингах и помощь другим разработчикам.
+						Реализация страницы Приветствия приложения..."
+					classes="img-wrapper-igor"
+					wrapper="about-card-right"
+				/>
+				<AboutBlock
+					tittle="Olga Malkovich (Developer)"
+					text="Участие в митингах и помощь другим разработчикам.
+						Реализация страницы Авторизации приложения..."
+					classes="img-wrapper-olga"
+					wrapper="about-card-left"
+				/>
+			</section>
+		</div>
 	);
 }
