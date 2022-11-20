@@ -1,61 +1,68 @@
-import { useState } from 'react';
+import { TranslationContext } from '@/App';
+import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Button } from '../Button/Button';
+import { TTransl } from '../Header/Navigation/NavigationTypes';
 import styles from './Login.module.scss';
 
 export function Login() {
-	const [inputs, setInputs] = useState({
-		username: '',
-		password: '',
-	});
-	const { username, password } = inputs;
+	const [username, setUsername] = useState('');
+	const [password, setPassword] = useState('');
 	const [submit, setSubmit] = useState(false);
+	const useTranslation = () => useContext(TranslationContext);
+	const { translations, language } = useTranslation();
+	const newLocal = (translations as TTransl)[language as keyof TTransl];
 
-	function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-		const { name, value } = e.target;
-		setInputs((input) => ({ ...input, [name]: value }));
+	function handleChangeUsername(e: React.FormEvent<HTMLInputElement>) {
+		setUsername(e.currentTarget.value);
 	}
 
-	function handleSubmit(e: { preventDefault: () => void }) {
+	function handleChangePassword(e: React.FormEvent<HTMLInputElement>) {
+		setPassword(e.currentTarget.value);
+	}
+
+	function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
 		setSubmit(true);
 	}
 
 	return (
 		<div className={styles.login}>
-			<h2>Sign in</h2>
+			<h2>{newLocal.signin}</h2>
 			<form onSubmit={handleSubmit} className={styles.form_login}>
 				<fieldset className={styles.form_fieldset}>
 					{submit && !username && (
-						<legend className={styles.error}>Username is required</legend>
+						<legend className={styles.error}>{newLocal.errorUsername}</legend>
 					)}
 					<input
 						type="text"
 						name="username"
 						value={username}
-						onChange={handleChange}
+						onChange={handleChangeUsername}
 						id="username"
 						className={styles.form_input}
-						placeholder="Username"
+						placeholder={newLocal.username}
 					/>
 				</fieldset>
 				<fieldset className={styles.form_fieldset}>
 					{submit && !password && (
-						<legend className={styles.error}>Password is required</legend>
+						<legend className={styles.error}>{newLocal.errorpassword}</legend>
 					)}
 					<input
 						type="password"
 						name="password"
 						value={password}
-						onChange={handleChange}
+						onChange={handleChangePassword}
 						id="password"
 						className={styles.form_input}
-						placeholder="Password"
+						placeholder={newLocal.password}
 					/>
 				</fieldset>
 				<Link to="/authorization/register" className={styles.form_link}>
-					Don&apos;t have an account? Register here.
+					{newLocal.btnLgn}
 				</Link>
-				<button type="submit" className={styles.form_button}>Log in</button>
+				<Button text={newLocal.signup} classes="form_button" />
+				{/* <button type="submit" className={styles.form_button}>{newLocal.signin}</button> */}
 			</form>
 		</div>
 	);
