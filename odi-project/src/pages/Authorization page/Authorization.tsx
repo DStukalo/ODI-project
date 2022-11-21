@@ -1,5 +1,9 @@
+import { Outlet } from 'react-router-dom';
+
 export function AuthorizationPage() {
 	return (
-		<div>Authorization page</div>
+		<div>
+			<Outlet />
+		</div>
 	);
 }

@@ -45,8 +45,8 @@ export function Navigation(props: TNavProps) {
 					)
 					: 					(
 						<ul className={styles.list}>
-							<NavItem path="forms/signin" text={newLocal.signin} />
-							<NavItem path="forms/signup" text={newLocal.signup} />
+							<NavItem path="authorization/login" text={newLocal.signin} />
+							<NavItem path="authorization/register" text={newLocal.signup} />
 							<Button text={newLocal.btnLang} classes="hexagon-btn" callback={changeLang} />
 						</ul>
 					)
