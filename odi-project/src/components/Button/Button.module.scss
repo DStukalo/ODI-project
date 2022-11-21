@@ -62,3 +62,29 @@
     color: var(--color-primary-white-a1);
   }
 }
+
+.form_button {
+  // background-color: var(--color-disabled);
+  background-color: var(--color-primary-white-a1);
+  color: var(--color-primary-black-a1);
+  border-radius: 10px;
+  border: none;
+  box-sizing: border-box;
+  // color: #fff;
+  display: block;
+  font-size: 18px;
+  font-weight: 400;
+  height: auto;
+  padding: 13px;
+  transition: .3s;
+  width: 100%;
+  margin-top: 20px;
+  cursor: pointer;
+  transition: all 800ms linear;
+  &:hover {
+    // background-color: var(--color-background-primary-grey-a2);
+    cursor: pointer;
+    background-color: var(--color-primary-orange-a2);
+    color: var(--color-primary-white-a1);
+  }
+}
