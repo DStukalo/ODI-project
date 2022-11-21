@@ -4,9 +4,7 @@ import { DescriptionBlock } from '@/components/DescriptionBlock/DescriptionBlock
 import { TechnologyBlock } from '@/components/TechnologyBlock/TechnologyBlock';
 import { technologiesData } from '@/components/TechnologyBlock/TechnologiesData';
 import { NavLink } from 'react-router-dom';
-import { useContext } from 'react';
-import { TranslationContext } from '@/App';
-import { TranslWelcome } from './WelcomeTypes';
+import { useTranslation } from '../../locales/useTranslation';
 import styles from './WelcomePage.module.scss';
 
 let path = 'main';
@@ -20,9 +18,7 @@ function switchPage() {
 }
 
 export function WelcomePage() {
-	const useTranslation = () => useContext(TranslationContext);
-	const { translations, language } = useTranslation();
-	const newLocal = (translations as TranslWelcome)[language as keyof TranslWelcome];
+	const newLocal = useTranslation();
 	return (
 		<div className={styles.wrapper}>
 			<section className={styles.welcomeSection}>

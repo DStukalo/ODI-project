@@ -1,5 +1,7 @@
 /* eslint-disable max-len */
-export const en = {
+import { TranslationPackage } from './translationTypes';
+
+export const en: TranslationPackage = {
 	main: 'Main',
 	profile: 'Profile',
 	newBoard: 'New Board',

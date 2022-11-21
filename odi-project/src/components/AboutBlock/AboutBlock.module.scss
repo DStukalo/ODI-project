@@ -43,15 +43,15 @@
 }
 
 .img-wrapper-igor {
-  background-image: url("../../assets/Igor.jpg") !important;
+  background-image: url("../../assets/Igor.jpg");
 }
 
 .img-wrapper-dmytro {
-  background-image: url("../../assets/Dmytro.jpg") !important;
+  background-image: url("../../assets/Dmytro.jpg");
 }
 
 .img-wrapper-olga {
-  background-image: url("../../assets/Olga.jpg") !important;
+  background-image: url("../../assets/Olga.jpg");
 }
 
 .description{
@@ -66,16 +66,16 @@
 .about-card-right:hover {
   .img-wrapper-igor{
   box-shadow: 0 0 10px 3px rgba(82, 82, 85, 0.906);
-	background-image: url("../../assets/IgorPhoto.JPG") !important;
+	background-image: url("../../assets/IgorPhoto.JPG");
   }
 
 	.img-wrapper-dmytro{
 		box-shadow: 0 0 10px 3px rgba(82, 82, 85, 0.906);
-		background-image: url("../../assets/dmytroPhoto.jpg") !important;
+		background-image: url("../../assets/dmytroPhoto.jpg");
 		}
 
 		.img-wrapper-olga{
 			box-shadow: 0 0 10px 3px rgba(82, 82, 85, 0.906);
-			background-image: url("../../assets/olgaPhoto.jpg") !important;
+			background-image: url("../../assets/olgaPhoto.jpg");
 			}
 }
