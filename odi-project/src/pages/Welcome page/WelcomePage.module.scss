@@ -43,7 +43,7 @@
 	text-shadow: 1px 2px 4px #6f7282;
 }
 
-.aboutTittle{
+.tittle{
 	align-self: center;
 	font-family: "Raleway", sans-serif;
 	font-weight: 700;
@@ -85,3 +85,27 @@
   padding: 40px 0;
 }
 
+.line {
+	width: 100%;
+	max-width: 1200px;
+	margin: 0.5rem 0;
+	border: 0;
+	border-top: 1px solid rgba(81,81,81,.195);
+}
+
+.technologyWrapper {
+	width: 100%;
+	max-width: 1200px;
+  display: flex;
+  align-items: center;
+	flex-direction: column;
+  padding: 40px 0;
+}
+
+.cardWrapper{
+	display: flex;
+  align-items: center;
+	justify-content: space-between;
+	gap: 15px;
+	padding-top: 10px;
+}

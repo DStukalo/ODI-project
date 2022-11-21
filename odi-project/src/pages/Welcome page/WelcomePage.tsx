@@ -1,6 +1,8 @@
 import { Button } from '@/components/Button/Button';
 import { AboutBlock } from '@/components/AboutBlock/AboutBlock';
 import { DescriptionBlock } from '@/components/DescriptionBlock/DescriptionBlock';
+import { TechnologyBlock } from '@/components/TechnologyBlock/TechnologyBlock';
+import { technologiesData } from '@/components/TechnologyBlock/TechnologiesData';
 import { NavLink } from 'react-router-dom';
 import styles from './WelcomePage.module.scss';
 
@@ -55,8 +57,23 @@ export function WelcomePage() {
 					classes="img-time"
 				/>
 			</section>
+			<hr className={styles.line} />
+			<section className={styles.technologyWrapper}>
+				<h2 className={styles.tittle}>Technologies used</h2>
+				<div className={styles.cardWrapper}>
+					{technologiesData.map((card) => (
+						<TechnologyBlock
+							text={card.text}
+							icon={card.icon}
+							link={card.link}
+							key={card.text}
+						/>
+					))}
+				</div>
+			</section>
+			<hr className={styles.line} />
 			<section className={styles.aboutWrapper}>
-				<h2 className={styles.aboutTittle}>Our team</h2>
+				<h2 className={styles.tittle}>Our team</h2>
 				<AboutBlock
 					tittle="Dmytro Stukalo (Team lead)"
 					text="Координация команды и организация митингов. Реализация меню навигации,
