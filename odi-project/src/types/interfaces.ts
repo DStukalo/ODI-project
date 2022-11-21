@@ -15,3 +15,8 @@ export interface UserDataWithStatus {
 	data: UserData;
 	status: number;
 }
+
+export interface AllUsersData {
+  data: [UserData];
+  status: number;
+}
