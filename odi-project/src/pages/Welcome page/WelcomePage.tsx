@@ -1,5 +1,6 @@
 import { Button } from '@/components/Button/Button';
 import { AboutBlock } from '@/components/AboutBlock/AboutBlock';
+import { DescriptionBlock } from '@/components/DescriptionBlock/DescriptionBlock';
 import { NavLink } from 'react-router-dom';
 import styles from './WelcomePage.module.scss';
 
@@ -35,6 +36,24 @@ export function WelcomePage() {
 					</NavLink>
 				</div>
 				<div className={styles.welcomeImg} />
+			</section>
+			<section className={styles.descriptionWrapper}>
+				<DescriptionBlock
+					text="Simple and intuitive interface. Visualizing work in a team environment
+					 simplifies communication and leads to improved productivity"
+					classes="img-kanban"
+				/>
+				<DescriptionBlock
+					text="Fully editable list of projects. Create an unlimited number of tasks with the
+					 ability editing and deleting. You can provide additional information in the task
+					  description and assign users"
+					classes="img-list"
+				/>
+				<DescriptionBlock
+					text="Collaborate in real-time, anywhere. Any changes you make on your Kanban
+					 board are instantly available to all registered members of the team"
+					classes="img-time"
+				/>
 			</section>
 			<section className={styles.aboutWrapper}>
 				<h2 className={styles.aboutTittle}>Our team</h2>
