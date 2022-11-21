@@ -62,7 +62,6 @@ export function Login() {
 					{newLocal.btnLgn}
 				</Link>
 				<Button text={newLocal.signup} classes="form_button" />
-				{/* <button type="submit" className={styles.form_button}>{newLocal.signin}</button> */}
 			</form>
 		</div>
 	);

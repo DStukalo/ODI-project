@@ -101,7 +101,6 @@ export function Register() {
 						{newLocal.btnRgs}
 					</Link>
 					<Button text={newLocal.signup} classes="form_button" />
-					{/* <button type="submit" className={styles.form_button}>{newLocal.signup}</button> */}
 				</div>
 			</form>
 		</div>
