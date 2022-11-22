@@ -1,7 +1,8 @@
 import { en } from './en';
 import { ru } from './ru';
+import { Languages } from './translationTypes';
 
-export const translations = {
+export const translations: Languages = {
 	en,
 	ru,
 };

@@ -1,0 +1,81 @@
+.aboutCard {
+  height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 10px;
+  padding: 0 50px;
+  border: 1px solid rgba(212,219,255,1);
+  transition: 0.3s;
+	
+	h4 {
+		color: var(--color-background-primary-grey-a1);
+	}
+	
+	p {
+		font-weight: 400;
+		text-align: center;
+	}
+}
+
+.about-card-left {
+  margin: 0.75rem 20% 0.75rem 1.5rem;
+  background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(253,253,253,1) 31%, rgba(212,219,255,1) 55%);
+  box-shadow: 2px 2px 5px rgba(122, 122, 123, 0.477);
+}
+
+.about-card-right {
+  margin: 0.75rem 1.5rem 0.75rem 20%;
+  background: linear-gradient(90deg, rgb(197, 222, 252) 45%, rgba(253,253,253,1) 69%, rgba(255,255,255,1) 100%);
+  box-shadow: -2px 2px 5px rgba(122, 122, 123, 0.477);
+	.description{
+		order: -1;
+	}
+}
+
+.imgWrapper {
+  width: 130px;
+  height: 130px;
+  border-radius: 100%;
+  background-size: cover;
+  border: 3px solid rgb(73, 71, 71);
+  transition: 0.3s;
+}
+
+.img-wrapper-igor {
+  background-image: url("../../assets/Igor.jpg");
+}
+
+.img-wrapper-dmytro {
+  background-image: url("../../assets/Dmytro.jpg");
+}
+
+.img-wrapper-olga {
+  background-image: url("../../assets/Olga.jpg");
+}
+
+.description{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 400px;
+  gap: 5px;
+}
+
+.about-card-left:hover,
+.about-card-right:hover {
+  .img-wrapper-igor{
+  box-shadow: 0 0 10px 3px rgba(82, 82, 85, 0.906);
+	background-image: url("../../assets/IgorPhoto.JPG");
+  }
+
+	.img-wrapper-dmytro{
+		box-shadow: 0 0 10px 3px rgba(82, 82, 85, 0.906);
+		background-image: url("../../assets/dmytroPhoto.jpg");
+		}
+
+		.img-wrapper-olga{
+			box-shadow: 0 0 10px 3px rgba(82, 82, 85, 0.906);
+			background-image: url("../../assets/olgaPhoto.jpg");
+			}
+}

@@ -1,0 +1,46 @@
+.wrapper {
+  width: 300px;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 20px;
+  padding: 30px 25px;
+  border: 1px solid rgba(212,219,255,1);
+  transition: 0.3s;
+  gap: 20px;
+  background-color: white;
+	box-shadow: 3px 3px 5px rgba(122, 122, 123, 0.477);
+	.description {
+		font-weight: 400;
+		text-align: center;
+    font-size: calc(var(--font-size-a2) - 4px);
+	}
+}
+
+
+.imgWrapper {
+  width: 220px;
+  height: 220px;
+  border-radius: 5px;
+  background-size: cover;
+  transition: 0.3s;
+}
+
+.img-kanban {
+  background-image: url("../../assets/kanban.jpg");
+}
+
+.img-list {
+  background-image: url("../../assets/list.jpg");
+}
+
+.img-time {
+  background-image: url("../../assets/time.jpg") ;
+}
+
+.wrapper:hover {
+  box-shadow: 4px 7px 5px rgba(122, 122, 123, 0.477);
+  transform:translateY(-10px)
+}
+

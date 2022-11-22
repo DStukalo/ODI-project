@@ -27,7 +27,7 @@ html {
  * Remove the margin in all browsers.
  */
 
-body {
+* {
   margin: 0;
 }
 
@@ -82,6 +82,7 @@ pre {
 
 a {
   background-color: transparent;
+  text-decoration: none;
 }
 
 /**
