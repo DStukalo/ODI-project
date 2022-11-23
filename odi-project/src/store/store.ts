@@ -1,8 +1,10 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 
 import langReducer from './reducers/LanguageSlice';
+import userReducer from './reducers/UserSlice';
 
 const rootReducers = combineReducers({
+	userReducer,
 	langReducer,
 });
 
