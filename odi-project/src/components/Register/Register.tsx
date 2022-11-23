@@ -1,6 +1,6 @@
-import { TranslationContext } from '@/App';
 import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { TranslationContext } from '@/App';
 import { Button } from '../Button/Button';
 import { TTransl } from '../Header/Navigation/NavigationTypes';
 import styles from './Register.module.scss';
