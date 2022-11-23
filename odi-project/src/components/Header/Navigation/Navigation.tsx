@@ -1,15 +1,11 @@
-import { useContext } from 'react';
-
-import { TranslationContext } from '@/App';
 import { Button } from '@/components/Button/Button';
+import { useAppDispatch, useAppSelector } from '@/hooks/redux';
+import { useTranslation } from '@/locales/useTranslation';
+import { changeLang } from '@/store/reducers/LanguageSlice';
 import { NavItem } from './NavItem/NavItem';
 import { Logo } from './Logo/Logo';
 import styles from './Navigation.module.scss';
-import { TNavProps, TTransl } from './NavigationTypes';
-
-function changeLang() {
-	console.log('change lang');// будет использоваться redux для смени языка
-}
+import { TNavProps } from './NavigationTypes';
 
 function logOut() {
 	localStorage.setItem('isLogged', 'false');
@@ -17,10 +13,12 @@ function logOut() {
 }
 
 export function Navigation(props: TNavProps) {
+
+	const { language } = useAppSelector((state) => state.langReducer);
+	const dispatch = useAppDispatch();
+	const newLocal = useTranslation();
 	const { logged } = props;
-	const useTranslation = () => useContext(TranslationContext);
-	const { translations, language } = useTranslation();
-	const newLocal = (translations as TTransl)[language as keyof TTransl];
+
 	return (
 		<nav role="navigation" className={styles.navigation}>
 			<Logo />
@@ -40,14 +38,40 @@ export function Navigation(props: TNavProps) {
 								image="/images/icon-return.png"
 								callback={logOut}
 							/>
-							<Button text={newLocal.btnLang} classes="hexagon-btn" callback={changeLang} />
+							{ language === 'en'
+								? (
+									<Button
+										text={newLocal.btnLang}
+										classes="hexagon-btn"
+										callback={() => dispatch(changeLang('ru'))}
+									/>
+								) : (
+									<Button
+										text={newLocal.btnLang}
+										classes="hexagon-btn"
+										callback={() => dispatch(changeLang('en'))}
+									/>
+								)}
 						</ul>
 					)
 					: 					(
 						<ul className={styles.list}>
 							<NavItem path="authorization/login" text={newLocal.signin} />
 							<NavItem path="authorization/register" text={newLocal.signup} />
-							<Button text={newLocal.btnLang} classes="hexagon-btn" callback={changeLang} />
+							{ language === 'en'
+								? (
+									<Button
+										text={newLocal.btnLang}
+										classes="hexagon-btn"
+										callback={() => dispatch(changeLang('ru'))}
+									/>
+								) : (
+									<Button
+										text={newLocal.btnLang}
+										classes="hexagon-btn"
+										callback={() => dispatch(changeLang('en'))}
+									/>
+								)}
 						</ul>
 					)
 			}
