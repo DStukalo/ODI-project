@@ -1,5 +1,5 @@
 import { Button } from '@/components/Button/Button';
-import { useAppDispatch, useAppSelector } from '@/hooks/redux';
+import { useAppDispatch } from '@/hooks/redux';
 import { useTranslation } from '@/locales/useTranslation';
 import { changeLang } from '@/store/reducers/LanguageSlice';
 import { NavItem } from './NavItem/NavItem';
@@ -17,12 +17,19 @@ function logOut() {
 
 export function Navigation(props: TNavProps) {
 
-	const { language } = useAppSelector((state) => state.langReducer);
 	const dispatch = useAppDispatch();
 	const newLocal = useTranslation();
 	const { logged } = props;
 	console.log(logged);
 	const { isLogged } = useAppSelector((state) => state.userReducer);
+
+	const languages = ['en', 'ru'];
+	const curLang = localStorage.getItem('lang');
+
+	function changeLanguage(lang: 'ru' | 'en') {
+		localStorage.setItem('lang', (lang));
+		return changeLang(lang);
+	}
 
 	return (
 		<nav role="navigation" className={styles.navigation}>
@@ -41,11 +48,6 @@ export function Navigation(props: TNavProps) {
 								text="Sign out"
 								classes="navigation__btn"
 								image="/images/icon-return.png"
-								callback={logOut}
-							/>
-							<Button
-								text={newLocal.btnLang}
-								classes="hexagon-btn"
 								callback={logOut}
 							/>
 							{ language === 'en'
@@ -68,11 +70,6 @@ export function Navigation(props: TNavProps) {
 						<ul className={styles.list}>
 							<NavItem path="authorization/login" text={newLocal.signin} />
 							<NavItem path="authorization/register" text={newLocal.signup} />
-							<Button
-								text="log"
-								classes="hexagon-btn"
-								callback={logOut}
-							/>
 							{ language === 'en'
 								? (
 									<Button
