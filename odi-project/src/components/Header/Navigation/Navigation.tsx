@@ -8,8 +8,11 @@ import styles from './Navigation.module.scss';
 import { TNavProps } from './NavigationTypes';
 
 function logOut() {
-	localStorage.setItem('isLogged', 'false');
-	window.location.reload();// будет использоваться redux для смени состояния
+	// localStorage.setItem('isLogged', 'false');
+	// eslint-disable-next-line max-len
+	const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNzc2NWQ3MDg3MWY1YzA2ZmM3MGFhNSIsImxvZ2luIjoiSU1hc2siLCJpYXQiOjE2NjkyOTI1NjEsImV4cCI6MTY2OTMzNTc2MX0.-oVQQrlYo_RVpE2PskNbmFx_6UdvbdlCvwuJjaVVsek';
+	localStorage.setItem('token', token);
+	// window.location.reload();// будет использоваться redux для смени состояния
 }
 
 export function Navigation(props: TNavProps) {
@@ -18,12 +21,14 @@ export function Navigation(props: TNavProps) {
 	const dispatch = useAppDispatch();
 	const newLocal = useTranslation();
 	const { logged } = props;
+	console.log(logged);
+	const { isLogged } = useAppSelector((state) => state.userReducer);
 
 	return (
 		<nav role="navigation" className={styles.navigation}>
 			<Logo />
 			{
-				logged === 'true'
+				isLogged
 					? 		(
 						<ul className={styles.list}>
 							<NavItem path="main" text={newLocal.main} />
@@ -36,6 +41,11 @@ export function Navigation(props: TNavProps) {
 								text="Sign out"
 								classes="navigation__btn"
 								image="/images/icon-return.png"
+								callback={logOut}
+							/>
+							<Button
+								text={newLocal.btnLang}
+								classes="hexagon-btn"
 								callback={logOut}
 							/>
 							{ language === 'en'
@@ -58,6 +68,11 @@ export function Navigation(props: TNavProps) {
 						<ul className={styles.list}>
 							<NavItem path="authorization/login" text={newLocal.signin} />
 							<NavItem path="authorization/register" text={newLocal.signup} />
+							<Button
+								text="log"
+								classes="hexagon-btn"
+								callback={logOut}
+							/>
 							{ language === 'en'
 								? (
 									<Button
@@ -73,6 +88,7 @@ export function Navigation(props: TNavProps) {
 									/>
 								)}
 						</ul>
+
 					)
 			}
 		</nav>

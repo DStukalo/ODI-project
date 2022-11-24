@@ -1,43 +1,30 @@
-import { decodeToken } from 'react-jwt';
-
 import { UserData } from '@/types/interfaces';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { isValidToken } from '@/functions/isValidToken';
 
 interface UserState {
-  user: UserData;
-  isLoading: boolean;
+  user: Omit<UserData, 'name'>;
 	isLogged: boolean;
-}
-
-interface IToken {
-  id: string;
-  login: string;
-  iat: string;
-  exp: string;
 }
 
 function getInitialState(): UserState {
 	if (localStorage.getItem('token')) {
-		const token = localStorage.getItem('token') as string;
-		const decodetToken = decodeToken<IToken>(token);
-		// Date(decodedToken.exp * 1000) и будет время истечения
-		return {
-			user: {
-				_id: 'empty',
-				name: 'Guest',
-				login: 'empty',
-			},
-			isLoading: true,
-			isLogged: false,
-		};
+		const validToken = isValidToken();
+		if (validToken.isValid) {
+			return {
+				user: {
+					_id: validToken.id as string,
+					login: validToken.login as string,
+				},
+				isLogged: validToken.isValid,
+			};
+		}
 	}
 	return {
 		user: {
 			_id: 'empty',
-			name: 'Guest',
 			login: 'empty',
 		},
-		isLoading: true,
 		isLogged: false,
 	};
 }
