@@ -25,11 +25,16 @@ export class AuthToAPI {
 		return { data: res.data, status: res.status };
 	}
 
-	static async signin(login: string, pass: string): Promise<AuthenticationData> {
+	static async signin(username: string, pass: string): Promise<AuthenticationData> {
 		const res = await axios.post(`${BASE_URL}${this.path}signin`, {
-			login: `${login}`,
+			username: `${username}`,
 			password: `${pass}`,
 		});
+		if (res.data) {
+			localStorage.setItem('username', username);
+			localStorage.setItem('res.data', res.data);
+			document.cookie = `res.data=${res.data}; max-age=60*60*24`;
+		}
 		return { data: res.data, status: res.status };
 	}
 
