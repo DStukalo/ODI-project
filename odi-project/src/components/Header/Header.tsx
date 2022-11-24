@@ -4,7 +4,7 @@ import styles from './Header.module.scss';
 import { Navigation } from './Navigation/Navigation';
 
 export function Header() {
-	const isLogged = localStorage.getItem('isLogged') || 'false';
+	// const isLogged = localStorage.getItem('isLogged') || 'false';
 	// будет использоваться redux для состояния
 	const [sticky, setSticky] = useState('');
 
@@ -26,7 +26,7 @@ export function Header() {
 	return (
 		<header className={styles[`${classes}`]}>
 			<div className={styles.container}>
-				<Navigation logged={isLogged} />
+				<Navigation /* logged={isLogged} */ />
 			</div>
 		</header>
 	);
