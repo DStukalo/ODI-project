@@ -1,22 +1,28 @@
 import { translations } from '@/locales/translations';
-import { Languages } from '@/locales/translationTypes';
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
+import { LangState } from './LanguageSliceTypes';
 
-interface LangState {
-  language: 'en' | 'ru';
-	translations: Languages;
+function getInitialState(): LangState {
+	if (localStorage.getItem('lang')) {
+		const lang = (localStorage.getItem('lang'));
+		return {
+			language: lang as 'en' | 'ru',
+			translations: { ...translations },
+		};
+	}
+	return {
+		language: 'en',
+		translations: { ...translations },
+	};
 }
 
-const initialState: LangState = {
-	language: 'en',
-	translations: { ...translations },
-};
+const initialState: LangState = getInitialState();
 
 export const languageSlice = createSlice({
 	name: 'user',
 	initialState,
 	reducers: {
-		changeLang(state, action: PayloadAction<'ru' | 'en'>) {
+		changeLang(state, action) {
 			// eslint-disable-next-line no-param-reassign
 			state.language = action.payload;
 		},
