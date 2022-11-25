@@ -1,8 +1,7 @@
 import { useContext, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link /* useNavigate */ } from 'react-router-dom';
 import { TranslationContext } from '@/App';
-import { Context } from '@/locales/auth.context';
-import { AuthToAPI } from '@/API/Authorization';
+// import { AuthToAPI } from '@/API/Authorization';
 import { Button } from '../Button/Button';
 import { TTransl } from '../Header/Navigation/NavigationTypes';
 import styles from './Register.module.scss';
@@ -13,8 +12,8 @@ export function Register() {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 	const [submit, setSubmit] = useState(false);
-	const navigate = useNavigate();
-	const { setIsAuthorize } = useContext(Context);
+	// const navigate = useNavigate();
+	// const { setIsAuthorize } = useContext(Context);
 	const useTranslation = () => useContext(TranslationContext);
 	const { translations, language } = useTranslation();
 	const newLocal = (translations as TTransl)[language as keyof TTransl];
@@ -35,20 +34,21 @@ export function Register() {
 		setPassword(e.currentTarget.value);
 	}
 
-	const firstNameValid = () => !!firstName;
-	const lastNameValid = () => !!lastName;
-	const usernameValid = () => !!username;
-	const passwordValid = () => /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(password);
+	// const firstNameValid = () => !!firstName;
+	// const lastNameValid = () => !!lastName;
+	// const usernameValid = () => !!username;
+	// const passwordValid = () => /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(password);
 
-	async function handleSubmit(e: { preventDefault: () => void }) {
+	async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
-		if (firstNameValid() && lastNameValid() && usernameValid() && passwordValid()) {
-			await AuthToAPI.signup(firstName, lastName, username, password);
-			await AuthToAPI.signin(username, password);
-			setIsAuthorize(true);
-			navigate('./main');
-		}
 		setSubmit(true);
+		// if (firstNameValid() && lastNameValid() && usernameValid() && passwordValid()) {
+		// 	await AuthToAPI.signup(firstName, lastName, username);
+		// 	await AuthToAPI.signin(username, password);
+		// 	// setIsAuthorize(true);
+		// 	navigate('./main');
+		// }
+		console.log('click');
 	}
 
 	return (

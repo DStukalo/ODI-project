@@ -1,8 +1,7 @@
 import { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { TranslationContext } from '@/App';
-import { Context } from '@/locales/auth.context';
-import { AuthToAPI } from '@/API/Authorization';
+// import { AuthToAPI } from '@/API/Authorization';
 import { Button } from '../Button/Button';
 import { TTransl } from '../Header/Navigation/NavigationTypes';
 import styles from './Login.module.scss';
@@ -10,9 +9,9 @@ import styles from './Login.module.scss';
 export function Login() {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
-	const navigate = useNavigate();
+	// const navigate = useNavigate();
 	const [submit, setSubmit] = useState(false);
-	const { setIsAuthorize } = useContext(Context);
+	// const { setIsAuthorize } = useContext(Context);
 	const useTranslation = () => useContext(TranslationContext);
 	const { translations, language } = useTranslation();
 	const newLocal = (translations as TTransl)[language as keyof TTransl];
@@ -25,16 +24,16 @@ export function Login() {
 		setPassword(e.currentTarget.value);
 	}
 
-	const usernameValid = () => !!username;
-	const passwordValid = () => !!password;
+	// const usernameValid = () => !!username;
+	// const passwordValid = () => !!password;
 
 	async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
-		if (usernameValid() && passwordValid()) {
-			await AuthToAPI.signin(username, password);
-			setIsAuthorize(true);
-			navigate('./main');
-		}
+		// if (usernameValid() && passwordValid()) {
+		// 	await AuthToAPI.signin(username, password);
+		// 	setIsAuthorize(true);
+		// 	navigate('./main');
+		// }
 		setSubmit(true);
 	}
 

@@ -20,13 +20,3 @@ export interface AllUsersData {
   data: [UserData];
   status: number;
 }
-
-export type AuthContext = {
-	isAuthorize: boolean;
-	setIsAuthorize: (value: boolean) => void;
-}
-
-export const AuthContextDefault: AuthContext = {
-	isAuthorize: false,
-	setIsAuthorize: () => {},
-};
