@@ -1,12 +1,11 @@
-.login {
+.auth {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 50px;
-  // justify-content: center;
   height: 75vh;
 }
-.form_login {
+.form_auth {
   border-radius: 10px;
   border: 1px solid var(--color-background-primary-grey-a2);
   margin: 0 auto;
@@ -16,6 +15,7 @@
 }
 
 .form_input {
+  width: 96%;
   border: 0px;
   font-size: 20px;
   border-radius: 10px;
@@ -29,18 +29,19 @@
   margin: 0px;
   display: block;
   min-width: 0px;
-  width: 100%;
+  padding: 10px;
+  &:focus {
+    outline: 0px;
+    width: 96%;
+    height: 100%;
+  }
 }
-
-.form_input:focus {
-  outline: 0px;
-}
-
 .form_input:focus::-webkit-input-placeholder {
   color: transparent;
 }
 
 .form_fieldset {
+  padding: 0;
   border: 2px solid rgba(0,26,51,.2);
   border-radius: 10px;
   box-shadow: 0 4px 4px rgb(0 0 0 / 25%);
@@ -49,26 +50,6 @@
 
 .form_fieldset:focus {
   border-color: blue;
-}
-
-.form_button {
-  background-color: var(--color-disabled);
-  border-radius: inherit;
-  border: none;
-  box-sizing: border-box;
-  color: #fff;
-  display: block;
-  font-size: 18px;
-  font-weight: 700;
-  height: auto;
-  padding: 13px;
-  transition: .3s;
-  width: 100%;
-  margin-top: 20px;
-  cursor: pointer;
-}
-.form_button:hover {
-  background-color: var(--color-background-primary-grey-a2);
 }
 
 .form_link {
@@ -80,4 +61,27 @@
 
 .error {
   color: var(--color-primary-orange-a1);
+}
+
+.form_button {
+  background-color: var(--color-primary-white-a1);
+  color: var(--color-primary-black-a1);
+  border-radius: 10px;
+  border: none;
+  box-sizing: border-box;
+  display: block;
+  font-size: 18px;
+  font-weight: 400;
+  height: auto;
+  padding: 13px;
+  transition: .3s;
+  width: 100%;
+  margin-top: 20px;
+  cursor: pointer;
+  transition: all 800ms linear;
+  &:hover {
+    cursor: pointer;
+    background-color: var(--color-primary-orange-a2);
+    color: var(--color-primary-white-a1);
+  }
 }

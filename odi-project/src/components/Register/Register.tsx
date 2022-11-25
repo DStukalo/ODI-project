@@ -1,97 +1,85 @@
 import { useContext, useState } from 'react';
-import { Link /* useNavigate */ } from 'react-router-dom';
+import {
+	Link, /* useNavigate */
+	useNavigate,
+} from 'react-router-dom';
 import { TranslationContext } from '@/App';
 // import { AuthToAPI } from '@/API/Authorization';
-import { Button } from '../Button/Button';
+import { AuthToAPI } from '@/API/Authorization';
+import styles from '../../pages/Authorization page/AuthorizationPage.module.scss';
 import { TTransl } from '../Header/Navigation/NavigationTypes';
-import styles from './Register.module.scss';
+// import AuthToAPI from '../../API/Authorization'
 
 export function Register() {
-	const [firstName, setFirstName] = useState('');
-	const [lastName, setLastName] = useState('');
-	const [username, setUsername] = useState('');
+	const [name, setName] = useState('');
+	const [login, setLogin] = useState('');
 	const [password, setPassword] = useState('');
 	const [submit, setSubmit] = useState(false);
-	// const navigate = useNavigate();
+	const navigate = useNavigate();
+	// const [setError] = useState(false);
 	// const { setIsAuthorize } = useContext(Context);
 	const useTranslation = () => useContext(TranslationContext);
 	const { translations, language } = useTranslation();
 	const newLocal = (translations as TTransl)[language as keyof TTransl];
 
-	function handleChangeFirstName(e: React.FormEvent<HTMLInputElement>) {
-		setFirstName(e.currentTarget.value);
+	function handleChangeName(e: React.FormEvent<HTMLInputElement>) {
+		setName(e.currentTarget.value);
 	}
 
-	function handleChangeLastName(e: React.FormEvent<HTMLInputElement>) {
-		setLastName(e.currentTarget.value);
-	}
-
-	function handleChangeUsername(e: React.FormEvent<HTMLInputElement>) {
-		setUsername(e.currentTarget.value);
+	function handleChangeLogin(e: React.FormEvent<HTMLInputElement>) {
+		setLogin(e.currentTarget.value);
 	}
 
 	function handleChangePassword(e: React.FormEvent<HTMLInputElement>) {
 		setPassword(e.currentTarget.value);
 	}
 
-	// const firstNameValid = () => !!firstName;
-	// const lastNameValid = () => !!lastName;
-	// const usernameValid = () => !!username;
-	// const passwordValid = () => /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(password);
+	async function createUser(nameUser: string, loginUser: string, passwordUser: string) {
+		const create = await AuthToAPI.signup(nameUser, loginUser, passwordUser)
+			.catch(() => {
+				console.log('Ошибка');
+			});
+		if (create) {
+			console.log('Регистрация прошла успешно');
+		}
+	}
 
 	async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
 		setSubmit(true);
-		// if (firstNameValid() && lastNameValid() && usernameValid() && passwordValid()) {
-		// 	await AuthToAPI.signup(firstName, lastName, username);
-		// 	await AuthToAPI.signin(username, password);
-		// 	// setIsAuthorize(true);
-		// 	navigate('./main');
-		// }
-		console.log('click');
+		if (name && login && password) {
+			createUser(name, login, password);
+			navigate('/main');
+		}
 	}
 
 	return (
-		<div className={styles.register}>
+		<div className={styles.auth}>
 			<h2>{newLocal.signup}</h2>
-			<form onSubmit={handleSubmit} className={styles.form_register}>
+			<form onSubmit={handleSubmit} className={styles.form_auth}>
 				<fieldset className={styles.form_fieldset}>
-					{submit && !firstName && (
+					{submit && !name && (
 						<legend className={styles.error}>{newLocal.errorFirstName}</legend>
 					)}
 					<input
 						type="text"
 						name="firstName"
-						value={firstName}
-						onChange={handleChangeFirstName}
+						value={name}
+						onChange={handleChangeName}
 						placeholder={newLocal.firstName}
 						id="name"
 						className={styles.form_input}
 					/>
 				</fieldset>
 				<fieldset className={styles.form_fieldset}>
-					{submit && !lastName && (
-						<legend className={styles.error}>{newLocal.errorLastName}</legend>
-					)}
-					<input
-						type="text"
-						name="lastname"
-						value={lastName}
-						onChange={handleChangeLastName}
-						id="lastname"
-						placeholder={newLocal.lastName}
-						className={styles.form_input}
-					/>
-				</fieldset>
-				<fieldset className={styles.form_fieldset}>
-					{submit && !username && (
+					{submit && !login && (
 						<legend className={styles.error}>{newLocal.errorUsername}</legend>
 					)}
 					<input
 						type="text"
 						name="username"
-						value={username}
-						onChange={handleChangeUsername}
+						value={login}
+						onChange={handleChangeLogin}
 						id="username"
 						placeholder={newLocal.username}
 						className={styles.form_input}
@@ -115,7 +103,7 @@ export function Register() {
 					<Link to="/authorization/login" className={styles.form_link}>
 						{newLocal.btnRgs}
 					</Link>
-					<Button text={newLocal.signup} classes="form_button" />
+					<button type="submit" className={styles.form_button}>{newLocal.signup}</button>
 				</div>
 			</form>
 		</div>
