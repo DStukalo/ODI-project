@@ -65,6 +65,15 @@
             "extensions": [".js", "jsx", ".ts", ".tsx"]
         }],
         "padded-blocks": ["off"],
+        "overrides": [
+            {
+              "files": ["/src/store/reducers/*.ts"],
+              "rules": {
+                "@typescript-eslint/no-param-reassign": 0,
+                "@typescript-eslint/no-underscore-dangle": 0
+              }
+            }
+          ],
 
         // typescript rules
 		"@typescript-eslint/member-delimiter-style": "error",
