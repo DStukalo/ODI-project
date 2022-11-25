@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
-import { createContext } from 'react';
+import { Provider } from 'react-redux';
 
 import { Layout } from './components/Layout/Layout';
 import { WelcomePage } from './pages/Welcome page/WelcomePage';
@@ -10,13 +10,13 @@ import { ProfilePage } from './pages/Profile page/ProfilePage';
 import { NotFoundPage } from './pages/404/NotFoundPage';
 import { Register } from './components/Register/Register';
 import { Login } from './components/Login/Login';
-import { initialState } from './locales/initialState';
+import { setupStore } from './store/store';
 
-export const TranslationContext = createContext(initialState);
+const store = setupStore();
 
 function App() {
 	return (
-		<TranslationContext.Provider value={initialState}>
+		<Provider store={store}>
 			<Routes>
 				<Route path="/" element={<Layout />}>
 					<Route index element={<WelcomePage />} />
@@ -30,7 +30,7 @@ function App() {
 					<Route path="*" element={<NotFoundPage />} />
 				</Route>
 			</Routes>
-		</TranslationContext.Provider>
+		</Provider>
 	);
 }
 

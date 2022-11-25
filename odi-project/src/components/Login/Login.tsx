@@ -1,17 +1,15 @@
-import { TranslationContext } from '@/App';
-import { useContext, useState } from 'react';
+import { useTranslation } from '@/locales/useTranslation';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '../Button/Button';
-import { TTransl } from '../Header/Navigation/NavigationTypes';
 import styles from './Login.module.scss';
 
 export function Login() {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 	const [submit, setSubmit] = useState(false);
-	const useTranslation = () => useContext(TranslationContext);
-	const { translations, language } = useTranslation();
-	const newLocal = (translations as TTransl)[language as keyof TTransl];
+
+	const newLocal = useTranslation();
 
 	function handleChangeUsername(e: React.FormEvent<HTMLInputElement>) {
 		setUsername(e.currentTarget.value);

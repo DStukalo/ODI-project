@@ -6,9 +6,9 @@ export interface AuthenticationData {
 }
 
 export interface UserData {
-	_id: 'string';
-	name: 'string';
-	login: 'string';
+	_id: string;
+	name: string;
+	login: string;
 }
 
 export interface UserDataWithStatus {
