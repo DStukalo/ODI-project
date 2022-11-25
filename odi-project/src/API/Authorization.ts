@@ -10,11 +10,11 @@ export class AuthToAPI {
 		this.path = path;
 	}
 
-	async signup(name: string, login: string, pass: string): Promise<UserDataWithStatus> {
+	async signup(name: string, login: string, password: string): Promise<UserDataWithStatus> {
 		const res = await axios.post(`${BASE_URL}${this.path}signup`, {
 			name: `${name}`,
 			login: `${login}`,
-			password: `${pass}`,
+			password: `${password}`,
 		});
 		return { data: res.data, status: res.status };
 	}
