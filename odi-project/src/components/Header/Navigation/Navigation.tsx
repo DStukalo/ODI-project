@@ -2,15 +2,16 @@ import { Button } from '@/components/Button/Button';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { useTranslation } from '@/locales/useTranslation';
 import { changeLang } from '@/store/reducers/LanguageSlice';
+import { unLogged } from '@/store/reducers/UserSlice';
 import { NavItem } from './NavItem/NavItem';
 import { Logo } from './Logo/Logo';
 import styles from './Navigation.module.scss';
 import { TNavProps } from './NavigationTypes';
 
-function logOut() {
+function logIn() {
 	// localStorage.setItem('isLogged', 'false');
 	// eslint-disable-next-line max-len
-	const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNzc2NWQ3MDg3MWY1YzA2ZmM3MGFhNSIsImxvZ2luIjoiSU1hc2siLCJpYXQiOjE2NjkyOTI1NjEsImV4cCI6MTY2OTMzNTc2MX0.-oVQQrlYo_RVpE2PskNbmFx_6UdvbdlCvwuJjaVVsek';
+	const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNzc2NWQ3MDg3MWY1YzA2ZmM3MGFhNSIsImxvZ2luIjoiSU1hc2siLCJpYXQiOjE2NjkzNTg4MTIsImV4cCI6MTY2OTQwMjAxMn0.azhEhTsIVG9aRJgNKA_ptK1XW8yoSswkBuqV-7uAigM';
 	localStorage.setItem('token', token);
 	// window.location.reload();// будет использоваться redux для смени состояния
 }
@@ -20,8 +21,6 @@ export function Navigation(props: TNavProps) {
 	const dispatch = useAppDispatch();
 	const newLocal = useTranslation();
 	const { logged } = props;
-	console.log(logged);
-	const { isLogged } = useAppSelector((state) => state.userReducer);
 
 	const languages = ['en', 'ru'];
 	const curLang = localStorage.getItem('lang');
@@ -31,11 +30,16 @@ export function Navigation(props: TNavProps) {
 		return changeLang(lang);
 	}
 
+	function logOut(prop: boolean) {
+		localStorage.removeItem('token');
+		return unLogged(prop);
+	}
+
 	return (
 		<nav role="navigation" className={styles.navigation}>
 			<Logo />
 			{
-				isLogged
+				logged
 					? 		(
 						<ul className={styles.list}>
 							<NavItem path="main" text={newLocal.main} />
@@ -48,7 +52,7 @@ export function Navigation(props: TNavProps) {
 								text="Sign out"
 								classes="navigation__btn"
 								image="/images/icon-return.png"
-								callback={logOut}
+								callback={() => dispatch(logOut(false))}
 							/>
 							{languages.map((lang) => (
 								<Button
@@ -64,6 +68,12 @@ export function Navigation(props: TNavProps) {
 						<ul className={styles.list}>
 							<NavItem path="authorization/login" text={newLocal.signin} />
 							<NavItem path="authorization/register" text={newLocal.signup} />
+							<Button
+								text="Sign out"
+								classes="navigation__btn"
+								image="/images/icon-return.png"
+								callback={logIn}
+							/>
 							{languages.map((lang) => (
 								<Button
 									key={lang}

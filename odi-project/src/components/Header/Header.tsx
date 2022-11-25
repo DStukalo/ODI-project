@@ -1,12 +1,13 @@
+import { useAppSelector } from '@/hooks/redux';
 import { useEffect, useState } from 'react';
 
 import styles from './Header.module.scss';
 import { Navigation } from './Navigation/Navigation';
 
 export function Header() {
-	const isLogged = localStorage.getItem('isLogged') || 'false';
-	// будет использоваться redux для состояния
+	const { isLogged } = useAppSelector((state) => state.userReducer);
 	const [sticky, setSticky] = useState('');
+	const { expirationDate } = useAppSelector((state) => state.userReducer);
 
 	const isSticky = () => {
 		const scrollTop = window.scrollY;
