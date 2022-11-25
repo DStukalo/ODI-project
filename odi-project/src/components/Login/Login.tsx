@@ -2,16 +2,13 @@ import { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { TranslationContext } from '@/App';
 // import { AuthToAPI } from '@/API/Authorization';
-import { Button } from '../Button/Button';
 import { TTransl } from '../Header/Navigation/NavigationTypes';
-import styles from './Login.module.scss';
+import styles from '../../pages/Authorization page/AuthorizationPage.module.scss';
 
 export function Login() {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
-	// const navigate = useNavigate();
 	const [submit, setSubmit] = useState(false);
-	// const { setIsAuthorize } = useContext(Context);
 	const useTranslation = () => useContext(TranslationContext);
 	const { translations, language } = useTranslation();
 	const newLocal = (translations as TTransl)[language as keyof TTransl];
@@ -24,23 +21,15 @@ export function Login() {
 		setPassword(e.currentTarget.value);
 	}
 
-	// const usernameValid = () => !!username;
-	// const passwordValid = () => !!password;
-
-	async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+		async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
-		// if (usernameValid() && passwordValid()) {
-		// 	await AuthToAPI.signin(username, password);
-		// 	setIsAuthorize(true);
-		// 	navigate('./main');
-		// }
 		setSubmit(true);
 	}
 
 	return (
-		<div className={styles.login}>
+		<div className={styles.auth}>
 			<h2>{newLocal.signin}</h2>
-			<form onSubmit={handleSubmit} className={styles.form_login}>
+			<form onSubmit={handleSubmit} className={styles.form_auth}>
 				<fieldset className={styles.form_fieldset}>
 					{submit && !username && (
 						<legend className={styles.error}>{newLocal.errorUsername}</legend>
@@ -72,7 +61,7 @@ export function Login() {
 				<Link to="/authorization/register" className={styles.form_link}>
 					{newLocal.btnLgn}
 				</Link>
-				<Button text={newLocal.signup} classes="form_button" />
+				<button type="submit" className={styles.form_button}>{newLocal.signin}</button>
 			</form>
 		</div>
 	);
