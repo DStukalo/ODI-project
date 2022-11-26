@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-import { AllUsersData, UserDataWithStatus } from '@/types/interfaces';
+import {
+	AllUsersData, UserDataWithStatus, AllBoardsData, UserData,
+} from '@/types/interfaces';
 import { BASE_URL } from './consts';
 
 export class BoardsToAPI {
@@ -10,7 +12,7 @@ export class BoardsToAPI {
 		this.path = path;
 	}
 
-	async getBoards(token: string): Promise< AllUsersData > {
+	async getBoards(token: string): Promise< AllBoardsData > {
 		const res = await axios({
 			method: 'get',
 			url: `${BASE_URL}${this.path}`,
@@ -26,7 +28,7 @@ export class BoardsToAPI {
 		token: string,
 		title: string,
 		owner: string,
-		users: string[],
+		users: string[] = [''],
 	): Promise< AllUsersData > {
 		const res = await axios({
 			method: 'post',
@@ -83,7 +85,7 @@ export class BoardsToAPI {
 	async deleteBoardByID(token: string, ID: string): Promise< number > {
 		const res = await axios({
 			method: 'delete',
-			url: `${BASE_URL}/${this.path}/${ID}`,
+			url: `${BASE_URL}${this.path}/${ID}`,
 			headers: {
 				Accept: 'application/json',
 				Authorization: `Bearer ${token}`,
