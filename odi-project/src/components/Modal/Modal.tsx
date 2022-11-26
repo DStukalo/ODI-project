@@ -18,18 +18,16 @@ export function Modal(props: ModalProps) {
 	return (
 		<div className={styles[classes]}>
 			<div>
-				<div>
-					<h2>{header}</h2>
-					<h3>{text}</h3>
-					{/* <Button
-						text={'Close'}
-						classes={styles.button_auth}
-						callback={onClose}
-					>
-						{buttonText}
-					</Button> */}
-					<button type="button" onClick={() => onClose(false)}>{buttonText}</button>
-				</div>
+				<h2>{header}</h2>
+				<h3>{text}</h3>
+				{/* <Button
+					text={'Close'}
+					classes={styles.button_auth}
+					callback={onClose}
+				>
+					{buttonText}
+				</Button> */}
+				<button type="button" onClick={() => onClose(false)}>{buttonText}</button>
 			</div>
 		</div>
 	);
