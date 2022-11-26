@@ -1,14 +1,10 @@
-import { useContext, useState } from 'react';
-import {
-	Link, /* useNavigate */
-	useNavigate,
-} from 'react-router-dom';
-import { TranslationContext } from '@/App';
-// import { AuthToAPI } from '@/API/Authorization';
+import { useTranslation } from '@/locales/useTranslation';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthToAPI } from '@/API/Authorization';
 import styles from '../../pages/Authorization page/AuthorizationPage.module.scss';
-import { TTransl } from '../Header/Navigation/NavigationTypes';
-// import AuthToAPI from '../../API/Authorization'
+import { Portal } from '../Portal/Portal';
+import { Modal } from '../Modal/Modal';
 
 export function Register() {
 	const [name, setName] = useState('');
@@ -16,11 +12,10 @@ export function Register() {
 	const [password, setPassword] = useState('');
 	const [submit, setSubmit] = useState(false);
 	const navigate = useNavigate();
-	// const [setError] = useState(false);
-	// const { setIsAuthorize } = useContext(Context);
-	const useTranslation = () => useContext(TranslationContext);
-	const { translations, language } = useTranslation();
-	const newLocal = (translations as TTransl)[language as keyof TTransl];
+	const newLocal = useTranslation();
+
+	const [showErrorModal, setShowErrorModal] = useState(false);
+	const [showSuccessModal, setShowSuccessModal] = useState(false);
 
 	function handleChangeName(e: React.FormEvent<HTMLInputElement>) {
 		setName(e.currentTarget.value);
@@ -34,13 +29,15 @@ export function Register() {
 		setPassword(e.currentTarget.value);
 	}
 
-	async function createUser(nameUser: string, loginUser: string, passwordUser: string) {
-		const create = await AuthToAPI.signup(nameUser, loginUser, passwordUser)
+	async function registerUser(nameUser: string, loginUser: string, passwordUser: string) {
+		const signupApi = new AuthToAPI();
+		const registerQuery = await signupApi.signup(nameUser, loginUser, passwordUser)
 			.catch(() => {
-				console.log('Ошибка');
+				setShowErrorModal(true);
 			});
-		if (create) {
-			console.log('Регистрация прошла успешно');
+		if (registerQuery) {
+			setShowSuccessModal(true);
+			navigate('/authorization/login');
 		}
 	}
 
@@ -48,14 +45,35 @@ export function Register() {
 		e.preventDefault();
 		setSubmit(true);
 		if (name && login && password) {
-			createUser(name, login, password);
-			navigate('/main');
+			registerUser(name, login, password);
 		}
 	}
 
 	return (
 		<div className={styles.auth}>
 			<h2>{newLocal.signup}</h2>
+			{showErrorModal && (
+				<Portal>
+					<Modal
+						header={`${newLocal.modalRegisterHeader} ${login}`}
+						text={newLocal.modalErrorRegisterText}
+						buttonText={newLocal.modalButton}
+						onClose={setShowErrorModal}
+						classes="modal_auth"
+					/>
+				</Portal>
+			)}
+			{showSuccessModal && (
+				<Portal>
+					<Modal
+						header={`${newLocal.modalRegisterHeader} ${login}`}
+						text={newLocal.modalSuccessRegisterText}
+						buttonText={newLocal.modalButton}
+						onClose={setShowSuccessModal}
+						classes="modal_auth"
+					/>
+				</Portal>
+			)}
 			<form onSubmit={handleSubmit} className={styles.form_auth}>
 				<fieldset className={styles.form_fieldset}>
 					{submit && !name && (
