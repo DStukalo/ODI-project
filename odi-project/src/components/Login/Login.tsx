@@ -1,10 +1,9 @@
-import { AuthToAPI } from '@/API/Authorization';
+import AuthToAPI from '@/API/Authorization';
 import { useTranslation } from '@/locales/useTranslation';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from '../../pages/Authorization page/AuthorizationPage.module.scss';
 import { Modal } from '../Modal/Modal';
-import { Portal } from '../Portal/Portal';
 
 export function Login() {
 	const [login, setLogin] = useState('');
@@ -25,22 +24,22 @@ export function Login() {
 	}
 
 	async function loginUser(logUser: string, passwordUser: string) {
-		const signinApi = new AuthToAPI();
-		const loginCreateUser = await signinApi.signin(logUser, passwordUser)
-			.catch(() => {
-				setShowErrorModal(true);
-			});
-		if (loginCreateUser) {
-			setShowSuccessModal(true);
-			localStorage.setItem('token', `${loginCreateUser.data.token}`);
-			navigate('/main');
+		try {
+			const loginCreateUser = await AuthToAPI.signin(logUser, passwordUser);
+			if (loginCreateUser) {
+				setShowSuccessModal(true);
+				localStorage.setItem('token', `${loginCreateUser.data.token}`);
+				setTimeout(() => navigate('/main'), 2000);
 
-			const user = {
-				userLogin: login,
-				userPass: password,
-				isLogged: true,
-			};
-			localStorage.setItem('user', JSON.stringify(user));
+				const user = {
+					userLogin: login,
+					userPass: password,
+					isLogged: true,
+				};
+				localStorage.setItem('user', JSON.stringify(user));
+			}
+		} catch (error) {
+			setShowErrorModal(true);
 		}
 	}
 
@@ -56,26 +55,25 @@ export function Login() {
 		<div className={styles.auth}>
 			<h2>{newLocal.signin}</h2>
 			{showErrorModal && (
-				<Portal>
-					<Modal
-						header={`${newLocal.modalLoginHeader} ${login}`}
-						text={newLocal.modalErrorRegisterText}
-						buttonText={newLocal.modalButton}
-						onClose={setShowErrorModal}
-						classes="modal_auth"
-					/>
-				</Portal>
+				<Modal
+					title={`${newLocal.modalLoginHeader} ${login}`}
+					// text={newLocal.modalErrorRegisterText}
+					buttonText={newLocal.modalButton}
+					onClose={setShowErrorModal}
+					classes="modal_auth"
+				>
+					<h3>{newLocal.modalErrorRegisterText}</h3>
+				</Modal>
 			)}
 			{showSuccessModal && (
-				<Portal>
-					<Modal
-						header={`${newLocal.modalLoginHeader} ${login}`}
-						text={newLocal.modalSuccessLoginText}
-						buttonText={newLocal.modalButton}
-						onClose={setShowSuccessModal}
-						classes="modal_auth"
-					/>
-				</Portal>
+				<Modal
+					title={`${newLocal.modalLoginHeader} ${login}`}
+					buttonText={newLocal.modalButton}
+					onClose={setShowSuccessModal}
+					classes="modal_auth"
+				>
+					<h3>{newLocal.modalSuccessLoginText}</h3>
+				</Modal>
 			)}
 			<form onSubmit={handleSubmit} className={styles.form_auth}>
 				<fieldset className={styles.form_fieldset}>

@@ -1,9 +1,8 @@
 import { useTranslation } from '@/locales/useTranslation';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { AuthToAPI } from '@/API/Authorization';
+import AuthToAPI from '@/API/Authorization';
 import styles from '../../pages/Authorization page/AuthorizationPage.module.scss';
-import { Portal } from '../Portal/Portal';
 import { Modal } from '../Modal/Modal';
 
 export function Register() {
@@ -30,14 +29,12 @@ export function Register() {
 	}
 
 	async function registerUser(nameUser: string, loginUser: string, passwordUser: string) {
-		const signupApi = new AuthToAPI();
-		const registerQuery = await signupApi.signup(nameUser, loginUser, passwordUser)
-			.catch(() => {
-				setShowErrorModal(true);
-			});
-		if (registerQuery) {
+		try {
+			await AuthToAPI.signup(nameUser, loginUser, passwordUser);
 			setShowSuccessModal(true);
-			navigate('/authorization/login');
+			setTimeout(() => navigate('/authorization/login'), 2000);
+		} catch (error) {
+			setShowErrorModal(true);
 		}
 	}
 
@@ -53,26 +50,24 @@ export function Register() {
 		<div className={styles.auth}>
 			<h2>{newLocal.signup}</h2>
 			{showErrorModal && (
-				<Portal>
-					<Modal
-						header={`${newLocal.modalRegisterHeader} ${login}`}
-						text={newLocal.modalErrorRegisterText}
-						buttonText={newLocal.modalButton}
-						onClose={setShowErrorModal}
-						classes="modal_auth"
-					/>
-				</Portal>
+				<Modal
+					title={newLocal.modalRegisterHeader}
+					buttonText={newLocal.modalButton}
+					onClose={setShowErrorModal}
+					classes="modal_auth"
+				>
+					<h3>{newLocal.modalErrorRegisterText}</h3>
+				</Modal>
 			)}
 			{showSuccessModal && (
-				<Portal>
-					<Modal
-						header={`${newLocal.modalRegisterHeader} ${login}`}
-						text={newLocal.modalSuccessRegisterText}
-						buttonText={newLocal.modalButton}
-						onClose={setShowSuccessModal}
-						classes="modal_auth"
-					/>
-				</Portal>
+				<Modal
+					title={newLocal.modalRegisterHeader}
+					buttonText={newLocal.modalButton}
+					onClose={setShowErrorModal}
+					classes="modal_auth"
+				>
+					<h3>{newLocal.modalSuccessLoginText}</h3>
+				</Modal>
 			)}
 			<form onSubmit={handleSubmit} className={styles.form_auth}>
 				<fieldset className={styles.form_fieldset}>
