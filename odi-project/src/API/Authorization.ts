@@ -3,7 +3,7 @@ import axios from 'axios';
 import { AuthenticationData, UserDataWithStatus } from '@/types/interfaces';
 import { BASE_URL } from './consts';
 
-export class AuthToAPI {
+class AuthToAPI {
 	public path: string;
 
 	constructor(path = '/') {
@@ -27,3 +27,7 @@ export class AuthToAPI {
 		return { data: res.data, status: res.status };
 	}
 }
+
+const authToAPI = new AuthToAPI();
+
+export default authToAPI;
