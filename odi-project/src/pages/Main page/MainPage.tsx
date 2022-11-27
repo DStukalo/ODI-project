@@ -7,19 +7,16 @@ import { useTranslation } from '../../locales/useTranslation';
 import { BoardsToAPI } from '../../API/Boards';
 import styles from './MainPage.module.scss';
 
-/* eslint-disable max-len */
-export const tokenUser = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzODFjYWU3MDg3MWY1YzA2ZmM3MGI3MSIsImxvZ2luIjoiSWdvciIsImlhdCI6MTY2OTQ5NTAyMCwiZXhwIjoxNjY5NTM4MjIwfQ.gldMqyj2TUwDKpie73eXg6l1wIADo89FIyMASg6Ay6k';
-const ownerID = '6381cae70871f5c06fc70b71';
 const boardsResponse = new BoardsToAPI('boards');
 
 export function MainPage() {
 	const [boardsList, setBoards] = useState<BoardData[]>([]);
 	const getBoards = async () => {
-		const { data } = await boardsResponse.getBoards(tokenUser);
+		const { data } = await boardsResponse.getBoards();
 		setBoards(data);
 	};
 	const addBoard = async () => {
-		await boardsResponse.createNewBoard(tokenUser, `newBourd ${Math.floor(Math.random()*10)}`, ownerID); // добавить модальное окно
+		await boardsResponse.createNewBoard(`newBourd ${Math.floor(Math.random() * 10)}`);
 		getBoards();
 	};
 	useEffect(() => {
