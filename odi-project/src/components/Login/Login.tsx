@@ -57,7 +57,6 @@ export function Login() {
 			{showErrorModal && (
 				<Modal
 					title={`${newLocal.modalLoginHeader} ${login}`}
-					// text={newLocal.modalErrorRegisterText}
 					buttonText={newLocal.modalButton}
 					onClose={setShowErrorModal}
 					classes="modal_auth"
