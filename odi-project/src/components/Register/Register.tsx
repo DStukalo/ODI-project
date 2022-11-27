@@ -10,6 +10,7 @@ export function Register() {
 	const [login, setLogin] = useState('');
 	const [password, setPassword] = useState('');
 	const [submit, setSubmit] = useState(false);
+
 	const navigate = useNavigate();
 	const newLocal = useTranslation();
 
