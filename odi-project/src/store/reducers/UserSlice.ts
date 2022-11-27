@@ -8,6 +8,7 @@ interface UserState {
 	isLogged: boolean;
 	expirationDate: Date | null;
 	isLoading: boolean;
+	message: string;
 }
 
 interface UserParamToSignin {
@@ -48,17 +49,19 @@ function getInitialState(): UserState {
 				isLogged: validToken.isValid,
 				expirationDate: validToken.expirationDate as Date,
 				isLoading: false,
+				message: ''
 			};
 		}
 	}
 	return {
 		user: {
-			_id: 'empty',
-			login: 'empty',
+			_id: '',
+			login: '',
 		},
 		isLogged: false,
 		expirationDate: null,
 		isLoading: false,
+		message: ''
 	};
 }
 
@@ -70,25 +73,28 @@ export const userSlice = createSlice({
 	reducers: {
 		unLogged(state, action) {
 			state.isLogged = action.payload;
-			state.user._id = 'empty';
-			state.user.login = 'empty';
+			state.user._id = '';
+			state.user.login = '';
 			state.isLoading = false;
+			state.message = 'your are un logged'
 		},
 	},
 	extraReducers: (builder) => {
 		builder
 			.addCase(authorizeUser.pending, (state) => {
 				state.isLoading = true;
+				state.message = 'waiting for request'
 			})
 			.addCase(authorizeUser.fulfilled, (state, action) => {
 				state.user._id = action.payload.id as string;
 				state.user.login = action.payload.login as string;
 				state.expirationDate = action.payload.expirationDate as Date;
 				state.isLoading = false;
+				state.message = 'you have successfully registered'
 			})
 			.addCase(authorizeUser.rejected, (state) => {
 				state.isLoading = false;
-				
+				state.message = 'some problem'
 			})
 	},
 });
