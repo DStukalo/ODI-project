@@ -10,6 +10,7 @@ export function Login() {
 	const [login, setLogin] = useState('');
 	const [password, setPassword] = useState('');
 	const [submit, setSubmit] = useState(false);
+
 	const newLocal = useTranslation();
 	const navigate = useNavigate();
 
