@@ -1,34 +1,39 @@
-// import { Button } from '../Button/Button';
+import { ReactNode } from 'react';
+import ReactDOM from 'react-dom';
 import styles from './Modal.module.scss';
+import { Button } from '../Button/Button';
 
 interface ModalProps {
-  header: string;
-  text: string;
+	title?: string;
 	classes: string;
-  buttonText: string;
-  onClose: (showModal: boolean) => void;
+	buttonText: string;
+	onClose: (showModal: boolean) => void;
+	// showModal: boolean;
+	children?: ReactNode;
 }
 
 export function Modal(props: ModalProps) {
-
 	const {
-		header, text, classes, buttonText, onClose,
+		title, classes, buttonText, onClose, children,
 	} = props;
 
 	return (
-		<div className={styles[classes]}>
-			<div>
-				<h2>{header}</h2>
-				<h3>{text}</h3>
-				{/* <Button
-					text={'Close'}
-					classes={styles.button_auth}
-					callback={onClose}
-				>
-					{buttonText}
-				</Button> */}
-				<button type="button" onClick={() => onClose(false)}>{buttonText}</button>
-			</div>
-		</div>
+		ReactDOM.createPortal(
+			<div className={styles[classes]}>
+				<div>
+					<h2>{title}</h2>
+					{children}
+					<Button
+						text="Close"
+						classes={styles.button_auth}
+						callback={() => { onClose(false); }}
+					>
+						{buttonText}
+					</Button>
+				</div>
+			</div>,
+		document.getElementById('modal-root') as HTMLElement,
+		)
 	);
+
 }
