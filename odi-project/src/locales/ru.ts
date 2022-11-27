@@ -32,4 +32,11 @@ export const ru: TranslationPackage = {
 	errorLastName: 'Фималия не заполнена',
 	errorUsername: 'Имя пользователя не заполнено',
 	errorpassword: 'Пароль не заполнен',
+	modalRegisterHeader: 'Привет',
+	modalSuccessRegisterText: 'Регистрация прошла успешно',
+	modalErrorRegisterText: 'Ошибка при регистрации',
+	modalButton: 'Закрыть',
+	modalLoginHeader: 'Привет',
+	modalSuccessLoginText: 'Авторизацмя прошла успешно',
+	modalErrorLoginText: 'Ошибка при авторизации',
 };

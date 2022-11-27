@@ -1,79 +1,99 @@
 import { useTranslation } from '@/locales/useTranslation';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Button } from '../Button/Button';
-import styles from './Register.module.scss';
+import { Link, useNavigate } from 'react-router-dom';
+import AuthToAPI from '@/API/Authorization';
+import styles from '../../pages/Authorization page/AuthorizationPage.module.scss';
+import { Modal } from '../Modal/Modal';
 
 export function Register() {
-	const [firstName, setFirstName] = useState('');
-	const [lastName, setLastName] = useState('');
-	const [username, setUsername] = useState('');
+	const [name, setName] = useState('');
+	const [login, setLogin] = useState('');
 	const [password, setPassword] = useState('');
 	const [submit, setSubmit] = useState(false);
+
+	const navigate = useNavigate();
 	const newLocal = useTranslation();
 
-	function handleChangeFirstName(e: React.FormEvent<HTMLInputElement>) {
-		setFirstName(e.currentTarget.value);
+	const [showErrorModal, setShowErrorModal] = useState(false);
+	const [showSuccessModal, setShowSuccessModal] = useState(false);
+
+	function handleChangeName(e: React.FormEvent<HTMLInputElement>) {
+		setName(e.currentTarget.value);
 	}
 
-	function handleChangeLastName(e: React.FormEvent<HTMLInputElement>) {
-		setLastName(e.currentTarget.value);
-	}
-
-	function handleChangeUsername(e: React.FormEvent<HTMLInputElement>) {
-		setUsername(e.currentTarget.value);
+	function handleChangeLogin(e: React.FormEvent<HTMLInputElement>) {
+		setLogin(e.currentTarget.value);
 	}
 
 	function handleChangePassword(e: React.FormEvent<HTMLInputElement>) {
 		setPassword(e.currentTarget.value);
 	}
 
-	function handleSubmit(e: { preventDefault: () => void }) {
+	async function registerUser(nameUser: string, loginUser: string, passwordUser: string) {
+		try {
+			await AuthToAPI.signup(nameUser, loginUser, passwordUser);
+			setShowSuccessModal(true);
+			setTimeout(() => navigate('/authorization/login'), 2000);
+		} catch (error) {
+			setShowErrorModal(true);
+		}
+	}
+
+	async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
 		setSubmit(true);
+		if (name && login && password) {
+			registerUser(name, login, password);
+		}
 	}
 
 	return (
-		<div className={styles.register}>
+		<div className={styles.auth}>
 			<h2>{newLocal.signup}</h2>
-			<form onSubmit={handleSubmit} className={styles.form_register}>
+			{showErrorModal && (
+				<Modal
+					title={newLocal.modalRegisterHeader}
+					buttonText={newLocal.modalButton}
+					onClose={setShowErrorModal}
+					classes="modal_auth"
+				>
+					<h3>{newLocal.modalErrorRegisterText}</h3>
+				</Modal>
+			)}
+			{showSuccessModal && (
+				<Modal
+					title={newLocal.modalRegisterHeader}
+					buttonText={newLocal.modalButton}
+					onClose={setShowErrorModal}
+					classes="modal_auth"
+				>
+					<h3>{newLocal.modalSuccessLoginText}</h3>
+				</Modal>
+			)}
+			<form onSubmit={handleSubmit} className={styles.form_auth}>
 				<fieldset className={styles.form_fieldset}>
-					{submit && !firstName && (
+					{submit && !name && (
 						<legend className={styles.error}>{newLocal.errorFirstName}</legend>
 					)}
 					<input
 						type="text"
 						name="firstName"
-						value={firstName}
-						onChange={handleChangeFirstName}
+						value={name}
+						onChange={handleChangeName}
 						placeholder={newLocal.firstName}
 						id="name"
 						className={styles.form_input}
 					/>
 				</fieldset>
 				<fieldset className={styles.form_fieldset}>
-					{submit && !lastName && (
-						<legend className={styles.error}>{newLocal.errorLastName}</legend>
-					)}
-					<input
-						type="text"
-						name="lastname"
-						value={lastName}
-						onChange={handleChangeLastName}
-						id="lastname"
-						placeholder={newLocal.lastName}
-						className={styles.form_input}
-					/>
-				</fieldset>
-				<fieldset className={styles.form_fieldset}>
-					{submit && !username && (
+					{submit && !login && (
 						<legend className={styles.error}>{newLocal.errorUsername}</legend>
 					)}
 					<input
 						type="text"
 						name="username"
-						value={username}
-						onChange={handleChangeUsername}
+						value={login}
+						onChange={handleChangeLogin}
 						id="username"
 						placeholder={newLocal.username}
 						className={styles.form_input}
@@ -97,7 +117,7 @@ export function Register() {
 					<Link to="/authorization/login" className={styles.form_link}>
 						{newLocal.btnRgs}
 					</Link>
-					<Button text={newLocal.signup} classes="form_button" />
+					<button type="submit" className={styles.form_button}>{newLocal.signup}</button>
 				</div>
 			</form>
 		</div>
