@@ -138,3 +138,63 @@
     height: 24px;
   }
 }
+
+.form_button {
+  background-color: var(--color-primary-white-a1);
+  color: var(--color-primary-black-a1);
+  border-radius: 10px;
+  border: none;
+  box-sizing: border-box;
+  display: block;
+  font-size: 18px;
+  font-weight: 400;
+  height: auto;
+  padding: 13px;
+  transition: 0.3s;
+  width: 100%;
+  margin-top: 20px;
+  cursor: pointer;
+  transition: all 800ms linear;
+  &:hover {
+    cursor: pointer;
+    background-color: var(--color-primary-orange-a2);
+    color: var(--color-primary-white-a1);
+  }
+}
+
+.deleteBoard__btn {
+  box-sizing: border-box;
+  border: none;
+  background-color:rgba(255, 255, 255, 0);
+  &:hover {
+    cursor: pointer;
+  }
+  img {
+    width: 25px;
+    height: 25px;
+  }
+}
+
+.addBoard__btn {
+  border: none;
+	width: 200px;
+	min-height: 142px;
+	display: flex;
+	align-items: center;
+	justify-content:center;
+	border-radius: 20px;
+	padding: 20px 20px;
+	border: 1px solid rgb(141, 157, 235);
+	transition: 0.3s;
+	background: linear-gradient(60deg, #5b6e81,#6e8aa9,#5b6e81);
+	box-shadow:4px 5px 8px rgba(122, 122, 123, 0.477);
+  &:hover {
+    cursor: pointer;
+    box-shadow:5px 7px 20px rgb(85, 240, 113);
+  }
+  img {
+    width: 80px;
+    height: 80px;
+  }
+}
+
