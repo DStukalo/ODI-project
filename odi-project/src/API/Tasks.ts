@@ -3,30 +3,29 @@ import axios from 'axios';
 import { BASE_URL } from './consts';
 
 export class TasksToAPI {
-	public path: string;
+	private token: string;
 
-	constructor(path = '/') {
-		this.path = path;
+	constructor(token: string) {
+		this.token = token;
+
 	}
 
 	async getTasksInColumnID(
-		token: string,
 		boardID: string,
 		columnsID: string,
 	): Promise< { data: TaskData[]; status: number } > {
 		const res = await axios({
 			method: 'get',
-			url: `${BASE_URL}boards/${boardID}/columns/${columnsID}/${this.path}`,
+			url: `${BASE_URL}boards/${boardID}/columns/${columnsID}/tasks`,
 			headers: {
 				Accept: 'application/json',
-				Authorization: `Bearer ${token}`,
+				Authorization: `Bearer ${this.token}`,
 			},
 		});
 		return { data: res.data, status: res.status };
 	}
 
 	async createTasksInColumnID(
-		token: string,
 		title: string,
 		order: number,
 		users: string[],
@@ -34,13 +33,13 @@ export class TasksToAPI {
 		columnsID: string,
 		userId: number,
 		description: string,
-	): Promise< { data: TaskData; status: number } | { 'statusCode': string;'message': string } > {
+	): Promise< { data: TaskData; status: number } > {
 		const res = await axios({
 			method: 'post',
-			url: `${BASE_URL}boards/${boardID}/columns/${columnsID}/${this.path}`,
+			url: `${BASE_URL}boards/${boardID}/columns/${columnsID}/tasks`,
 			headers: {
 				Accept: 'application/json',
-				Authorization: `Bearer ${token}`,
+				Authorization: `Bearer ${this.token}`,
 			},
 			data: {
 				title: `${title}`,
@@ -54,24 +53,22 @@ export class TasksToAPI {
 	}
 
 	async getTaskByIDInColumnsID(
-		token: string,
 		boardID: string,
 		columnsID: string,
 		taskID: string,
 	): Promise< { data: TaskData; status: number } > {
 		const res = await axios({
 			method: 'get',
-			url: `${BASE_URL}boards/${boardID}/columns/${columnsID}/${this.path}/${taskID}`,
+			url: `${BASE_URL}boards/${boardID}/columns/${columnsID}/tasks/${taskID}`,
 			headers: {
 				Accept: 'application/json',
-				Authorization: `Bearer ${token}`,
+				Authorization: `Bearer ${this.token}`,
 			},
 		});
 		return { data: res.data, status: res.status };
 	}
 
 	async updateTaskByIDInColumnsID(
-		token: string,
 		title: string,
 		order: number,
 		users: string[],
@@ -83,11 +80,11 @@ export class TasksToAPI {
 	): Promise< { data: TaskData; status: number }> {
 		const res = await axios({
 			method: 'put',
-			url: `${BASE_URL}boards/${boardID}/columns/${columnsID}/${this.path}/${taskID}`,
+			url: `${BASE_URL}boards/${boardID}/columns/${columnsID}/tasks/${taskID}`,
 			headers: {
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
-				Authorization: `Bearer ${token}`,
+				Authorization: `Bearer ${this.token}`,
 			},
 			data: {
 				title: `${title}`,
@@ -101,32 +98,30 @@ export class TasksToAPI {
 	}
 
 	async deleteTaskByIDInColumnsID(
-		token: string,
 		boardID: string,
 		columnsID: string,
 		taskID: string,
 	): Promise< number > {
 		const res = await axios({
 			method: 'delete',
-			url: `${BASE_URL}boards/${boardID}/columns/${columnsID}/${this.path}/${taskID}`,
+			url: `${BASE_URL}boards/${boardID}/columns/${columnsID}/tasks/${taskID}`,
 			headers: {
 				Accept: 'application/json',
-				Authorization: `Bearer ${token}`,
+				Authorization: `Bearer ${this.token}`,
 			},
 		});
 		return res.status;
 	}
 
 	async getListOfTasksInBoardID(
-		token: string,
 		boardID: string,
 	): Promise< { data: TaskData[]; status: number } > {
 		const res = await axios({
 			method: 'get',
-			url: `${BASE_URL}${this.path}Set/${boardID}`,
+			url: `${BASE_URL}tasksSet/${boardID}`,
 			headers: {
 				Accept: 'application/json',
-				Authorization: `Bearer ${token}`,
+				Authorization: `Bearer ${this.token}`,
 			},
 		});
 		return { data: res.data, status: res.status };
