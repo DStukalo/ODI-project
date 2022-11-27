@@ -1,9 +1,9 @@
+import { NavLink } from 'react-router-dom';
 import { Button } from '@/components/Button/Button';
 import { AboutBlock } from '@/components/AboutBlock/AboutBlock';
 import { DescriptionBlock } from '@/components/DescriptionBlock/DescriptionBlock';
 import { TechnologyBlock } from '@/components/TechnologyBlock/TechnologyBlock';
 import { technologiesData } from '@/components/TechnologyBlock/TechnologiesData';
-import { NavLink } from 'react-router-dom';
 import { useTranslation } from '../../locales/useTranslation';
 import styles from './WelcomePage.module.scss';
 
