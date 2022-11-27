@@ -1,5 +1,5 @@
 export interface BoardCardInfo {
 	text: string;
   id: string;
-	callback: () => Promise<void>;
+	callback: (id: string) => Promise<void>;
 }

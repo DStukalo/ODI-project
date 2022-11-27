@@ -1,15 +1,11 @@
 import { Button } from '../Button/Button';
 import styles from './boardCard.module.scss';
 import {BoardCardInfo } from './BoardCardTypes';
-import { BoardsToAPI } from '../../API/Boards';
-
-const boardResponse = new BoardsToAPI('boards');
 
 export function BoardCard(props: BoardCardInfo) {
 	const {	text, id, callback } = props;
 	const deleteBoard = async () => {
-		await boardResponse.deleteBoardByID(id);
-		callback();
+		await callback(id);
 	};
 	return (
 		<div className={styles.board}>

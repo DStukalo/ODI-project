@@ -19,6 +19,10 @@ export function MainPage() {
 		await boardsResponse.createNewBoard(`newBourd ${Math.floor(Math.random() * 10)}`);
 		getBoards();
 	};
+	const deleteBoard = async (id: string) => {
+		await boardsResponse.deleteBoardByID(id);
+		getBoards();
+	};
 	useEffect(() => {
 		getBoards();
 	}, []);
@@ -32,7 +36,7 @@ export function MainPage() {
 							key={board._id}
 							text={board.title}
 							id={board._id}
-							callback={getBoards}
+							callback={deleteBoard}
 						/>
 					))}
 					<Button
