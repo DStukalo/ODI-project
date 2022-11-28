@@ -32,4 +32,11 @@ export const en: TranslationPackage = {
 	errorLastName: 'Last name is required',
 	errorUsername: 'Username is required',
 	errorpassword: 'Password is required',
+	modalRegisterHeader: 'Hello',
+	modalSuccessRegisterText: 'Registration was successful',
+	modalErrorRegisterText: 'Registration error',
+	modalButton: 'Close',
+	modalLoginHeader: 'Hello',
+	modalSuccessLoginText: 'Authorization was successful',
+	modalErrorLoginText: 'Authorization',
 };
