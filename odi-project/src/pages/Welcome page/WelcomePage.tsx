@@ -11,9 +11,9 @@ let path = 'main';
 
 function switchPage() {
 	if (localStorage.getItem('isLogged') === 'false') {
-		path = 'main';// будет использоваться redux для смени состояния
+		path = 'main';
 	} else {
-		path = 'authorization';// будет использоваться redux для смени состояния
+		path = 'authorization';
 	}
 }
 

@@ -8,3 +8,20 @@
 	flex-direction: column;
 	padding: 0 0 0 0;
 }
+
+.titleSection{
+	width: 90%;
+	display: flex;
+	align-items:center;
+	justify-content:flex-start;
+	gap: 40px;
+	padding: 40px 0;
+	margin: 0 5%;
+}
+
+.columList{
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	gap: 40px;
+}
