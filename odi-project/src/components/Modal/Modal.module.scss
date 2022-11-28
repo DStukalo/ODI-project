@@ -12,13 +12,14 @@
   overflow: auto;
   background: var(--color-background-primary-grey-f3);
   div {
+    position: relative;
     border-radius: 10px;
     border: 1px solid var(--color-background-primary-grey-a2);
     margin: 0 auto;
     max-width: 450px;
     padding: 20px 10px;
     width: 100%;
-    height: 30%;
+    height: 20%;
     background-color: var(--color-primary-white-a2);
     margin: 9% auto 15% auto;
     border: 1px solid var(--color-background-primary-grey-a1);
@@ -34,27 +35,48 @@
     h3 {
       font-weight: 400;
     }
-    button {
-      background-color: var(--color-primary-white-a1);
-      color: var(--color-primary-black-a1);
-      border-radius: 10px;
-      border: none;
-      box-sizing: border-box;
-      display: block;
-      font-size: 18px;
+  }
+}
+
+
+.modal_delete {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background: var(--color-background-primary-grey-f3);
+  div {
+    position: relative;
+    border-radius: 10px;
+    border: none;
+    margin: 0 auto;
+    max-width: 450px;
+    padding: 20px 10px;
+    width: 100%;
+    height: 20%;
+    background: linear-gradient(60deg, #ffffff,#d3dae1,#ffffff);
+    margin: 9% auto 15% auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+    h2 {
       font-weight: 400;
-      height: auto;
-      padding: 13px;
-      transition: .3s;
-      width: 70%;
-      margin-top: 20px;
-      cursor: pointer;
-      transition: all 800ms linear;
-      &:hover {
-        cursor: pointer;
-        background-color: var(--color-primary-orange-a2);
-        color: var(--color-primary-white-a1);
-      }
+    }
+    div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 50px;
+      flex-direction: row;
+      background: none;
+      padding: 0;
+      margin: 0;
     }
   }
 }

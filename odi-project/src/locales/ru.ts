@@ -39,4 +39,8 @@ export const ru: TranslationPackage = {
 	modalLoginHeader: 'Привет',
 	modalSuccessLoginText: 'Авторизацмя прошла успешно',
 	modalErrorLoginText: 'Ошибка при авторизации',
+	deleteTitle: 'Удалть данную доску?',
+	yes: 'Да',
+	no: 'Нет',
+	boardsTitle: 'ВАШИ ДОСКИ',
 };

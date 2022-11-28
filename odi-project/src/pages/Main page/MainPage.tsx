@@ -11,6 +11,7 @@ const boardsResponse = new BoardsToAPI('boards');
 
 export function MainPage() {
 	const [boardsList, setBoards] = useState<BoardData[]>([]);
+	const newLocal = useTranslation();
 	const getBoards = async () => {
 		const { data } = await boardsResponse.getBoards();
 		setBoards(data);
@@ -29,7 +30,7 @@ export function MainPage() {
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.boardsSection}>
-				<h1 className={styles.pageTittle}>YOUR BOARDS</h1>
+				<h1 className={styles.pageTittle}>{newLocal.boardsTitle}</h1>
 				<div className={styles.boardsList}>
 					{boardsList.map((board) => (
 						<BoardCard

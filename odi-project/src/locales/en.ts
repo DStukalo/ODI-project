@@ -39,4 +39,8 @@ export const en: TranslationPackage = {
 	modalLoginHeader: 'Hello',
 	modalSuccessLoginText: 'Authorization was successful',
 	modalErrorLoginText: 'Authorization',
+	deleteTitle: 'Delete this board?',
+	yes: 'Yes',
+	no: 'No',
+	boardsTitle: 'YOUR BOARDS',
 };
