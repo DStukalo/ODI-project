@@ -1,6 +1,6 @@
 import { Button } from '../Button/Button';
 import styles from './boardCard.module.scss';
-import {BoardCardInfo } from './BoardCardTypes';
+import { BoardCardInfo } from './BoardCardTypes';
 
 export function BoardCard(props: BoardCardInfo) {
 	const {	text, id, callback } = props;
