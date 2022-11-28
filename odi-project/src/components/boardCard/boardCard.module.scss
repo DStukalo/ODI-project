@@ -1,4 +1,5 @@
 .board{
+	position: relative;
 	width: 200px;
 	min-height: 100px;
 	display: flex;
@@ -25,4 +26,12 @@
 
 .board:hover {
 	box-shadow:5px 8px 20px rgb(85, 137, 240);
+}
+
+.link{
+	bottom: 0;
+	left: 0;
+	position: absolute;
+	right: 0;
+	top: 0;
 }

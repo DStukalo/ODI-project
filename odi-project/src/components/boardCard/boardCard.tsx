@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import { Button } from '../Button/Button';
 import styles from './boardCard.module.scss';
 import {BoardCardInfo } from './BoardCardTypes';
@@ -21,6 +22,7 @@ export function BoardCard(props: BoardCardInfo) {
 	};
 	return (
 		<div className={styles.board}>
+			<NavLink to={`/main/board/${id}`} className={styles.link} />
 			{modalDel && (
 				<Modal
 					title={newLocal.deleteTitle}
