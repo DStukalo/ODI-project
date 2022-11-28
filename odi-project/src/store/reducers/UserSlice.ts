@@ -1,7 +1,7 @@
 import { UserData } from '@/types/interfaces';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { isValidToken } from '@/functions/isValidToken';
-import { AuthToAPI } from '@/API/Authorization';
+import  authToAPI  from '@/API/Authorization';
 
 interface UserState {
   user: Omit<UserData, 'name'>;
@@ -19,20 +19,28 @@ interface UserParamToSignin {
 export const authorizeUser = createAsyncThunk(
 	'user/authorizeUser',
 	async ({ login, pass }: UserParamToSignin, { rejectWithValue }) => {
-		const authUser = new AuthToAPI('auth/');
-		const signinUser = await authUser.signin(login, pass);
-		if ((signinUser).status !== 200) {
-			rejectWithValue('Server Error');
+		try {
+			const signinUser = await authToAPI.signin(login, pass);
+			if ((signinUser).status !== 200) {
+				throw new Error('Uncorrect login or password.Server Error');
+			}
+			const validToken = isValidToken(signinUser.data.token);
+			if (!validToken) {
+				throw new Error('Uncorrect Server Error');
+			}
+			return {
+				login: validToken.login,
+				id: validToken.id,
+				expirationDate: validToken.expirationDate,
+			};
+		} catch (error) {
+			rejectWithValue(error)
+			return {
+				login: '',
+				id: '',
+				expirationDate: null,
+			};
 		}
-		const validToken = isValidToken(signinUser.data.token);
-		if (!validToken) {
-			return rejectWithValue('Server Error');
-		}
-		return {
-			login: validToken.login,
-			id: validToken.id,
-			expirationDate: validToken.expirationDate,
-		};
 	},
 );
 
