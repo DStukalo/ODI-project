@@ -43,4 +43,7 @@ export const ru: TranslationPackage = {
 	yes: 'Да',
 	no: 'Нет',
 	boardsTitle: 'ВАШИ ДОСКИ',
+	create: 'Создать',
+	createTitle: 'Создать доску',
+	createPlaceholder: 'напишите назавание доски',
 };

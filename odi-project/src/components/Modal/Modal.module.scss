@@ -38,7 +38,6 @@
   }
 }
 
-
 .modal_delete {
   position: fixed;
   z-index: 1;
@@ -77,6 +76,44 @@
       background: none;
       padding: 0;
       margin: 0;
+    }
+  }
+}
+
+.modal_create {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background: var(--color-background-primary-grey-f3);
+  div {
+    position: relative;
+    border-radius: 10px;
+    border: none;
+    margin: 0 auto;
+    max-width: 450px;
+    padding: 20px 10px;
+    width: 100%;
+    height: 20%;
+    background: linear-gradient(60deg, #ffffff,#d3dae1,#ffffff);
+    margin: 9% auto 15% auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+    input{
+      padding-left: 5px;
+      border-radius: 10px;
+      min-width: 250px;
+      border: 1px solid var(--color-background-primary-grey-f3);
+    }
+    h2 {
+      font-weight: 400;
     }
   }
 }

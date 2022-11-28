@@ -29,12 +29,12 @@ export function BoardCard(props: BoardCardInfo) {
 				>
 					<div>
 						<Button
-							classes="modalDel__btn"
+							classes="modalBoard__btn"
 							text={newLocal.yes}
 							callback={deleteBoard}
 						/>
 						<Button
-							classes="modalDel__btn"
+							classes="modalBoard__btn"
 							text={newLocal.no}
 							callback={closeModalDel}
 						/>

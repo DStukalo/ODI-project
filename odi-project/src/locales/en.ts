@@ -43,4 +43,7 @@ export const en: TranslationPackage = {
 	yes: 'Yes',
 	no: 'No',
 	boardsTitle: 'YOUR BOARDS',
+	create: 'Create',
+	createTitle: 'Create board',
+	createPlaceholder: 'write board name',
 };
