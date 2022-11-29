@@ -5,9 +5,9 @@ import React, { useState } from 'react';
 import styles from './Profile.module.scss';
 
 const userDefault = {
-  _id: '',
-  name: '',
-  login: '',
+	_id: '',
+	name: '',
+	login: '',
 };
 
 export function ProfilePage() {
@@ -16,11 +16,11 @@ export function ProfilePage() {
 	const [password, setPassword] = useState('');
 
 	function handleChangeName(e: React.FormEvent<HTMLInputElement>) {
-		setUser({ ...user, name: e.currentTarget.value as string});
+		setUser({ ...user, name: e.currentTarget.value as string });
 	}
 
 	function handleChangeLogin(e: React.FormEvent<HTMLInputElement>) {
-		setUser({ ...user, login: e.currentTarget.value as string});
+		setUser({ ...user, login: e.currentTarget.value as string });
 	}
 
 	function handleChangePassword(e: React.FormEvent<HTMLInputElement>) {
@@ -36,32 +36,32 @@ export function ProfilePage() {
 			<h2>Profile</h2>
 			<form onSubmit={handleSubmit}>
 				<Input
-					type={'text'}
-					name='name'
+					type="text"
+					name="name"
 					value={user.name}
 					placeholder={user.name}
 					classes=""
-					callback={() => {handleChangeName}}
+					callback={() => { handleChangeName; }}
 				/>
 				<Input
-					type={'text'}
+					type="text"
 					name="login"
 					value={user.login}
 					placeholder={user.login}
 					classes=""
-					callback={() => {handleChangeLogin}}
+					callback={() => { handleChangeLogin; }}
 				/>
 				<Input
-					type={'password'}
-					name='password'
+					type="password"
+					name="password"
 					value={password}
 					placeholder={password}
 					classes=""
 					callback={() => handleChangePassword}
 				/>
 				<div>
-					<Button classes={''} text={'Save'}/>
-					<Button classes="" text={'Delete'}/>
+					<Button classes="" text="Save" />
+					<Button classes="" text="Delete" />
 				</div>
 			</form>
 		</div>
