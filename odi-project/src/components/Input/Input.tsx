@@ -6,12 +6,12 @@ export type TInputProps = {
   value: string;
   placeholder: string;
   classes: string;
-	callback?: { (): void };
+	onChange?: { (e: React.ChangeEvent<HTMLInputElement>): void };
 }
 
 export function Input(props: TInputProps) {
 	const {
-		classes, type, name, value, placeholder, callback,
+		classes, type, name, value, placeholder, onChange,
 	} = props;
 	return (
 		<input
@@ -20,7 +20,7 @@ export function Input(props: TInputProps) {
 			name={name}
 			value={value}
 			placeholder={placeholder}
-			onChange={callback}
+			onChange={onChange}
 		/>
 	);
 }
