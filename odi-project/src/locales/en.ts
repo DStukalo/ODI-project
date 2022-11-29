@@ -47,4 +47,6 @@ export const en: TranslationPackage = {
 	createTitle: 'Create board',
 	createPlaceholder: 'write board name',
 	backBtn: 'Back',
+	addTask: 'Add task',
+	addColumn: 'Add column',
 };

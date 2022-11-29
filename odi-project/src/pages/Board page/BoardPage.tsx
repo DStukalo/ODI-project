@@ -1,6 +1,7 @@
 import { useParams, NavLink } from 'react-router-dom';
 import { Button } from '@/components/Button/Button';
-import { useTranslation } from '../../locales/useTranslation';
+import { ListTask } from '@/components/ListTask/ListTask';
+import { useTranslation } from '@/locales/useTranslation';
 import styles from './BoardPage.module.scss';
 
 export function BoardPage() {
@@ -19,8 +20,12 @@ export function BoardPage() {
 				<h1>Board name</h1>
 			</div>
 			<div className={styles.columList}>
-				<span>Board page id -</span>
-				{id}
+				<ListTask	/>
+				<Button
+					classes="addColumn__btn"
+					text={newLocal.addColumn}
+					image="/images/icon-addWhite.png"
+				/>
 			</div>
 		</div>
 	);

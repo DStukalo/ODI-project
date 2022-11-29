@@ -20,8 +20,11 @@
 }
 
 .columList{
+	width: 90%;
+	margin: 0 5%;
+	align-self: flex-start;
 	display: flex;
 	align-items: center;
 	justify-content: flex-start;
-	gap: 40px;
+	gap: 15px;
 }
