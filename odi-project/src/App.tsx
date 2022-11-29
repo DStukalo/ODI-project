@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import { Layout } from './components/Layout/Layout';
 import { WelcomePage } from './pages/Welcome page/WelcomePage';
 import { MainPage } from './pages/Main page/MainPage';
-import { BoardPage } from './pages/Board page/BoardPage';
+import { BoardPage } from './pages/Bord page/BoardPage';
 import { AuthorizationPage } from './pages/Authorization page/AuthorizationPage';
 import { ProfilePage } from './pages/Profile page/ProfilePage';
 import { NotFoundPage } from './pages/404/NotFoundPage';
