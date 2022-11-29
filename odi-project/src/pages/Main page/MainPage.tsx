@@ -1,11 +1,12 @@
 /* eslint-disable no-underscore-dangle */
-import { BoardCard } from '@/components/boardCard/boardCard';
 import { useEffect, useState } from 'react';
+
+import { BoardCard } from '@/components/boardCard/boardCard';
 import { BoardData } from '@/types/interfaces';
-import { Button } from '../../components/Button/Button';
-import { useTranslation } from '../../locales/useTranslation';
-import { BoardsToAPI } from '../../API/Boards';
-import { Modal } from '../../components/Modal/Modal';
+import { useTranslation } from '@/locales/useTranslation';
+import { BoardsToAPI } from '@/API/Boards';
+import { Button } from '@/components/Button/Button';
+import { Modal } from '@/components/Modal/Modal';
 import styles from './MainPage.module.scss';
 
 const boardsResponse = new BoardsToAPI('boards');
@@ -39,6 +40,7 @@ export function MainPage() {
 	useEffect(() => {
 		getBoards();
 	}, []);
+
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.boardsSection}>
