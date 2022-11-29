@@ -2,11 +2,11 @@ import { TaskData } from '@/types/interfaces';
 import axios from 'axios';
 import { BASE_URL } from './consts';
 
-export class TasksToAPI {
+class TasksToAPI {
 	private token: string;
 
-	constructor(token: string) {
-		this.token = token;
+	constructor() {
+		this.token = localStorage.getItem('token') as string;
 
 	}
 
@@ -129,3 +129,7 @@ export class TasksToAPI {
 
 	// Доделать 2 метода tasksSet
 }
+
+const tasksToAPI = new TasksToAPI();
+
+export default tasksToAPI;
