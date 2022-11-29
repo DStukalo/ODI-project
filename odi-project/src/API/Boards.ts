@@ -5,8 +5,6 @@ import {
 } from '@/types/interfaces';
 import { BASE_URL } from './consts';
 
-/* eslint-disable max-len */
-export const tokenUser = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzODFjYWU3MDg3MWY1YzA2ZmM3MGI3MSIsImxvZ2luIjoiSWdvciIsImlhdCI6MTY2OTU0NDA4NywiZXhwIjoxNjY5NTg3Mjg3fQ.MD190lpkzWk763kA9Y-45AYpHzBEMKFZMdKAYGHdQSE';
 export const ownerID = '6381cae70871f5c06fc70b71';
 
 export class BoardsToAPI {
@@ -18,7 +16,7 @@ export class BoardsToAPI {
 
 	constructor(path = '/') {
 		this.path = path;
-		this.token = tokenUser;
+		this.token = localStorage.getItem('token')!;
 		this.ownerID = ownerID;
 	}
 
