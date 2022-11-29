@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button } from '@/components/Button/Button';
 import { Input } from '@/components/Input/Input';
 import { UserData } from '@/types/interfaces';
-import styles from './Profile.module.scss';
+import styles from './ProfilePage.module.scss';
 
 const userDefault = {
 	_id: '',
@@ -35,31 +35,32 @@ export function ProfilePage() {
 		<div className={styles.profile_container}>
 			<h2>Profile</h2>
 			<form onSubmit={handleSubmit}>
-				<Input
+				<h3>Edit your profile</h3>
+				<input
 					type="text"
 					name="name"
 					value={user.name}
 					placeholder={user.name}
-					classes=""
-					callback={() => { handleChangeName; }}
+					className={styles.profile_input}
+					onChange={handleChangeName}
 				/>
-				<Input
+				<input
 					type="text"
 					name="login"
 					value={user.login}
 					placeholder={user.login}
-					classes=""
-					callback={() => { handleChangeLogin; }}
+					className={styles.profile_input}
+					onChange={handleChangeLogin}
 				/>
-				<Input
+				<input
 					type="password"
 					name="password"
 					value={password}
 					placeholder={password}
-					classes=""
-					callback={() => handleChangePassword}
+					className={styles.profile_input}
+					onChange={handleChangePassword}
 				/>
-				<div>
+				<div className={styles.form_buttons}>
 					<Button classes="" text="Save" />
 					<Button classes="" text="Delete" />
 				</div>
