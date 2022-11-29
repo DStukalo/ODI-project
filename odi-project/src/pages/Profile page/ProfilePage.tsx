@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/Button/Button';
 import { Input } from '@/components/Input/Input';
 import { UserData } from '@/types/interfaces';
+import userToAPI from '@/API/User';
 import styles from './ProfilePage.module.scss';
 
 const userDefault = {
@@ -11,24 +12,46 @@ const userDefault = {
 };
 
 export function ProfilePage() {
-
 	const [user, setUser] = useState<UserData>(userDefault);
 	const [password, setPassword] = useState('');
 
-	function handleChangeName(e: React.FormEvent<HTMLInputElement>) {
+	async function getUsers(token: string | null) {
+		try {
+			const { data } = await userToAPI.getUsers(token);
+			console.log(data);
+		} catch (error) {
+			console.log(error);
+		}
+	}
+
+	async function getUserById(token: string, ID: string) {
+		try {
+			const { data } = await userToAPI.getUserByID(token, ID);
+			console.log(data);
+		} catch (error) {
+			console.log(error);
+		}
+	}
+
+	const handleChangeName = (e: React.FormEvent<HTMLInputElement>) => {
 		setUser({ ...user, name: e.currentTarget.value as string });
-	}
+	};
 
-	function handleChangeLogin(e: React.FormEvent<HTMLInputElement>) {
+	const handleChangeLogin = (e: React.FormEvent<HTMLInputElement>) => {
 		setUser({ ...user, login: e.currentTarget.value as string });
-	}
+	};
 
-	function handleChangePassword(e: React.FormEvent<HTMLInputElement>) {
+	const handleChangePassword = (e: React.FormEvent<HTMLInputElement>) => {
 		setPassword(e.currentTarget.value as string);
-	}
+	};
 
 	function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
+		const token = localStorage.getItem('token');
+		const user = localStorage.getItem('user');
+		console.log(user);
+		getUsers(token);
+
 	}
 
 	return (
@@ -36,31 +59,39 @@ export function ProfilePage() {
 			<h2>Profile</h2>
 			<form onSubmit={handleSubmit}>
 				<h3>Edit your profile</h3>
-				<input
+				<Input
 					type="text"
 					name="name"
 					value={user.name}
 					placeholder={user.name}
-					className={styles.profile_input}
+					classes="profile_input"
 					onChange={handleChangeName}
 				/>
-				<input
+				<Input
 					type="text"
 					name="login"
 					value={user.login}
 					placeholder={user.login}
-					className={styles.profile_input}
+					classes="profile_input"
 					onChange={handleChangeLogin}
 				/>
-				<input
+				<Input
 					type="password"
 					name="password"
 					value={password}
 					placeholder={password}
-					className={styles.profile_input}
+					classes="profile_input"
 					onChange={handleChangePassword}
 				/>
 				<div className={styles.form_buttons}>
+					<button
+						type="submit"
+						onClick={() => {
+							handleSubmit;
+						}}
+					>
+						Yes
+					</button>
 					<Button classes="" text="Save" />
 					<Button classes="" text="Delete" />
 				</div>
