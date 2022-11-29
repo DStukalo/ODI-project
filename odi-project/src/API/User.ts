@@ -3,17 +3,17 @@ import axios from 'axios';
 import { AllUsersData, UserDataWithStatus } from '@/types/interfaces';
 import { BASE_URL } from './consts';
 
-export class UserToAPI {
+class UserToAPI {
 	public path: string;
 
 	constructor(path = '/') {
 		this.path = path;
 	}
 
-	async getUsers(token: string): Promise< AllUsersData > {
+	async getUsers(token: string | null): Promise< AllUsersData > {
 		const res = await axios({
 			method: 'get',
-			url: `${BASE_URL}${this.path}`,
+			url: `${BASE_URL}users`,
 			headers: {
 				Accept: 'application/json',
 				Authorization: `Bearer ${token}`,
@@ -70,3 +70,7 @@ export class UserToAPI {
 		return res.status;
 	}
 }
+
+const userToAPI = new UserToAPI();
+
+export default userToAPI;
