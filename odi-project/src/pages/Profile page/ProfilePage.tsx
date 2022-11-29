@@ -1,7 +1,7 @@
+import React, { useState } from 'react';
 import { Button } from '@/components/Button/Button';
 import { Input } from '@/components/Input/Input';
 import { UserData } from '@/types/interfaces';
-import React, { useState } from 'react';
 import styles from './Profile.module.scss';
 
 const userDefault = {
