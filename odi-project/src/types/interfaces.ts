@@ -33,13 +33,22 @@ export interface AllUsersData {
   status: number;
 }
 
-export interface TaskData {
+export interface ColumnData {
+data: {
 	'_id': string;
-	'title': string;
-	'order': 0;
-	'boardId': string;
-	'columnId': string;
-	'description': string;
-	'userId': string;
-	'users': [string];
+		'title': string;
+		'order': number;
+		'boardId': string;
+};
+status: number;
 }
+
+export interface ColumnListData {
+	data: [{
+			'_id': string;
+			'title': string;
+			'order': number;
+			'boardId': string;
+	}];
+	status: number;
+	}
