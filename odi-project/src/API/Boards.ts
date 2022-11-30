@@ -16,7 +16,7 @@ export class BoardsToAPI {
 
 	constructor(path = '/') {
 		this.path = path;
-		this.token = localStorage.getItem('token')!;
+		this.token = localStorage.getItem('token') as string;
 		this.ownerID = ownerID;
 	}
 

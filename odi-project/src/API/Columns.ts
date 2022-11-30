@@ -23,9 +23,9 @@ class ColumnsToAPI {
 
 	async createColumnInBoardID(
 		title: string,
-		order: number,
 		boardID: string,
-	): Promise< ColumnData > {
+		order = 0,
+	): Promise< ColumnListData > {
 		const res = await axios({
 			method: 'post',
 			url: `${BASE_URL}boards/${boardID}/columns`,
@@ -41,7 +41,7 @@ class ColumnsToAPI {
 		return { data: res.data, status: res.status };
 	}
 
-	async getColumnsByIDInBoardID(boardID: string, columnsID: string): Promise< ColumnData > {
+	async getColumnsByIDInBoardID(boardID: string, columnsID: string): Promise< ColumnListData > {
 		const res = await axios({
 			method: 'get',
 			url: `${BASE_URL}boards/${boardID}/columns/${columnsID}`,
@@ -58,7 +58,7 @@ class ColumnsToAPI {
 		order: number,
 		boardID: string,
 		columnsID: string,
-	): Promise< ColumnData > {
+	): Promise< ColumnListData > {
 		const res = await axios({
 			method: 'put',
 			url: `${BASE_URL}boards/${boardID}/columns/${columnsID}`,

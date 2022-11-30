@@ -1,6 +1,5 @@
 /* eslint-disable no-underscore-dangle */
 import { useEffect, useState } from 'react';
-
 import { BoardCard } from '@/components/boardCard/boardCard';
 import { BoardData } from '@/types/interfaces';
 import { useTranslation } from '@/locales/useTranslation';
