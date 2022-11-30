@@ -15,23 +15,27 @@ export function ProfilePage() {
 	const [user, setUser] = useState<UserData>(userDefault);
 	const [password, setPassword] = useState('');
 
-	async function getUsers(token: string | null) {
+	async function getUsers() {
 		try {
-			const { data } = await userToAPI.getUsers(token);
+			const { data } = await userToAPI.getUsers();
 			console.log(data);
 		} catch (error) {
 			console.log(error);
 		}
 	}
 
-	async function getUserById(token: string, ID: string) {
-		try {
-			const { data } = await userToAPI.getUserByID(token, ID);
-			console.log(data);
-		} catch (error) {
-			console.log(error);
-		}
+	function getUser() {
+		const profile = localStorage.getItem('user');
+		console.log(profile);
 	}
+
+	useEffect(() => {
+		getUsers();
+	}, []);
+
+	useEffect(() => {
+		getUser();
+	});
 
 	const handleChangeName = (e: React.FormEvent<HTMLInputElement>) => {
 		setUser({ ...user, name: e.currentTarget.value as string });
@@ -47,11 +51,6 @@ export function ProfilePage() {
 
 	function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
-		const token = localStorage.getItem('token');
-		const user = localStorage.getItem('user');
-		console.log(user);
-		getUsers(token);
-
 	}
 
 	return (
@@ -84,14 +83,6 @@ export function ProfilePage() {
 					onChange={handleChangePassword}
 				/>
 				<div className={styles.form_buttons}>
-					<button
-						type="submit"
-						onClick={() => {
-							handleSubmit;
-						}}
-					>
-						Yes
-					</button>
 					<Button classes="" text="Save" />
 					<Button classes="" text="Delete" />
 				</div>
