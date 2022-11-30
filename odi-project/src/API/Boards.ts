@@ -1,29 +1,26 @@
 import axios from 'axios';
 
-import {
-	AllUsersData, UserDataWithStatus, AllBoardsData, UserData,
-} from '@/types/interfaces';
+import {	AllUsersData, UserDataWithStatus, AllBoardsData } from '@/types/interfaces';
+import localStorageService from '@/services/localStorageService';
 import { BASE_URL } from './consts';
 
 export const ownerID = '6381cae70871f5c06fc70b71';
 
 export class BoardsToAPI {
-	public path: string;
 
 	private token: string;
 
 	private ownerID: string;
 
-	constructor(path = '/') {
-		this.path = path;
-		this.token = localStorage.getItem('token')!;
+	constructor() {
+		this.token = localStorageService.getValue('token', '');
 		this.ownerID = ownerID;
 	}
 
 	async getBoards(): Promise< AllBoardsData > {
 		const res = await axios({
 			method: 'get',
-			url: `${BASE_URL}${this.path}`,
+			url: `${BASE_URL}boards`,
 			headers: {
 				Accept: 'application/json',
 				Authorization: `Bearer ${this.token}`,
@@ -38,7 +35,7 @@ export class BoardsToAPI {
 	): Promise< AllUsersData > {
 		const res = await axios({
 			method: 'post',
-			url: `${BASE_URL}${this.path}`,
+			url: `${BASE_URL}boards`,
 			headers: {
 				Accept: 'application/json',
 				Authorization: `Bearer ${this.token}`,
@@ -55,7 +52,7 @@ export class BoardsToAPI {
 	async getBoardByID(boardID: string): Promise< AllUsersData > {
 		const res = await axios({
 			method: 'get',
-			url: `${BASE_URL}${this.path}/${boardID}`,
+			url: `${BASE_URL}boards/${boardID}`,
 			headers: {
 				Accept: 'application/json',
 				Authorization: `Bearer ${this.token}`,
@@ -71,7 +68,7 @@ export class BoardsToAPI {
 	): Promise< UserDataWithStatus > {
 		const res = await axios({
 			method: 'put',
-			url: `${BASE_URL}${this.path}${ID}`,
+			url: `${BASE_URL}boards/${ID}`,
 			headers: {
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
@@ -89,7 +86,7 @@ export class BoardsToAPI {
 	async deleteBoardByID(ID: string): Promise< number > {
 		const res = await axios({
 			method: 'delete',
-			url: `${BASE_URL}${this.path}/${ID}`,
+			url: `${BASE_URL}boards/${ID}`,
 			headers: {
 				Accept: 'application/json',
 				Authorization: `Bearer ${this.token}`,
@@ -102,7 +99,7 @@ export class BoardsToAPI {
 		const usersPath = userID.reduce((acc, el) => `${acc}%${el}`);
 		const res = await axios({
 			method: 'get',
-			url: `${BASE_URL}${this.path}Set/?ids=${usersPath}`,
+			url: `${BASE_URL}boardsSet/?ids=${usersPath}`,
 			headers: {
 				Accept: 'application/json',
 				Authorization: `Bearer ${this.token}`,
@@ -114,7 +111,7 @@ export class BoardsToAPI {
 	async getBoardsByUserID(userID: string): Promise< UserDataWithStatus > {
 		const res = await axios({
 			method: 'get',
-			url: `${BASE_URL}${this.path}Set/${userID}`,
+			url: `${BASE_URL}boardsSet/${userID}`,
 			headers: {
 				Accept: 'application/json',
 				Authorization: `Bearer ${this.token}`,
@@ -124,3 +121,7 @@ export class BoardsToAPI {
 	}
 
 }
+
+const boardsToAPI = new BoardsToAPI();
+
+export default boardsToAPI;

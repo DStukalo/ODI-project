@@ -1,12 +1,14 @@
-import { ColumnData, ColumnListData } from '@/types/interfaces';
 import axios from 'axios';
+
+import { ColumnData, ColumnListData } from '@/types/interfaces';
+import localStorageService from '@/services/localStorageService';
 import { BASE_URL } from './consts';
 
 class ColumnsToAPI {
 	private token: string;
 
 	constructor() {
-		this.token = localStorage.getItem('token') as string;
+		this.token = localStorageService.getValue('token', '');
 	}
 
 	async getAllColumnsInBoardID(boardID: string): Promise< ColumnListData > {
