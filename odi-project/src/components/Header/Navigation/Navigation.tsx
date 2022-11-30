@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { useTranslation } from '@/locales/useTranslation';
 import { changeLang } from '@/store/reducers/LanguageSlice';
 import { unLogged } from '@/store/reducers/UserSlice';
+import { useNavigate } from 'react-router-dom';
 import { NavItem } from './NavItem/NavItem';
 import { Logo } from './Logo/Logo';
 import styles from './Navigation.module.scss';
@@ -21,12 +22,14 @@ export function Navigation(props: TNavProps) {
 	const dispatch = useAppDispatch();
 	const newLocal = useTranslation();
 	const { logged } = props;
+	const navigate = useNavigate();
 
 	const languages = ['en', 'ru'];
 	const curLang = localStorage.getItem('lang');
 
 	function changeLanguage(lang: 'ru' | 'en') {
 		localStorage.setItem('lang', (lang));
+		setTimeout(() => navigate('/'), 2000);
 		return changeLang(lang);
 	}
 
@@ -68,12 +71,6 @@ export function Navigation(props: TNavProps) {
 						<ul className={styles.list}>
 							<NavItem path="authorization/login" text={newLocal.signin} />
 							<NavItem path="authorization/register" text={newLocal.signup} />
-							<Button
-								text="Sign out"
-								classes="navigation__btn"
-								image="/images/icon-return.png"
-								callback={logIn}
-							/>
 							{languages.map((lang) => (
 								<Button
 									key={lang}

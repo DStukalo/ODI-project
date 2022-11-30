@@ -2,6 +2,8 @@ import AuthToAPI from '@/API/Authorization';
 import { useTranslation } from '@/locales/useTranslation';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { authorizeUser } from '@/store/reducers/UserSlice';
+import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import styles from '../../pages/Authorization page/AuthorizationPage.module.scss';
 import { Modal } from '../Modal/Modal';
 
@@ -12,6 +14,7 @@ export function Login() {
 
 	const newLocal = useTranslation();
 	const navigate = useNavigate();
+	const dispatch = useAppDispatch();
 
 	const [showErrorModal, setShowErrorModal] = useState(false);
 	const [showSuccessModal, setShowSuccessModal] = useState(false);
@@ -26,19 +29,21 @@ export function Login() {
 
 	async function loginUser(logUser: string, passwordUser: string) {
 		try {
-			const loginCreateUser = await AuthToAPI.signin(logUser, passwordUser);
-			if (loginCreateUser) {
-				setShowSuccessModal(true);
-				localStorage.setItem('token', `${loginCreateUser.data.token}`);
-				setTimeout(() => navigate('/main'), 2000);
+			// const loginCreateUser = await AuthToAPI.signin(logUser, passwordUser);
+			const loginCreateUser = await dispatch(authorizeUser({ login: logUser, pass: passwordUser }));
+			// if (loginCreateUser) {
+			console.log(loginCreateUser);
+			setShowSuccessModal(true);
+			// 	// localStorage.setItem('token', `${loginCreateUser.data.token}`);
+			setTimeout(() => navigate('/main'), 2000);
 
-				const user = {
-					userLogin: login,
-					userPass: password,
-					isLogged: true,
-				};
-				localStorage.setItem('user', JSON.stringify(user));
-			}
+			// 	const user = {
+			// 		userLogin: login,
+			// 		userPass: password,
+			// 		isLogged: true,
+			// 	};
+			// 	localStorage.setItem('user', JSON.stringify(user));
+			// }
 		} catch (error) {
 			setShowErrorModal(true);
 		}

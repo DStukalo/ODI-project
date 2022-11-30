@@ -1,7 +1,9 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-underscore-dangle */
 import { UserData } from '@/types/interfaces';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { isValidToken } from '@/functions/isValidToken';
-import  authToAPI  from '@/API/Authorization';
+import authToAPI from '@/API/Authorization';
 
 interface UserState {
   user: Omit<UserData, 'name'>;
@@ -21,10 +23,13 @@ export const authorizeUser = createAsyncThunk(
 	async ({ login, pass }: UserParamToSignin, { rejectWithValue }) => {
 		try {
 			const signinUser = await authToAPI.signin(login, pass);
+			const { token } = signinUser.data;
+			localStorage.setItem('token', `${token}`);
+			console.log(signinUser);
 			if ((signinUser).status !== 200) {
 				throw new Error('Uncorrect login or password.Server Error');
 			}
-			const validToken = isValidToken(signinUser.data.token);
+			const validToken = isValidToken(token);
 			if (!validToken) {
 				throw new Error('Uncorrect Server Error');
 			}
@@ -34,7 +39,7 @@ export const authorizeUser = createAsyncThunk(
 				expirationDate: validToken.expirationDate,
 			};
 		} catch (error) {
-			rejectWithValue(error)
+			rejectWithValue(error);
 			return {
 				login: '',
 				id: '',
@@ -57,7 +62,7 @@ function getInitialState(): UserState {
 				isLogged: validToken.isValid,
 				expirationDate: validToken.expirationDate as Date,
 				isLoading: false,
-				message: ''
+				message: '',
 			};
 		}
 	}
@@ -69,7 +74,7 @@ function getInitialState(): UserState {
 		isLogged: false,
 		expirationDate: null,
 		isLoading: false,
-		message: ''
+		message: '',
 	};
 }
 
@@ -84,26 +89,26 @@ export const userSlice = createSlice({
 			state.user._id = '';
 			state.user.login = '';
 			state.isLoading = false;
-			state.message = 'your are un logged'
+			state.message = 'your are un logged';
 		},
 	},
 	extraReducers: (builder) => {
 		builder
 			.addCase(authorizeUser.pending, (state) => {
 				state.isLoading = true;
-				state.message = 'waiting for request'
+				state.message = 'waiting for request';
 			})
 			.addCase(authorizeUser.fulfilled, (state, action) => {
 				state.user._id = action.payload.id as string;
 				state.user.login = action.payload.login as string;
 				state.expirationDate = action.payload.expirationDate as Date;
 				state.isLoading = false;
-				state.message = 'you have successfully registered'
+				state.message = 'you have successfully registered';
 			})
 			.addCase(authorizeUser.rejected, (state) => {
 				state.isLoading = false;
-				state.message = 'some problem'
-			})
+				state.message = 'some problem';
+			});
 	},
 });
 
