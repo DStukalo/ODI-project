@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Button } from '../Button/Button';
 import styles from './boardCard.module.scss';
-import {BoardCardInfo } from './BoardCardTypes';
+import { BoardCardInfo } from './BoardCardTypes';
 import { useTranslation } from '../../locales/useTranslation';
 import { Modal } from '../Modal/Modal';
 

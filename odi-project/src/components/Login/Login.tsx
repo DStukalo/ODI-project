@@ -37,7 +37,8 @@ export function Login() {
 					userPass: password,
 					isLogged: true,
 				};
-				localStorage.setItem('user', JSON.stringify(user));
+				// localStorage.setItem('user', JSON.stringify(user));
+				localStorage.setItem('login', user.userLogin);
 			}
 		} catch (error) {
 			setShowErrorModal(true);
