@@ -3,20 +3,60 @@
   box-sizing: border-box;
   display: flex;
   justify-content: center;
-}
-
-.container {
-  width: 1200px;
-  display: flex;
-  justify-content: space-between;
-}
-
-.item {
-  display: flex;
-  flex-direction: column;
-}
-
-.link {
-  text-decoration: none;
-  color: inherit;
+  background-color: var(--color-background-primary-grey-a2);
+  min-height: 90px;
+  .container {
+    width: 1200px;
+    display: flex;
+    justify-content: space-between;
+    .year {
+      margin-left: 15px;
+    }
+    .year,
+    .github {
+      color: var(--color-primary-blue-a1);
+      font-weight: 400;
+      text-align: center;
+      font-size: calc(var(--font-size-a2) - 6px);
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      
+    }
+    .github {
+      width: 20%;
+      .link {
+        display: flex;
+        align-items: center;
+        justify-items: center;
+        text-decoration: none;
+        text-align: center;
+        overflow: visible;
+        width: 80px;
+        height: 80px;
+        color: var(--color-primary-blue-a1);
+        transition: all 1000ms linear;
+        &:hover {
+          color: var(--color-primary-orange-a1);
+          cursor: pointer;
+        }
+      }
+    }
+    .rsschool {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .rss_link {
+        .rss_image {
+          display: block;
+          width: 80%;
+          filter: invert(81%) sepia(15%) saturate(320%) hue-rotate(172deg) brightness(85%) contrast(83%);
+          transition: all 1000ms linear;
+          &:hover {
+            filter: invert(37%) sepia(75%) saturate(2879%) hue-rotate(346deg) brightness(76%) contrast(96%);
+          }
+        }
+      }
+    }
+  }
 }
