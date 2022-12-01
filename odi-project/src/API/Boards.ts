@@ -3,6 +3,7 @@ import axios from 'axios';
 import {
 	AllUsersData, UserDataWithStatus, AllBoardsData, UserData,
 } from '@/types/interfaces';
+import { useAppSelector } from '@/hooks/redux';
 import { BASE_URL } from './consts';
 
 export const ownerID = '6381cae70871f5c06fc70b71';
@@ -12,12 +13,13 @@ export class BoardsToAPI {
 
 	private token: string;
 
-	private ownerID: string;
+	// private ownerID: string;
 
 	constructor(path = '/') {
 		this.path = path;
 		this.token = localStorage.getItem('token')!;
-		this.ownerID = ownerID;
+		// eslint-disable-next-line no-underscore-dangle
+		// this.ownerID = user._id;
 	}
 
 	async getBoards(): Promise< AllBoardsData > {
@@ -36,6 +38,8 @@ export class BoardsToAPI {
 		title: string,
 		users: string[] = [''],
 	): Promise< AllUsersData > {
+		// eslint-disable-next-line react-hooks/rules-of-hooks
+		const { user } = useAppSelector((state) => state.userReducer);
 		const res = await axios({
 			method: 'post',
 			url: `${BASE_URL}${this.path}`,
@@ -45,7 +49,8 @@ export class BoardsToAPI {
 			},
 			data: {
 				title: `${title}`,
-				owner: `${this.ownerID}`,
+				// eslint-disable-next-line no-underscore-dangle
+				owner: `${user._id}`,
 				users: `${users}`,
 			},
 		});
@@ -69,6 +74,8 @@ export class BoardsToAPI {
 		title: string,
 		users: string[],
 	): Promise< UserDataWithStatus > {
+		// eslint-disable-next-line react-hooks/rules-of-hooks
+		const { user } = useAppSelector((state) => state.userReducer);
 		const res = await axios({
 			method: 'put',
 			url: `${BASE_URL}${this.path}${ID}`,
@@ -79,7 +86,8 @@ export class BoardsToAPI {
 			},
 			data: {
 				title: `${title}`,
-				owner: `${this.ownerID}`,
+				// eslint-disable-next-line no-underscore-dangle
+				owner: `${user._id}`,
 				users: `${users}`,
 			},
 		});
