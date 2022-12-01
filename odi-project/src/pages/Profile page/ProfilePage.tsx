@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/Button/Button';
 import { Input } from '@/components/Input/Input';
 import { UserData } from '@/types/interfaces';
 import userToAPI from '@/API/User';
 import styles from './ProfilePage.module.scss';
-import { useNavigate } from 'react-router-dom';
 
 const userDefault = {
 	_id: '',
@@ -12,7 +12,7 @@ const userDefault = {
 	login: '',
 };
 
-export function ProfilePage(ID: string) {
+export function ProfilePage() {
 	const navigate = useNavigate();
 	const [user, setUser] = useState<UserData>(userDefault);
 	const [users, setUsers] = useState<UserData[]>([]);
@@ -22,44 +22,41 @@ export function ProfilePage(ID: string) {
 		try {
 			const { data } = await userToAPI.getUsers();
 			setUsers(data);
+			console.log(data);
 		} catch (error) {
 			console.log(error);
 		}
-	}
+	};
 
-	const getUser = async (ID: string) => {
+	const getUser = async () => {
 		try {
-			// const { data } = await userToAPI.getUserByID(ID);
-			// ID = data._id;
-			// console.log(ID);
 			const loginuser = (localStorage.getItem('login') as string);
-			console.log(users);
 			const profile = users.find((x) => x.login === loginuser);
 			if (profile) {
 				setUser(profile);
+				console.log(profile);
 			}
 		} catch (error) {
-
+			console.log(error);
 		}
-	}
+	};
 
-	// const deleteUser = async (ID: string) => {
-	// 	try {
-	// 		await userToAPI.deleteUserByID(ID);
-	// 		getUsers();
-	// 		navigate('/');
-	// 		console.log('click');
-	// 	} catch (error) {
-	// 		console.log(error);
-	// 	}
-	// }
+	const deleteUser = async () => {
+		try {
+			await userToAPI.deleteUserByID(user._id);
+			getUsers();
+			navigate('/');
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
 	useEffect(() => {
 		getUsers();
 	}, []);
 
 	useEffect(() => {
-		getUser(ID);
+		getUser();
 	});
 
 	const handleChangeName = (e: React.FormEvent<HTMLInputElement>) => {
@@ -87,7 +84,8 @@ export function ProfilePage(ID: string) {
 					type="text"
 					name="name"
 					value={user.name}
-					placeholder={user.name}
+					autocomplete="name"
+					// placeholder={user.name}
 					classes="profile_input"
 					onChange={handleChangeName}
 				/>
@@ -95,7 +93,7 @@ export function ProfilePage(ID: string) {
 					type="text"
 					name="login"
 					value={user.login}
-					placeholder={user.login}
+					// placeholder={user.login}
 					classes="profile_input"
 					onChange={handleChangeLogin}
 				/>
@@ -103,13 +101,14 @@ export function ProfilePage(ID: string) {
 					type="password"
 					name="password"
 					value={password}
-					placeholder={password}
+					// placeholder={password}
 					classes="profile_input"
 					onChange={handleChangePassword}
 				/>
 				<div className={styles.form_buttons}>
-					<Button classes="" text="Save" />
-					<Button classes="" text="Delete" />
+					<button type="submit">Save</button>
+					{/* <Button classes="" text="Save" /> */}
+					<Button classes="" text="Delete" callback={deleteUser} />
 				</div>
 			</form>
 			{/* {users.map((item) => (

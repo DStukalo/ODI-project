@@ -64,7 +64,7 @@ class UserToAPI {
 	async deleteUserByID(/* token: string, */ ID: string): Promise< number > {
 		const res = await axios({
 			method: 'delete',
-			url: `${BASE_URL}${this.path}${ID}`,
+			url: `${BASE_URL}users${this.path}${ID}`,
 			headers: {
 				Accept: 'application/json',
 				Authorization: `Bearer ${this.token}`,
