@@ -1,13 +1,10 @@
-import { useAppSelector } from '@/hooks/redux';
 import { useEffect, useState } from 'react';
 
 import styles from './Header.module.scss';
 import { Navigation } from './Navigation/Navigation';
 
 export function Header() {
-	const { isLogged } = useAppSelector((state) => state.userReducer);
 	const [sticky, setSticky] = useState('');
-	const { expirationDate } = useAppSelector((state) => state.userReducer);
 
 	const isSticky = () => {
 		const scrollTop = window.scrollY;
@@ -27,7 +24,7 @@ export function Header() {
 	return (
 		<header className={styles[`${classes}`]}>
 			<div className={styles.container}>
-				<Navigation logged={isLogged} />
+				<Navigation />
 			</div>
 		</header>
 	);

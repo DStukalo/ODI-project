@@ -1,23 +1,20 @@
 import { Button } from '@/components/Button/Button';
-import { useAppDispatch } from '@/hooks/redux';
+import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { useTranslation } from '@/locales/useTranslation';
 import { changeLang } from '@/store/reducers/LanguageSlice';
 import localStorageService from '@/services/localStorageService';
+import { unLogged } from '@/store/reducers/UserSlice';
+import { useNavigate } from 'react-router-dom';
 import { NavItem } from './NavItem/NavItem';
 import { Logo } from './Logo/Logo';
 import styles from './Navigation.module.scss';
-import { TNavProps } from './NavigationTypes';
 
-function logOut() {
-	localStorage.setItem('isLogged', 'false');
-	window.location.reload();// будет использоваться redux для смени состояния
-}
-
-export function Navigation(props: TNavProps) {
+export function Navigation() {
 
 	const dispatch = useAppDispatch();
 	const newLocal = useTranslation();
-	const { logged } = props;
+	const navigate = useNavigate();
+	const { isLogged } = useAppSelector((state) => state.userReducer);
 
 	const languages = ['en', 'ru'];
 	const curLang = localStorageService.getValue('lang', 'en');
@@ -27,11 +24,16 @@ export function Navigation(props: TNavProps) {
 		return changeLang(lang);
 	}
 
+	function logOut(prop: boolean) {
+		localStorage.removeItem('token');
+		navigate('/');
+		return unLogged(prop);
+	}
 	return (
 		<nav role="navigation" className={styles.navigation}>
 			<Logo />
 			{
-				logged === 'true'
+				isLogged
 					? 		(
 						<ul className={styles.list}>
 							<NavItem path="main" text={newLocal.main} />
@@ -44,7 +46,7 @@ export function Navigation(props: TNavProps) {
 								text={newLocal.signout}
 								classes="navigation__btn"
 								image="/images/icon-return.png"
-								callback={logOut}
+								callback={() => dispatch(logOut(false))}
 							/>
 							{languages.map((lang) => (
 								<Button

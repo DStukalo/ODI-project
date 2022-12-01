@@ -1,17 +1,18 @@
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable react-hooks/rules-of-hooks */
 import axios, { AxiosInstance } from 'axios';
 
 import {	AllUsersData, UserDataWithStatus, AllBoardsData } from '@/types/interfaces';
 import localStorageService from '@/services/localStorageService';
+import { useAppSelector } from '@/hooks/redux';
 import { BASE_URL } from './consts';
-
-export const ownerID = '6381cae70871f5c06fc70b71';
 
 export class BoardsToAPI {
 	private instance: AxiosInstance;
 
 	private token: string;
 
-	private ownerID: string;
+	// private ownerID: ;
 
 	constructor() {
 		this.token = localStorageService.getValue('token');
@@ -23,7 +24,6 @@ export class BoardsToAPI {
 				Authorization: `Bearer ${this.token}`,
 			},
 		});
-		this.ownerID = ownerID;
 	}
 
 	async getBoards(): Promise< AllBoardsData > {
@@ -35,9 +35,10 @@ export class BoardsToAPI {
 		title: string,
 		users: string[] = [''],
 	): Promise< AllUsersData > {
+		const { user } = useAppSelector((state) => state.userReducer);
 		const res = await this.instance.post('boards', {
 			title: `${title}`,
-			owner: `${this.ownerID}`,
+			owner: `${user._id}`,
 			users: `${users}`,
 		});
 		return { data: res.data, status: res.status };
@@ -53,9 +54,10 @@ export class BoardsToAPI {
 		title: string,
 		users: string[],
 	): Promise< UserDataWithStatus > {
+		const { user } = useAppSelector((state) => state.userReducer);
 		const res = await this.instance.put(`boards/${ID}`, {
 			title: `${title}`,
-			owner: `${this.ownerID}`,
+			owner: `${user._id}`,
 			users: `${users}`,
 		});
 		return { data: res.data, status: res.status };
