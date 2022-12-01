@@ -1,22 +1,10 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-underscore-dangle */
-import { UserData } from '@/types/interfaces';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { isValidToken } from '@/functions/isValidToken';
 import authToAPI from '@/API/Authorization';
-
-interface UserState {
-  user: Omit<UserData, 'name'>;
-	isLogged: boolean;
-	expirationDate: Date | null;
-	isLoading: boolean;
-	message: string;
-}
-
-interface UserParamToSignin {
-	login: string;
-	pass: string;
-}
+import localStorageService from '@/services/localStorageService';
+import { UserParamToSignin, UserState } from './ReducersTypes';
 
 export const authorizeUser = createAsyncThunk(
 	'user/authorizeUser',
@@ -24,8 +12,6 @@ export const authorizeUser = createAsyncThunk(
 		try {
 			const signinUser = await authToAPI.signin(login, pass);
 			const { token } = signinUser.data;
-			localStorage.setItem('token', `${token}`);
-			console.log(signinUser);
 			if ((signinUser).status !== 200) {
 				throw new Error('Uncorrect login or password.Server Error');
 			}
@@ -34,6 +20,7 @@ export const authorizeUser = createAsyncThunk(
 				throw new Error('Uncorrect Server Error');
 			}
 			return {
+				token,
 				login: validToken.login,
 				id: validToken.id,
 				expirationDate: validToken.expirationDate,
@@ -51,7 +38,7 @@ export const authorizeUser = createAsyncThunk(
 
 function getInitialState(): UserState {
 	if (localStorage.getItem('token')) {
-		const token = localStorage.getItem('token') as string;
+		const token = localStorageService.getValue('token') as string;
 		const validToken = isValidToken(token);
 		if (validToken.isValid) {
 			return {
@@ -61,8 +48,6 @@ function getInitialState(): UserState {
 				},
 				isLogged: validToken.isValid,
 				expirationDate: validToken.expirationDate as Date,
-				isLoading: false,
-				message: '',
 			};
 		}
 	}
@@ -73,8 +58,6 @@ function getInitialState(): UserState {
 		},
 		isLogged: false,
 		expirationDate: null,
-		isLoading: false,
-		message: '',
 	};
 }
 
@@ -88,26 +71,17 @@ export const userSlice = createSlice({
 			state.isLogged = action.payload;
 			state.user._id = '';
 			state.user.login = '';
-			state.isLoading = false;
-			state.message = 'your are un logged';
+			state.isLogged = false;
 		},
 	},
 	extraReducers: (builder) => {
 		builder
-			.addCase(authorizeUser.pending, (state) => {
-				state.isLoading = true;
-				state.message = 'waiting for request';
-			})
 			.addCase(authorizeUser.fulfilled, (state, action) => {
 				state.user._id = action.payload.id as string;
 				state.user.login = action.payload.login as string;
 				state.expirationDate = action.payload.expirationDate as Date;
-				state.isLoading = false;
-				state.message = 'you have successfully registered';
-			})
-			.addCase(authorizeUser.rejected, (state) => {
-				state.isLoading = false;
-				state.message = 'some problem';
+				state.isLogged = true;
+				localStorageService.setValue('token', `${action.payload.token}`);
 			});
 	},
 });
