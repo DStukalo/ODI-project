@@ -2,6 +2,7 @@ import { Button } from '@/components/Button/Button';
 import { useAppDispatch } from '@/hooks/redux';
 import { useTranslation } from '@/locales/useTranslation';
 import { changeLang } from '@/store/reducers/LanguageSlice';
+import localStorageService from '@/services/localStorageService';
 import { NavItem } from './NavItem/NavItem';
 import { Logo } from './Logo/Logo';
 import styles from './Navigation.module.scss';
@@ -19,10 +20,10 @@ export function Navigation(props: TNavProps) {
 	const { logged } = props;
 
 	const languages = ['en', 'ru'];
-	const curLang = localStorage.getItem('lang');
+	const curLang = localStorageService.getValue('lang', 'en');
 
 	function changeLanguage(lang: 'ru' | 'en') {
-		localStorage.setItem('lang', (lang));
+		localStorageService.setValue('lang', (lang));
 		return changeLang(lang);
 	}
 
@@ -40,7 +41,7 @@ export function Navigation(props: TNavProps) {
 								text={newLocal.profile}
 							/>
 							<Button
-								text="Sign out"
+								text={newLocal.signout}
 								classes="navigation__btn"
 								image="/images/icon-return.png"
 								callback={logOut}

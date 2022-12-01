@@ -8,6 +8,7 @@ export const en: TranslationPackage = {
 	btnLang: 'EN',
 	signin: 'Sign in',
 	signup: 'Sign up',
+	signout: 'Sign out',
 	welcomeTittle: 'ODI project - best task management for teams',
 	welcomeDescription: 'This is a visual tool that gives a perfect overview of the currentwork status and simplifies team collaboration and communication.	Let clients and team members collaborate easily in real-time by	sharing tasks, information, and comments, anytime and from anywhere',
 	welcomeButton: 'Get started',
