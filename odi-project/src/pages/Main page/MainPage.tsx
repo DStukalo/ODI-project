@@ -4,12 +4,10 @@ import { useEffect, useState } from 'react';
 import { BoardCard } from '@/components/boardCard/boardCard';
 import { BoardData } from '@/types/interfaces';
 import { useTranslation } from '@/locales/useTranslation';
-import { BoardsToAPI } from '@/API/Boards';
+import boardsToAPI from '@/API/Boards';
 import { Button } from '@/components/Button/Button';
 import { Modal } from '@/components/Modal/Modal';
 import styles from './MainPage.module.scss';
-
-const boardsResponse = new BoardsToAPI('boards');
 
 export function MainPage() {
 	const [boardsList, setBoards] = useState<BoardData[]>([]);
@@ -21,11 +19,11 @@ export function MainPage() {
 		setBoardName(e.currentTarget.value);
 	}
 	const getBoards = async () => {
-		const { data } = await boardsResponse.getBoards();
+		const { data } = await boardsToAPI.getBoards();
 		setBoards(data);
 	};
 	const addBoard = async () => {
-		await boardsResponse.createNewBoard(boardName);
+		await boardsToAPI.createNewBoard(boardName);
 		setShowModalAdd(false);
 		setBoardName('');
 		getBoards();
@@ -34,7 +32,7 @@ export function MainPage() {
 		setShowModalAdd(true);
 	};
 	const deleteBoard = async (id: string) => {
-		await boardsResponse.deleteBoardByID(id);
+		await boardsToAPI.deleteBoardByID(id);
 		getBoards();
 	};
 	useEffect(() => {

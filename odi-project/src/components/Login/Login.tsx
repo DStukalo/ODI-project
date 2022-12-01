@@ -1,8 +1,10 @@
-import AuthToAPI from '@/API/Authorization';
-import { useTranslation } from '@/locales/useTranslation';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import styles from '../../pages/Authorization page/AuthorizationPage.module.scss';
+
+import AuthToAPI from '@/API/Authorization';
+import { useTranslation } from '@/locales/useTranslation';
+import localStorageService from '@/services/localStorageService';
+import styles from '@/pages/Authorization page/AuthorizationPage.module.scss';
 import { Modal } from '../Modal/Modal';
 
 export function Login() {
@@ -29,7 +31,7 @@ export function Login() {
 			const loginCreateUser = await AuthToAPI.signin(logUser, passwordUser);
 			if (loginCreateUser) {
 				setShowSuccessModal(true);
-				localStorage.setItem('token', `${loginCreateUser.data.token}`);
+				localStorageService.setValue('token', `${loginCreateUser.data.token}`);
 				setTimeout(() => navigate('/main'), 2000);
 
 				const user = {
