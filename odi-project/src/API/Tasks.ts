@@ -26,13 +26,13 @@ class TasksToAPI {
 	}
 
 	async createTasksInColumnID(
-		title: string,
-		order: number,
-		users: string[],
 		boardID: string,
 		columnsID: string,
-		userId: number,
+		title: string,
 		description: string,
+		users: string[],
+		order = 0,
+		userId = 0,
 	): Promise< { data: TaskData; status: number } > {
 		const res = await axios({
 			method: 'post',

@@ -1,18 +1,49 @@
+/* eslint-disable max-len */
+/* eslint-disable no-underscore-dangle */
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/Button/Button';
 import { Task } from '@/components/Task/Task';
+import tasksToAPI from '@/API/Tasks';
+import { TaskData } from '@/types/interfaces';
 import { ListTaskInfo } from './ListTaskTypes';
 import styles from './ListTask.module.scss';
 import { useTranslation } from '../../locales/useTranslation';
 
 export function ListTask(props: ListTaskInfo) {
-	const {	text, id, callback } = props;
+	const [tasksList, setTasks] = useState<TaskData[]>([]);
+	const {
+		text, id, idBoard, callback,
+	} = props;
 	const newLocal = useTranslation();
+
 	const deleteColumn = async () => {
 		if (id) {
 			callback(id);
 		}
 	};
+
+	const getTasks = async () => {
+		const { data } = await tasksToAPI.getTasksInColumnID(idBoard, id);
+		setTasks(data);
+	};
+
+	const addTask = async () => {
+		await tasksToAPI.createTasksInColumnID(idBoard, id, `Task № ${Math.floor(Math.random() * 10)}`, 'discription', ['']);
+		getTasks();
+	};
+
+	const deleteTask = async (idTask: string) => {
+		if (id) {
+			await tasksToAPI.deleteTaskByIDInColumnsID(idBoard, id, idTask);
+			getTasks();
+		}
+	};
+
+	useEffect(() => {
+		getTasks();
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.listHeader}>
@@ -24,16 +55,20 @@ export function ListTask(props: ListTaskInfo) {
 				/>
 			</div>
 			<div className={styles.listWrapper}>
-				<Task />
-				<Task />
-				<Task />
-				<Task />
-				<Task />
+				{tasksList.map((task) => (
+					<Task
+						key={task._id}
+						id={task._id}
+						title={task.title}
+						callback={deleteTask}
+					/>
+				))}
 			</div>
 			<Button
 				classes="addTask__btn"
 				text={newLocal.addTask}
 				image="/images/icon-addWhite.png"
+				callback={addTask}
 			/>
 		</div>
 	);

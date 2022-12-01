@@ -13,6 +13,7 @@ export function BoardPage() {
 	const [columnList, setColumns] = useState<ColumnData[]>([]);
 	const { id } = useParams();
 	const newLocal = useTranslation();
+
 	const getColumns = async () => {
 		if (id) {
 			const { data } = await columnsToAPI.getAllColumnsInBoardID(id);
@@ -20,21 +21,25 @@ export function BoardPage() {
 			// console.log(data);
 		}
 	};
+
 	const addColumn = async () => {
 		if (id) {
 			await columnsToAPI.createColumnInBoardID(`random Column ${Math.floor(Math.random() * 10)}`, id);
 			getColumns();
 		}
 	};
+
 	const deleteColumn = async (idColumn: string) => {
 		if (id) {
 			await columnsToAPI.deleteColumnsByIDInBoardID(id, idColumn);
 			getColumns();
 		}
 	};
-	/* 	useEffect(() => {
+
+	useEffect(() => {
 		getColumns();
-	}, []); */
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	return (
 		<div className={styles.wrapper}>
@@ -47,16 +52,12 @@ export function BoardPage() {
 					/>
 				</NavLink>
 				<h1>Board name</h1>
-				<Button
-					classes="addColumn__btn"
-					text="First Get Columns"
-					callback={getColumns}
-				/>
 			</div>
 			<div className={styles.columList}>
 				{columnList.map((column) => (
 					<ListTask
 						key={column._id}
+						idBoard={id as string}
 						id={column._id}
 						text={column.title}
 						callback={deleteColumn}
