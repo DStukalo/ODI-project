@@ -11,7 +11,7 @@ class UserToAPI {
 	private token: string;
 
 	constructor() {
-		this.token = localStorageService.getValue('token', '');
+		this.token = localStorageService.getValue('token');
 		this.instance = axios.create({
 			baseURL: BASE_URL,
 			headers: {

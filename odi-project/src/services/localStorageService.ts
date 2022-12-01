@@ -5,13 +5,13 @@ class LocalStorageService {
 		this.value = '';
 	}
 
-	getValue(key: string, defaultValue: string) {
+	getValue(key: string, defaultValue?: string) {
 		try {
 			this.value = JSON.parse(
 				localStorage.getItem(key) || String(defaultValue),
 			);
 		} catch (error) {
-			this.value = defaultValue;
+			if (defaultValue) this.value = defaultValue;
 		}
 		return this.value;
 	}
@@ -19,6 +19,16 @@ class LocalStorageService {
 	setValue(key: string, value: string) {
 		localStorage.setItem(key, JSON.stringify(value));
 		this.value = value;
+	}
+
+	deleteValue(key: string) {
+		try {
+			localStorage.removeItem(key);
+			this.value = 'success';
+		} catch (error) {
+			this.value = 'error';
+		}
+		return this.value;
 	}
 
 }

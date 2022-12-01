@@ -5,8 +5,8 @@ import localStorageService from '@/services/localStorageService';
 import { LangState } from './LanguageSliceTypes';
 
 function getInitialState(): LangState {
-	if (localStorageService.getValue('lang', 'en')) {
-		const lang = localStorageService.getValue('lang', 'en');
+	if (localStorageService.getValue('lang')) {
+		const lang = localStorageService.getValue('lang') ?? 'en';
 		return {
 			language: lang as 'en' | 'ru',
 			translations: { ...translations },

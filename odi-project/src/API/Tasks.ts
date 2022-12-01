@@ -2,6 +2,7 @@ import axios, { AxiosInstance } from 'axios';
 
 import { TaskData } from '@/types/interfaces';
 import { ParamsUpdateTasksInColumnID } from '@/types/types';
+import localStorageService from '@/services/localStorageService';
 import { BASE_URL } from './consts';
 
 class TasksToAPI {
@@ -10,7 +11,7 @@ class TasksToAPI {
 	private token: string;
 
 	constructor() {
-		this.token = localStorage.getItem('token') as string;
+		this.token = localStorageService.getValue('token');
 		this.instance = axios.create({
 			baseURL: BASE_URL,
 			headers: {
