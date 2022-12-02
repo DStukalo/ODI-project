@@ -50,4 +50,9 @@ export const en: TranslationPackage = {
 	backBtn: 'Back',
 	addTask: 'Add task',
 	addColumn: 'Add column',
+	createColumn: 'Create column',
+	placeholderColumn: 'write column name',
+	createTask: 'Create task',
+	placeholderTaskTitle: 'write task title',
+	placeholderTaskDescription: 'write task description',
 };

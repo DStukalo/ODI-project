@@ -1,20 +1,34 @@
-/* eslint-disable max-len */
-/* eslint-disable no-underscore-dangle */
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/Button/Button';
 import { Task } from '@/components/Task/Task';
 import tasksToAPI from '@/API/Tasks';
 import { TaskData } from '@/types/interfaces';
+import { Modal } from '@/components/Modal/Modal';
 import { ListTaskInfo } from './ListTaskTypes';
 import styles from './ListTask.module.scss';
 import { useTranslation } from '../../locales/useTranslation';
 
 export function ListTask(props: ListTaskInfo) {
 	const [tasksList, setTasks] = useState<TaskData[]>([]);
+	const [modalAddTask, setShowModalAddTask] = useState(false);
+	const [taskTitle, setTasksTitle] = useState('');
+	const [taskDescription, setTasksDescription] = useState('');
 	const {
 		text, id, idBoard, callback,
 	} = props;
 	const newLocal = useTranslation();
+
+	function handleChangeTasksTitle(e: React.FormEvent<HTMLInputElement>) {
+		setTasksTitle(e.currentTarget.value);
+	}
+
+	function handleChangeTasksDescription(e: React.FormEvent<HTMLTextAreaElement>) {
+		setTasksDescription(e.currentTarget.value);
+	}
+
+	const showModalAddTask = () => {
+		setShowModalAddTask(true);
+	};
 
 	const deleteColumn = async () => {
 		if (id) {
@@ -22,35 +36,38 @@ export function ListTask(props: ListTaskInfo) {
 		}
 	};
 
-	const getTasks = async () => {
-		const { data } = await tasksToAPI.getTasksInColumnID(idBoard, id);
+	const getTasks = async (boardId: string, idColumn: string) => {
+		const { data } = await tasksToAPI.getTasksInColumnID(boardId, idColumn);
 		setTasks(data);
 	};
 
 	const addTask = async () => {
 		await tasksToAPI.createTasksInColumnID({
-			title: `Task № ${Math.floor(Math.random() * 10)}`,
+			title: taskTitle,
 			order: 0,
 			users: [''],
 			boardID: idBoard,
 			columnsID: id,
 			userId: 0,
-			description: 'discription',
+			description: taskDescription,
 		});
-		getTasks();
+		getTasks(idBoard, id);
+		setShowModalAddTask(false);
+		setTasksTitle('');
+		setTasksDescription('');
+		getTasks(idBoard, id);
 	};
 
 	const deleteTask = async (idTask: string) => {
 		if (id) {
 			await tasksToAPI.deleteTaskByIDInColumnsID(idBoard, id, idTask);
-			getTasks();
+			getTasks(idBoard, id);
 		}
 	};
 
 	useEffect(() => {
-		getTasks();
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+		getTasks(idBoard, id);
+	}, [idBoard, id]);
 
 	return (
 		<div className={styles.wrapper}>
@@ -72,11 +89,41 @@ export function ListTask(props: ListTaskInfo) {
 					/>
 				))}
 			</div>
+			{modalAddTask && (
+				<Modal
+					title={newLocal.createTask}
+					onClose={setShowModalAddTask}
+					classes="modal_createTask"
+				>
+					<input
+						type="text"
+						autoComplete="off"
+						name="taskTitle"
+						value={taskTitle}
+						onChange={handleChangeTasksTitle}
+						id="taskTitle"
+						placeholder={newLocal.placeholderTaskTitle}
+					/>
+					<textarea
+						autoComplete="off"
+						name="taskDescription"
+						value={taskDescription}
+						onChange={handleChangeTasksDescription}
+						id="taskDescription"
+						placeholder={newLocal.placeholderTaskDescription}
+					/>
+					<Button
+						classes="modalBoard__btn"
+						text={newLocal.create}
+						callback={addTask}
+					/>
+				</Modal>
+			)}
 			<Button
 				classes="addTask__btn"
 				text={newLocal.addTask}
 				image="/images/icon-addWhite.png"
-				callback={addTask}
+				callback={showModalAddTask}
 			/>
 		</div>
 	);

@@ -1,49 +1,68 @@
-/* eslint-disable max-len */
-/* eslint-disable no-underscore-dangle */
 import { useEffect, useState } from 'react';
 import { useParams, NavLink } from 'react-router-dom';
 import { Button } from '@/components/Button/Button';
 import { ListTask } from '@/components/ListTask/ListTask';
 import columnsToAPI from '@/API/Columns';
+import boardsToAPI from '@/API/Boards';
 import { ColumnData } from '@/types/interfaces';
 import { useTranslation } from '@/locales/useTranslation';
+import { Modal } from '@/components/Modal/Modal';
 import styles from './BoardPage.module.scss';
 
 export function BoardPage() {
 	const [columnList, setColumns] = useState<ColumnData[]>([]);
+	const [modalAddColumn, setShowModalAddColumn] = useState(false);
+	const [columnName, setColumnName] = useState('');
+	const [boardTitle, setBoardTitle] = useState('');
 	const { id } = useParams();
 	const newLocal = useTranslation();
 
-	const getColumns = async () => {
-		if (id) {
-			const { data } = await columnsToAPI.getAllColumnsInBoardID(id);
+	const showModalAddColumn = () => {
+		setShowModalAddColumn(true);
+	};
+
+	function handleChangeColumnName(e: React.FormEvent<HTMLInputElement>) {
+		setColumnName(e.currentTarget.value);
+	}
+
+	const getColumns = async (idBoard: string | undefined) => {
+		if (idBoard) {
+			const { data } = await columnsToAPI.getAllColumnsInBoardID(idBoard);
 			setColumns(data);
-			// console.log(data);
 		}
 	};
 
 	const addColumn = async () => {
 		if (id) {
 			await columnsToAPI.createColumnInBoardID({
-				title: `random Column ${Math.floor(Math.random() * 10)}`,
+				title: columnName,
 				boardID: id,
 				order: 0,
 			});
-			getColumns();
+			setShowModalAddColumn(false);
+			setColumnName('');
+			getColumns(id);
 		}
 	};
 
 	const deleteColumn = async (idColumn: string) => {
 		if (id) {
 			await columnsToAPI.deleteColumnsByIDInBoardID(id, idColumn);
-			getColumns();
+			getColumns(id);
+		}
+	};
+
+	const getBoard = async (idBoard: string | undefined) => {
+		if (idBoard) {
+			const { title } = await boardsToAPI.getBoardByID(idBoard);
+			setBoardTitle(title);
 		}
 	};
 
 	useEffect(() => {
-		getColumns();
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+		getBoard(id);
+		getColumns(id);
+	}, [id]);
 
 	return (
 		<div className={styles.wrapper}>
@@ -55,7 +74,7 @@ export function BoardPage() {
 						image="/images/icon-left.png"
 					/>
 				</NavLink>
-				<h1>Board name</h1>
+				<h1>{boardTitle}</h1>
 			</div>
 			<div className={styles.columList}>
 				{columnList.map((column) => (
@@ -67,11 +86,33 @@ export function BoardPage() {
 						callback={deleteColumn}
 					/>
 				))}
+				{modalAddColumn && (
+					<Modal
+						title={newLocal.createColumn}
+						onClose={setShowModalAddColumn}
+						classes="modal_create"
+					>
+						<input
+							type="text"
+							autoComplete="off"
+							name="ColumnName"
+							value={columnName}
+							onChange={handleChangeColumnName}
+							id="ColumnName"
+							placeholder={newLocal.placeholderColumn}
+						/>
+						<Button
+							classes="modalBoard__btn"
+							text={newLocal.create}
+							callback={addColumn}
+						/>
+					</Modal>
+				)}
 				<Button
 					classes="addColumn__btn"
 					text={newLocal.addColumn}
 					image="/images/icon-addWhite.png"
-					callback={addColumn}
+					callback={showModalAddColumn}
 				/>
 			</div>
 		</div>

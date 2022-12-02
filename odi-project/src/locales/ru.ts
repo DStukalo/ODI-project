@@ -50,4 +50,9 @@ export const ru: TranslationPackage = {
 	backBtn: 'Назад',
 	addTask: 'Добавить задание',
 	addColumn: 'Добавить колонку',
+	createColumn: 'Создать колонку',
+	placeholderColumn: 'напишите назавание колонки',
+	createTask: 'Создать задание',
+	placeholderTaskTitle: 'напишите заголовок задания',
+	placeholderTaskDescription: 'напишите описание задания',
 };
