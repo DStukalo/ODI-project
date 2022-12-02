@@ -1,18 +1,13 @@
-/* eslint-disable no-underscore-dangle */
-/* eslint-disable react-hooks/rules-of-hooks */
 import axios, { AxiosInstance } from 'axios';
 
 import {	AllUsersData, UserDataWithStatus, AllBoardsData } from '@/types/interfaces';
 import localStorageService from '@/services/localStorageService';
-import { useAppSelector } from '@/hooks/redux';
 import { BASE_URL } from './consts';
 
 export class BoardsToAPI {
 	private instance: AxiosInstance;
 
 	private token: string;
-
-	// private ownerID: ;
 
 	constructor() {
 		this.token = localStorageService.getValue('token');
@@ -33,12 +28,12 @@ export class BoardsToAPI {
 
 	async createNewBoard(
 		title: string,
+		userId: string,
 		users: string[] = [''],
 	): Promise< AllUsersData > {
-		const { user } = useAppSelector((state) => state.userReducer);
 		const res = await this.instance.post('boards', {
 			title: `${title}`,
-			owner: `${user._id}`,
+			owner: `${userId}`,
 			users: `${users}`,
 		});
 		return { data: res.data, status: res.status };
@@ -52,12 +47,12 @@ export class BoardsToAPI {
 	async updateBoardByID(
 		ID: string,
 		title: string,
+		userId: string,
 		users: string[],
 	): Promise< UserDataWithStatus > {
-		const { user } = useAppSelector((state) => state.userReducer);
 		const res = await this.instance.put(`boards/${ID}`, {
 			title: `${title}`,
-			owner: `${user._id}`,
+			owner: `${userId}`,
 			users: `${users}`,
 		});
 		return { data: res.data, status: res.status };
