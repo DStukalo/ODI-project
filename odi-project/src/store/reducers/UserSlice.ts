@@ -1,5 +1,3 @@
-/* eslint-disable no-param-reassign */
-/* eslint-disable no-underscore-dangle */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { isValidToken } from '@/functions/isValidToken';
 import authToAPI from '@/API/Authorization';

@@ -25,7 +25,6 @@ export const languageSlice = createSlice({
 	initialState,
 	reducers: {
 		changeLang(state, action) {
-			// eslint-disable-next-line no-param-reassign
 			state.language = action.payload;
 		},
 	},
