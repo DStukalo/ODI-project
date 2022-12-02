@@ -47,4 +47,7 @@ export const ru: TranslationPackage = {
 	create: 'Создать',
 	createTitle: 'Создать доску',
 	createPlaceholder: 'напишите назавание доски',
+	backBtn: 'Назад',
+	addTask: 'Добавить задание',
+	addColumn: 'Добавить колонку',
 };
