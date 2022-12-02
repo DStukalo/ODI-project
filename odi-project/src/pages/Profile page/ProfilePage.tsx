@@ -18,27 +18,33 @@ export function ProfilePage() {
 	const [users, setUsers] = useState<UserData[]>([]);
 	const [password, setPassword] = useState('');
 
-	const getUsers = async (/* token: string */) => {
+	const getUsers = async () => {
 		try {
 			const { data } = await userToAPI.getUsers();
 			setUsers(data);
-			console.log(data);
 		} catch (error) {
 			console.log(error);
 		}
 	};
 
-	const getUser = async () => {
+	const getUser = async (ID: string) => {
 		try {
-			const loginuser = (localStorage.getItem('login') as string);
-			const profile = users.find((x) => x.login === loginuser);
-			if (profile) {
-				setUser(profile);
-				console.log(profile);
-			}
+			const { data } = await userToAPI.getUserByID(ID);
+			// setUser(data);
+			console.log(data);
 		} catch (error) {
-			console.log(error);
+			console.log('Error');
 		}
+		// try {
+		// 	const loginuser = (localStorage.getItem('login') as string);
+		// 	const profile = users.find((x) => x.login === loginuser);
+		// 	if (profile) {
+		// 		setUser(profile);
+		// 		console.log(profile);
+		// 	}
+		// } catch (error) {
+		// 	console.log(error);
+		// }
 	};
 
 	const deleteUser = async () => {
@@ -56,7 +62,7 @@ export function ProfilePage() {
 	}, []);
 
 	useEffect(() => {
-		getUser();
+		getUser(user._id);
 	});
 
 	const handleChangeName = (e: React.FormEvent<HTMLInputElement>) => {
@@ -111,40 +117,6 @@ export function ProfilePage() {
 					<Button classes="" text="Delete" callback={deleteUser} />
 				</div>
 			</form>
-			{/* {users.map((item) => (
-				<form onSubmit={handleSubmit} key={item._id}>
-					<h3>Edit your profile</h3>
-					<Input
-						type="text"
-						name="name"
-						value={item.name}
-						placeholder={item.name}
-						classes="profile_input"
-						onChange={handleChangeName}
-					/>
-					<Input
-						type="text"
-						name="login"
-						value={item.login}
-						placeholder={item.login}
-						classes="profile_input"
-						onChange={handleChangeLogin}
-					/>
-					<Input
-						type="password"
-						name="password"
-						value={password}
-						placeholder={password}
-						classes="profile_input"
-						onChange={handleChangePassword}
-					/>
-					<div className={styles.form_buttons}>
-						<Button classes="" text="Save" />
-						<Button classes="" text="Delete" />
-					</div>
-				</form>
-			))} */}
-
 		</div>
 	);
 }
