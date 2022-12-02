@@ -1,4 +1,3 @@
-/* eslint-disable no-underscore-dangle */
 import { useEffect, useState } from 'react';
 
 import { BoardCard } from '@/components/boardCard/boardCard';
@@ -7,6 +6,7 @@ import { useTranslation } from '@/locales/useTranslation';
 import boardsToAPI from '@/API/Boards';
 import { Button } from '@/components/Button/Button';
 import { Modal } from '@/components/Modal/Modal';
+import { useAppSelector } from '@/hooks/redux';
 import styles from './MainPage.module.scss';
 
 export function MainPage() {
@@ -14,6 +14,7 @@ export function MainPage() {
 	const [modalAdd, setShowModalAdd] = useState(false);
 	const [boardName, setBoardName] = useState('');
 	const newLocal = useTranslation();
+	const { user } = useAppSelector((state) => state.userReducer);
 
 	function handleChangeBoardName(e: React.FormEvent<HTMLInputElement>) {
 		setBoardName(e.currentTarget.value);
@@ -23,7 +24,7 @@ export function MainPage() {
 		setBoards(data);
 	};
 	const addBoard = async () => {
-		await boardsToAPI.createNewBoard(boardName);
+		await boardsToAPI.createNewBoard(boardName, user._id);
 		setShowModalAdd(false);
 		setBoardName('');
 		getBoards();

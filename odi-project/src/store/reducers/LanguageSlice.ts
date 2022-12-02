@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { translations } from '@/locales/translations';
 import localStorageService from '@/services/localStorageService';
-import { LangState } from './LanguageSliceTypes';
+import { LangState } from './ReducersTypes';
 
 function getInitialState(): LangState {
 	if (localStorageService.getValue('lang')) {
@@ -25,7 +25,6 @@ export const languageSlice = createSlice({
 	initialState,
 	reducers: {
 		changeLang(state, action) {
-			// eslint-disable-next-line no-param-reassign
 			state.language = action.payload;
 		},
 	},

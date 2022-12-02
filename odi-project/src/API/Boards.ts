@@ -4,14 +4,10 @@ import {	AllUsersData, UserDataWithStatus, AllBoardsData } from '@/types/interfa
 import localStorageService from '@/services/localStorageService';
 import { BASE_URL } from './consts';
 
-export const ownerID = '6381cae70871f5c06fc70b71';
-
 export class BoardsToAPI {
 	private instance: AxiosInstance;
 
 	private token: string;
-
-	private ownerID: string;
 
 	constructor() {
 		this.token = localStorageService.getValue('token');
@@ -23,7 +19,6 @@ export class BoardsToAPI {
 				Authorization: `Bearer ${this.token}`,
 			},
 		});
-		this.ownerID = ownerID;
 	}
 
 	async getBoards(): Promise< AllBoardsData > {
@@ -33,11 +28,12 @@ export class BoardsToAPI {
 
 	async createNewBoard(
 		title: string,
+		userId: string,
 		users: string[] = [''],
 	): Promise< AllUsersData > {
 		const res = await this.instance.post('boards', {
 			title: `${title}`,
-			owner: `${this.ownerID}`,
+			owner: `${userId}`,
 			users: `${users}`,
 		});
 		return { data: res.data, status: res.status };
@@ -51,11 +47,12 @@ export class BoardsToAPI {
 	async updateBoardByID(
 		ID: string,
 		title: string,
+		userId: string,
 		users: string[],
 	): Promise< UserDataWithStatus > {
 		const res = await this.instance.put(`boards/${ID}`, {
 			title: `${title}`,
-			owner: `${this.ownerID}`,
+			owner: `${userId}`,
 			users: `${users}`,
 		});
 		return { data: res.data, status: res.status };
