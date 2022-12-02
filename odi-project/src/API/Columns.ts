@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from 'axios';
 
 import localStorageService from '@/services/localStorageService';
-import { ColumnData, ColumnListData } from '@/types/interfaces';
+import { ColumnListData } from '@/types/interfaces';
 import { ParamsCreateColumnInBoardID, ParamsUpdateColumnsByIDInBoardID } from '@/types/types';
 import { BASE_URL } from './consts';
 
@@ -29,9 +29,9 @@ class ColumnsToAPI {
 
 	async createColumnInBoardID({
 		title,
-		order,
 		boardID,
-	}: ParamsCreateColumnInBoardID): Promise< ColumnData > {
+		order,
+	}: ParamsCreateColumnInBoardID): Promise< ColumnListData > {
 		const res = await this.instance.post(`boards/${boardID}/columns`, {
 			title: `${title}`,
 			order: `${order}`,
@@ -39,7 +39,7 @@ class ColumnsToAPI {
 		return { data: res.data, status: res.status };
 	}
 
-	async getColumnsByIDInBoardID(boardID: string, columnsID: string): Promise< ColumnData > {
+	async getColumnsByIDInBoardID(boardID: string, columnsID: string): Promise< ColumnListData > {
 		const res = await this.instance.get(`boards/${boardID}/columns/${columnsID}`);
 		return { data: res.data, status: res.status };
 	}
@@ -49,7 +49,7 @@ class ColumnsToAPI {
 		order,
 		boardID,
 		columnsID,
-	}: ParamsUpdateColumnsByIDInBoardID): Promise< ColumnData > {
+	}: ParamsUpdateColumnsByIDInBoardID): Promise< ColumnListData > {
 		const res = await this.instance.put(`boards/${boardID}/columns/${columnsID}`, {
 			title: `${title}`,
 			order: `${order}`,

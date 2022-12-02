@@ -34,32 +34,24 @@ export interface AllUsersData {
 }
 
 export interface ColumnData {
-data: {
-	'_id': string;
-		'title': string;
-		'order': number;
-		'boardId': string;
-};
-status: number;
+	_id: string;
+	title: string;
+	order: number;
+	boardId: string;
 }
 
 export interface ColumnListData {
-	data: [{
-			'_id': string;
-			'title': string;
-			'order': number;
-			'boardId': string;
-	}];
+	data: [ColumnData];
 	status: number;
 	}
 
 export interface TaskData {
-		'_id': string;
-		'title': string;
-		'order': number;
-		'boardId': string;
-		'columnId': string;
-		'description': string;
-		'userId': string;
-		'users': string[];
-	}
+	_id: string;
+	title: string;
+	order: number;
+	boardId: string;
+	columnId: string;
+	description: string;
+	userId: string;
+	users: string[];
+}
