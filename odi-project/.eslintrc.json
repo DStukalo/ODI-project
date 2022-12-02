@@ -67,15 +67,6 @@
         }],
         "padded-blocks": ["off"],
         "no-underscore-dangle" : ["error", { "allow": [ "_id"] }],
-        // "overrides": [
-        //     {
-        //       "files": ["/src/store/reducers/*.ts"],
-        //       "rules": {
-        //         "@typescript-eslint/no-param-reassign": 0,
-        //         "@typescript-eslint/no-underscore-dangle": 0
-        //       }
-        //     }
-        //   ],
 
         // typescript rules
 		"@typescript-eslint/member-delimiter-style": "error",
