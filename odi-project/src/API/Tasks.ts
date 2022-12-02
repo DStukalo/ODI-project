@@ -1,53 +1,50 @@
+import axios, { AxiosInstance } from 'axios';
+
 import { TaskData } from '@/types/interfaces';
-import axios from 'axios';
+import { ParamsUpdateTasksInColumnID } from '@/types/types';
+import localStorageService from '@/services/localStorageService';
 import { BASE_URL } from './consts';
 
 class TasksToAPI {
+	private instance: AxiosInstance;
+
 	private token: string;
 
 	constructor() {
-		this.token = localStorage.getItem('token') as string;
-
+		this.token = localStorageService.getValue('token');
+		this.instance = axios.create({
+			baseURL: BASE_URL,
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${this.token}`,
+			},
+		});
 	}
 
 	async getTasksInColumnID(
 		boardID: string,
 		columnsID: string,
 	): Promise< { data: TaskData[]; status: number } > {
-		const res = await axios({
-			method: 'get',
-			url: `${BASE_URL}boards/${boardID}/columns/${columnsID}/tasks`,
-			headers: {
-				Accept: 'application/json',
-				Authorization: `Bearer ${this.token}`,
-			},
-		});
+		const res = await this.instance.get(`boards/${boardID}/columns/${columnsID}/tasks`);
 		return { data: res.data, status: res.status };
 	}
 
-	async createTasksInColumnID(
-		boardID: string,
-		columnsID: string,
-		title: string,
-		description: string,
-		users: string[],
-		order = 0,
-		userId = 0,
-	): Promise< { data: TaskData; status: number } > {
-		const res = await axios({
-			method: 'post',
-			url: `${BASE_URL}boards/${boardID}/columns/${columnsID}/tasks`,
-			headers: {
-				Accept: 'application/json',
-				Authorization: `Bearer ${this.token}`,
-			},
-			data: {
-				title: `${title}`,
-				order: `${order}`,
-				description: `${description}`,
-				userId: `${userId}`,
-				users: `${users}`,
-			},
+	async createTasksInColumnID({
+		title,
+		order,
+		users,
+		boardID,
+		columnsID,
+		userId,
+		description,
+	}: Omit<ParamsUpdateTasksInColumnID, 'taskID'>): Promise< { data: TaskData; status: number } > {
+		const res = await this.instance.post(`boards/${boardID}/columns/${columnsID}/tasks`, {
+			title: `${title}`,
+			order: `${order}`,
+			description: `${description}`,
+			userId: `${userId}`,
+			users: `${users}`,
 		});
 		return { data: res.data, status: res.status };
 	}
@@ -57,42 +54,26 @@ class TasksToAPI {
 		columnsID: string,
 		taskID: string,
 	): Promise< { data: TaskData; status: number } > {
-		const res = await axios({
-			method: 'get',
-			url: `${BASE_URL}boards/${boardID}/columns/${columnsID}/tasks/${taskID}`,
-			headers: {
-				Accept: 'application/json',
-				Authorization: `Bearer ${this.token}`,
-			},
-		});
+		const res = await this.instance.get(`boards/${boardID}/columns/${columnsID}/tasks/${taskID}`);
 		return { data: res.data, status: res.status };
 	}
 
-	async updateTaskByIDInColumnsID(
-		title: string,
-		order: number,
-		users: string[],
-		boardID: string,
-		columnsID: string,
-		userId: number,
-		description: string,
-		taskID: string,
-	): Promise< { data: TaskData; status: number }> {
-		const res = await axios({
-			method: 'put',
-			url: `${BASE_URL}boards/${boardID}/columns/${columnsID}/tasks/${taskID}`,
-			headers: {
-				Accept: 'application/json',
-				'Content-Type': 'application/json',
-				Authorization: `Bearer ${this.token}`,
-			},
-			data: {
-				title: `${title}`,
-				order: `${order}`,
-				description: `${description}`,
-				userId: `${userId}`,
-				users: `${users}`,
-			},
+	async updateTaskByIDInColumnsID({
+		title,
+		order,
+		users,
+		boardID,
+		columnsID,
+		userId,
+		description,
+		taskID,
+	}: ParamsUpdateTasksInColumnID): Promise< { data: TaskData; status: number }> {
+		const res = await this.instance.put(`boards/${boardID}/columns/${columnsID}/tasks/${taskID}`, {
+			title: `${title}`,
+			order: `${order}`,
+			description: `${description}`,
+			userId: `${userId}`,
+			users: `${users}`,
 		});
 		return { data: res.data, status: res.status };
 	}
@@ -102,32 +83,19 @@ class TasksToAPI {
 		columnsID: string,
 		taskID: string,
 	): Promise< number > {
-		const res = await axios({
-			method: 'delete',
-			url: `${BASE_URL}boards/${boardID}/columns/${columnsID}/tasks/${taskID}`,
-			headers: {
-				Accept: 'application/json',
-				Authorization: `Bearer ${this.token}`,
-			},
-		});
+		const res = await this.instance.delete(
+			`boards/${boardID}/columns/${columnsID}/tasks/${taskID}`,
+		);
 		return res.status;
 	}
 
 	async getListOfTasksInBoardID(
 		boardID: string,
 	): Promise< { data: TaskData[]; status: number } > {
-		const res = await axios({
-			method: 'get',
-			url: `${BASE_URL}tasksSet/${boardID}`,
-			headers: {
-				Accept: 'application/json',
-				Authorization: `Bearer ${this.token}`,
-			},
-		});
+		const res = await this.instance.get(`tasksSet/${boardID}`);
 		return { data: res.data, status: res.status };
 	}
 
-	// Доделать 2 метода tasksSet
 }
 
 const tasksToAPI = new TasksToAPI();

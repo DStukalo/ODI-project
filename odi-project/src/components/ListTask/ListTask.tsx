@@ -28,7 +28,15 @@ export function ListTask(props: ListTaskInfo) {
 	};
 
 	const addTask = async () => {
-		await tasksToAPI.createTasksInColumnID(idBoard, id, `Task № ${Math.floor(Math.random() * 10)}`, 'discription', ['']);
+		await tasksToAPI.createTasksInColumnID({
+			title: `Task № ${Math.floor(Math.random() * 10)}`,
+			order: 0,
+			users: [''],
+			boardID: idBoard,
+			columnsID: id,
+			userId: 0,
+			description: 'discription',
+		});
 		getTasks();
 	};
 

@@ -24,7 +24,11 @@ export function BoardPage() {
 
 	const addColumn = async () => {
 		if (id) {
-			await columnsToAPI.createColumnInBoardID(`random Column ${Math.floor(Math.random() * 10)}`, id);
+			await columnsToAPI.createColumnInBoardID({
+				title: `random Column ${Math.floor(Math.random() * 10)}`,
+				boardID: id,
+				order: 0,
+			});
 			getColumns();
 		}
 	};
