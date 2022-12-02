@@ -55,4 +55,6 @@ export const en: TranslationPackage = {
 	createTask: 'Create task',
 	placeholderTaskTitle: 'write task title',
 	placeholderTaskDescription: 'write task description',
+	deleteColumnTitle: 'Delete this column?',
+	deleteTaskTitle: 'Delete this task?',
 };

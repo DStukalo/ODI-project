@@ -11,12 +11,21 @@ import { useTranslation } from '../../locales/useTranslation';
 export function ListTask(props: ListTaskInfo) {
 	const [tasksList, setTasks] = useState<TaskData[]>([]);
 	const [modalAddTask, setShowModalAddTask] = useState(false);
+	const [modalDel, setShowModalDel] = useState(false);
 	const [taskTitle, setTasksTitle] = useState('');
 	const [taskDescription, setTasksDescription] = useState('');
 	const {
 		text, id, idBoard, callback,
 	} = props;
 	const newLocal = useTranslation();
+
+	const showModalDel = () => {
+		setShowModalDel(true);
+	};
+
+	const closeModalDel = () => {
+		setShowModalDel(false);
+	};
 
 	function handleChangeTasksTitle(e: React.FormEvent<HTMLInputElement>) {
 		setTasksTitle(e.currentTarget.value);
@@ -33,6 +42,7 @@ export function ListTask(props: ListTaskInfo) {
 	const deleteColumn = async () => {
 		if (id) {
 			callback(id);
+			setShowModalDel(false);
 		}
 	};
 
@@ -76,8 +86,28 @@ export function ListTask(props: ListTaskInfo) {
 				<Button
 					classes="deleteBoard__btn"
 					image="/images/icon-del.png"
-					callback={deleteColumn}
+					callback={showModalDel}
 				/>
+				{modalDel && (
+					<Modal
+						title={newLocal.deleteColumnTitle}
+						onClose={setShowModalDel}
+						classes="modal_delete"
+					>
+						<div>
+							<Button
+								classes="modalBoard__btn"
+								text={newLocal.yes}
+								callback={deleteColumn}
+							/>
+							<Button
+								classes="modalBoard__btn"
+								text={newLocal.no}
+								callback={closeModalDel}
+							/>
+						</div>
+					</Modal>
+				)}
 			</div>
 			<div className={styles.listWrapper}>
 				{tasksList.map((task) => (

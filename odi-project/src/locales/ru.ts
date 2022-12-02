@@ -55,4 +55,6 @@ export const ru: TranslationPackage = {
 	createTask: 'Создать задание',
 	placeholderTaskTitle: 'напишите заголовок задания',
 	placeholderTaskDescription: 'напишите описание задания',
+	deleteColumnTitle: 'Удалть данную колонку?',
+	deleteTaskTitle: 'Удалть данное задание?',
 };
