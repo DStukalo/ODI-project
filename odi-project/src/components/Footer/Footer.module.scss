@@ -14,7 +14,7 @@
     }
     .year,
     .github {
-      color: var(--color-primary-blue-a1);
+      color: var(--color-primary-black-a1);
       font-weight: 400;
       text-align: center;
       font-size: calc(var(--font-size-a2) - 6px);
@@ -34,7 +34,7 @@
         overflow: visible;
         width: 80px;
         height: 80px;
-        color: var(--color-primary-blue-a1);
+        color: var(--color-primary-black-a1);
         transition: all 1000ms linear;
         &:hover {
           color: var(--color-primary-orange-a1);
@@ -50,7 +50,7 @@
         .rss_image {
           display: block;
           width: 80%;
-          filter: invert(81%) sepia(15%) saturate(320%) hue-rotate(172deg) brightness(85%) contrast(83%);
+          filter: invert(6%) sepia(12%) saturate(467%) hue-rotate(329deg) brightness(98%) contrast(102%);
           transition: all 1000ms linear;
           &:hover {
             filter: invert(37%) sepia(75%) saturate(2879%) hue-rotate(346deg) brightness(76%) contrast(96%);
