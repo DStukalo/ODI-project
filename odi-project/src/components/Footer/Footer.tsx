@@ -5,7 +5,8 @@ export function Footer() {
 	return (
 		<footer className={styles.footer}>
 			<div className={styles.container}>
-				<div className={styles.item}>
+				<div className={styles.year}>© 2022</div>
+				<div className={styles.github}>
 					<a
 						href="https://github.com/Olgamalk"
 						className={styles.link}
@@ -31,15 +32,14 @@ export function Footer() {
 						Dmytro
 					</a>
 				</div>
-				<div className={styles.item}>© 2022</div>
-				<div className={styles.item}>
+				<div className={styles.rsschool}>
 					<a
 						href="https://rs.school/react/"
-						className={styles.link}
+						className={styles.rss_link}
 						target="_blank"
 						rel="noreferrer"
 					>
-						<LogoSVG />
+						<LogoSVG className={styles.rss_image} />
 					</a>
 				</div>
 			</div>

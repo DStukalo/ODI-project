@@ -11,7 +11,7 @@ class AuthToAPI {
 	}
 
 	async signup(name: string, login: string, pass: string): Promise<UserDataWithStatus> {
-		const res = await axios.post(`${BASE_URL}auth${this.path}signup`, {
+		const res = await axios.post(`${BASE_URL}${this.path}signup`, {
 			name: `${name}`,
 			login: `${login}`,
 			password: `${pass}`,
@@ -20,7 +20,7 @@ class AuthToAPI {
 	}
 
 	async signin(login: string, pass: string): Promise<AuthenticationData> {
-		const res = await axios.post(`${BASE_URL}auth${this.path}signin`, {
+		const res = await axios.post(`${BASE_URL}${this.path}signin`, {
 			login: `${login}`,
 			password: `${pass}`,
 		});
@@ -28,6 +28,6 @@ class AuthToAPI {
 	}
 }
 
-const authToAPI = new AuthToAPI();
+const authToAPI = new AuthToAPI('auth/');
 
 export default authToAPI;

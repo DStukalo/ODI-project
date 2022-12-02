@@ -38,5 +38,5 @@ export type TTransl = {
 }
 
 export type TNavProps = {
-	logged: string;
+	logged: boolean;
 }
