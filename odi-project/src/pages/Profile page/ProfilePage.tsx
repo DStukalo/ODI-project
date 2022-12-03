@@ -3,9 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/Button/Button';
 import { Input } from '@/components/Input/Input';
 import userToAPI from '@/API/User';
-import { useAppSelector } from '@/hooks/redux';
+import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { useTranslation } from '@/locales/useTranslation';
 import { Modal } from '@/components/Modal/Modal';
+import { unLogged } from '@/store/reducers/UserSlice';
+// import { useAppDispatch } from '@/hooks/redux';
 import styles from './ProfilePage.module.scss';
 
 export function ProfilePage() {
@@ -19,10 +21,13 @@ export function ProfilePage() {
 	const [showSuccessModal, setShowSuccessModal] = useState(false);
 	const [showDeleteModal, setShowDeleteModal] = useState(false);
 
+	const dispatch = useAppDispatch();
+
 	const deleteUser = async () => {
 		try {
 			await userToAPI.deleteUserByID(user._id);
 			setShowDeleteModal(true);
+			dispatch(unLogged(false));
 			setTimeout(() => navigate('/'), 2000);
 		} catch (error) {
 			setShowErrorModal(true);
