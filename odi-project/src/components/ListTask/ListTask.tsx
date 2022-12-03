@@ -9,14 +9,17 @@ import styles from './ListTask.module.scss';
 import { useTranslation } from '../../locales/useTranslation';
 
 export function ListTask(props: ListTaskInfo) {
+	const {
+		text, id, idBoard, callback, update,
+	} = props;
 	const [tasksList, setTasks] = useState<TaskData[]>([]);
 	const [modalAddTask, setShowModalAddTask] = useState(false);
 	const [modalDel, setShowModalDel] = useState(false);
+	const [showInput, setShowInput] = useState(false);
 	const [taskTitle, setTasksTitle] = useState('');
+	const [columnTitle, setColumnTitle] = useState(text);
 	const [taskDescription, setTasksDescription] = useState('');
-	const {
-		text, id, idBoard, callback,
-	} = props;
+
 	const newLocal = useTranslation();
 
 	const showModalDel = () => {
@@ -26,6 +29,10 @@ export function ListTask(props: ListTaskInfo) {
 	const closeModalDel = () => {
 		setShowModalDel(false);
 	};
+
+	function handleChangeColumnTitle(e: React.FormEvent<HTMLInputElement>) {
+		setColumnTitle(e.currentTarget.value);
+	}
 
 	function handleChangeTasksTitle(e: React.FormEvent<HTMLInputElement>) {
 		setTasksTitle(e.currentTarget.value);
@@ -37,6 +44,21 @@ export function ListTask(props: ListTaskInfo) {
 
 	const showModalAddTask = () => {
 		setShowModalAddTask(true);
+	};
+
+	const showInputSwitch = () => {
+		if (showInput) {
+			setShowInput(false);
+			return;
+		}
+		setShowInput(true);
+	};
+
+	const updateColumnTitle = async () => {
+		if (id) {
+			update(id, columnTitle);
+			setShowInput(false);
+		}
 	};
 
 	const deleteColumn = async () => {
@@ -82,12 +104,45 @@ export function ListTask(props: ListTaskInfo) {
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.listHeader}>
-				<h3 className={styles.listTitle}>{text}</h3>
-				<Button
-					classes="deleteBoard__btn"
-					image="/images/icon-del.png"
-					callback={showModalDel}
-				/>
+				{(showInput) ? (
+					<>
+						<input
+							type="text"
+							autoComplete="off"
+							name="columnTitle"
+							value={columnTitle}
+							onChange={handleChangeColumnTitle}
+							id="columnTitle"
+							className={styles.listHeaderInput}
+						/>
+						<Button
+							classes="button_input"
+							image="/images/icon-ok.png"
+							callback={updateColumnTitle}
+						/>
+						<Button
+							classes="button_input"
+							image="/images/icon-close.png"
+							callback={showInputSwitch}
+						/>
+					</>
+				)
+					: (
+						<>
+							<h3
+								className={styles.listTitle}
+								onClick={showInputSwitch}
+								aria-hidden="true"
+							>
+								{text}
+							</h3>
+							<Button
+								classes="deleteBoard__btn"
+								image="/images/icon-del.png"
+								callback={showModalDel}
+							/>
+						</>
+					)}
 				{modalDel && (
 					<Modal
 						title={newLocal.deleteColumnTitle}

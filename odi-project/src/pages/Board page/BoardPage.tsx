@@ -52,6 +52,18 @@ export function BoardPage() {
 		}
 	};
 
+	const updateColumn = async (idColumn: string, columnTitle: string) => {
+		if (id) {
+			await columnsToAPI.updateColumnsByIDInBoardID({
+				title: columnTitle,
+				order: 0,
+				boardID: id,
+				columnsID: idColumn,
+			});
+			getColumns(id);
+		}
+	};
+
 	const getBoard = async (idBoard: string | undefined) => {
 		if (idBoard) {
 			const { title } = await boardsToAPI.getBoardByID(idBoard);
@@ -84,6 +96,7 @@ export function BoardPage() {
 						id={column._id}
 						text={column.title}
 						callback={deleteColumn}
+						update={updateColumn}
 					/>
 				))}
 				{modalAddColumn && (

@@ -216,6 +216,24 @@
   cursor: pointer;
 }
 
+.button_input{
+  padding: 0;
+  z-index: 1;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 50%;
+  background:rgba(255, 255, 255, 0);
+  transition: all 200ms linear;
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+  }
+  img {
+    width: 25px;
+    height: 25px;
+  }
+}
+
 .modalBoard__btn {
   width: 100px;
   padding: 10px 15px;

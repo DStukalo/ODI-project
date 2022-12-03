@@ -27,15 +27,21 @@
 }
 
 .listTitle {
+	max-width: 195px;
 	align-self: center;
 	font-weight: 400;
 	font-size: var(--font-size-a2);
 	word-wrap: normal;
+	cursor: pointer;
+	transition: color 400ms linear;
+}
+
+.listTitle:hover {
+	color: var(--color-primary-orange-a3);
 }
 
 .listHeader{
-	padding: 0 10px 0 20px;
-	width: calc(100% - 30px);
+	width: calc(100% - 20px);
 	display: flex;
 	align-items: center;
 	justify-content:space-between;
@@ -49,4 +55,10 @@
 	gap: 7px;
 	flex-direction: column;
 	justify-content: space-between;
+}
+
+.listHeaderInput{
+	border-radius: 10px;
+	width: 175px;
+	padding: 3px 0;
 }
