@@ -50,4 +50,10 @@ export const en: TranslationPackage = {
 	backBtn: 'Back',
 	addTask: 'Add task',
 	addColumn: 'Add column',
+	profileHeader: 'Profile',
+	profileModalHeader: 'Dear',
+	profileModalEdit: 'Your profile was successfuly updated!',
+	profileHeaderEdit: 'Edit your profile',
+	profileButtonSave: 'Save',
+	profileButtonDelete: 'Delete',
 };

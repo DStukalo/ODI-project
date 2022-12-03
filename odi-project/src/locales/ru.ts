@@ -50,4 +50,10 @@ export const ru: TranslationPackage = {
 	backBtn: 'Назад',
 	addTask: 'Добавить задание',
 	addColumn: 'Добавить колонку',
+	profileHeader: 'Профиль',
+	profileModalHeader: 'Дорогой',
+	profileModalEdit: 'Твой профиль был успешно изменен!',
+	profileHeaderEdit: 'Редактировать профиль',
+	profileButtonSave: 'Сохранить',
+	profileButtonDelete: 'Удалить',
 };
