@@ -53,7 +53,12 @@ export const en: TranslationPackage = {
 	profileHeader: 'Profile',
 	profileModalHeader: 'Dear',
 	profileModalEdit: 'Your profile was successfuly updated!',
+	profileModalDelete: 'Your profile was successfuly deleted!',
+	profileModalError: 'Something went wrong. Try again.',
 	profileHeaderEdit: 'Edit your profile',
 	profileButtonSave: 'Save',
 	profileButtonDelete: 'Delete',
+	profileLegendName: 'Name',
+	profileLegendLogin: 'Login',
+	profileLegendPassword: 'Password',
 };

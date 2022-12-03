@@ -53,7 +53,12 @@ export const ru: TranslationPackage = {
 	profileHeader: 'Профиль',
 	profileModalHeader: 'Дорогой',
 	profileModalEdit: 'Твой профиль был успешно изменен!',
+	profileModalDelete: 'Твой профиль был успешно удaлен!',
+	profileModalError: 'Что-то пошло не так. Попробуй еще раз.',
 	profileHeaderEdit: 'Редактировать профиль',
 	profileButtonSave: 'Сохранить',
 	profileButtonDelete: 'Удалить',
+	profileLegendName: 'Имя',
+	profileLegendLogin: 'Логин',
+	profileLegendPassword: 'Пароль',
 };
