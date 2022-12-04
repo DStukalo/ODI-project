@@ -13,7 +13,7 @@ import { TaskInfo } from '../Task/TaskTypes';
 
 export function ListTask(props: ListTaskInfo) {
 	const {
-		text, id, idBoard, callback, update,
+		text, id, idBoard, callback, update, updateList, drop,
 	} = props;
 	const [tasksList, setTasks] = useState<TaskData[]>([]);
 	const [modalAddTask, setShowModalAddTask] = useState(false);
@@ -65,7 +65,7 @@ export function ListTask(props: ListTaskInfo) {
 	const getTasks = async (boardId: string, idColumn: string) => {
 		const { data } = await tasksToAPI.getTasksInColumnID(boardId, idColumn);
 		// data.sort((a, b) => a.order - b.order);
-		console.log(data);
+		// console.log(data);
 		setTasks(data);
 	};
 
@@ -118,7 +118,7 @@ export function ListTask(props: ListTaskInfo) {
 
 	useEffect(() => {
 		getTasks(idBoard, id);
-	}, [idBoard, id]);
+	}, [idBoard, id, drop]);
 
 	async function dropped(item: TaskInfo, BoardID: string, curColumnID: string, userID: string) {
 		await tasksToAPI.updateTaskByIDInColumnsID({
@@ -131,13 +131,11 @@ export function ListTask(props: ListTaskInfo) {
 			description: item.description,
 			taskID: item._id,
 		});
-		getTasks(idBoard, id);
-		getTasks(idBoard, curColumnID);
+		updateList();
 	}
 
 	const [{ isOver }, dropRef] = useDrop({
 		accept: 'task',
-		// eslint-disable-next-line @typescript-eslint/no-shadow
 		drop: (item: TaskInfo) => dropped(item, idBoard, id, user._id),
 		collect: (monitor) => ({
 			isOver: monitor.isOver(),
