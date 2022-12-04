@@ -1,6 +1,6 @@
 export type ParamsUpdateColumnsByIDInBoardID = {
 	title: string;
-	order: string;
+	order: number;
 	boardID: string;
 	columnsID: string;
 }

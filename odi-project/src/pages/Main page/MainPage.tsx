@@ -22,19 +22,23 @@ export function MainPage() {
 		const { data } = await boardsToAPI.getBoards();
 		setBoards(data);
 	};
+
 	const addBoard = async () => {
 		await boardsToAPI.createNewBoard(boardName, user._id);
 		setShowModalAdd(false);
 		setBoardName('');
 		getBoards();
 	};
+
 	const showModalAdd = () => {
 		setShowModalAdd(true);
 	};
+
 	const deleteBoard = async (id: string) => {
 		await boardsToAPI.deleteBoardByID(id);
 		getBoards();
 	};
+
 	useEffect(() => {
 		getBoards();
 	}, []);

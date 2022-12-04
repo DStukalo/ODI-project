@@ -67,7 +67,7 @@ export function Register() {
 					onClose={setShowErrorModal}
 					classes="modal_auth"
 				>
-					<h3>{newLocal.modalSuccessLoginText}</h3>
+					<h3>{newLocal.modalSuccessRegisterText}</h3>
 				</Modal>
 			)}
 			<form onSubmit={handleSubmit} className={styles.form_auth}>

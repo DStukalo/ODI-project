@@ -6,4 +6,5 @@ export interface TaskInfo {
 	order: number;
 	description: string;
 	callback: (idColumn: string) => Promise<void>;
+	update: (idTask: string, newTaskTitle: string, newTaskDescription: string) => Promise<void>;
 }

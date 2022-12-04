@@ -72,6 +72,7 @@ class TasksToAPI {
 			title: `${title}`,
 			order: `${order}`,
 			description: `${description}`,
+			columnId: `${columnsID}`,
 			userId: `${userId}`,
 			users: `${users}`,
 			columnId: `${columnsID}`,

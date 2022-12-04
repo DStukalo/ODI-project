@@ -107,13 +107,122 @@
     text-align: center;
     gap: 20px;
     input{
-      padding-left: 5px;
+      padding: 5px 0 5px 5px;
       border-radius: 10px;
       min-width: 250px;
       border: 1px solid var(--color-background-primary-grey-f3);
     }
     h2 {
       font-weight: 400;
+    }
+  }
+}
+
+.modal_createTask {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background: var(--color-background-primary-grey-f3);
+  div {
+    position: relative;
+    border-radius: 10px;
+    border: none;
+    margin: 0 auto;
+    max-width: 500px;
+    padding: 20px 10px;
+    width: 100%;
+    min-height: 25%;
+    background: linear-gradient(60deg, #ffffff,#d3dae1,#ffffff);
+    margin: 9% auto 15% auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+    input{
+      padding: 5px 0 5px 5px;
+      border-radius: 10px;
+      min-width: 300px;
+      border: 1px solid var(--color-background-primary-grey-f3);
+    }
+    textarea{
+      padding: 5px 0 5px 5px;
+      border-radius: 10px;
+      min-width: 300px;
+      min-height: 90px;
+      border: 1px solid var(--color-background-primary-grey-f3);
+    }
+    h2 {
+      font-weight: 400;
+    }
+  }
+}
+
+.modal_description {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background: var(--color-background-primary-grey-f3);
+  div {
+    position: relative;
+    border-radius: 10px;
+    border: none;
+    margin: 0 auto;
+    max-width:700px;
+    padding: 10px 10px 30px 10px;
+    width: 100%;
+    min-height: 25%;
+    background: linear-gradient(60deg, #ffffff,#d3dae1,#ffffff);
+    margin: 9% auto 15% auto;
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+    flex-direction: column;
+    text-align: center;
+    gap: 30px;
+    div {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 10px;
+      flex-direction: row;
+      background: none;
+      padding: 0;
+      margin: 0;
+      div {
+        gap: 30px;
+      }
+      span{
+        width:400px;
+        text-align: start;
+        white-space: pre-wrap;
+      }
+      span:nth-child(odd){
+        width:120px;
+        text-align: end;
+      }
+      input{
+        padding: 5px 0 5px 5px;
+        border-radius: 10px;
+        min-width: 400px;
+        border: 1px solid var(--color-background-primary-grey-f3);
+      }
+      textarea{
+        padding: 5px 0 5px 5px;
+        border-radius: 10px;
+        min-width: 400px;
+        min-height: 90px;
+        border: 1px solid var(--color-background-primary-grey-f3);
+      }
     }
   }
 }
