@@ -2,12 +2,15 @@
 /* eslint-disable no-underscore-dangle */
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/Button/Button';
+import { useAppSelector } from '@/hooks/redux';
 import { Task } from '@/components/Task/Task';
 import tasksToAPI from '@/API/Tasks';
 import { TaskData } from '@/types/interfaces';
+import { useDrop } from 'react-dnd';
 import { ListTaskInfo } from './ListTaskTypes';
 import styles from './ListTask.module.scss';
 import { useTranslation } from '../../locales/useTranslation';
+import { TaskInfo } from '../Task/TaskTypes';
 
 export function ListTask(props: ListTaskInfo) {
 	const [tasksList, setTasks] = useState<TaskData[]>([]);
@@ -15,6 +18,7 @@ export function ListTask(props: ListTaskInfo) {
 		text, id, idBoard, callback,
 	} = props;
 	const newLocal = useTranslation();
+	const { user } = useAppSelector((state) => state.userReducer);
 
 	const deleteColumn = async () => {
 		if (id) {
@@ -22,38 +26,65 @@ export function ListTask(props: ListTaskInfo) {
 		}
 	};
 
-	const getTasks = async () => {
-		const { data } = await tasksToAPI.getTasksInColumnID(idBoard, id);
+	const getTasks = async (currentId: string) => {
+		const { data } = await tasksToAPI.getTasksInColumnID(idBoard, currentId);
+		// data.sort((a, b) => a.order - b.order);
+		console.log(data);
 		setTasks(data);
 	};
 
 	const addTask = async () => {
 		await tasksToAPI.createTasksInColumnID({
 			title: `Task № ${Math.floor(Math.random() * 10)}`,
-			order: 0,
+			order: tasksList.length,
 			users: [''],
 			boardID: idBoard,
 			columnsID: id,
-			userId: 0,
+			userId: user._id,
 			description: 'discription',
 		});
-		getTasks();
+		getTasks(id);
 	};
 
 	const deleteTask = async (idTask: string) => {
 		if (id) {
 			await tasksToAPI.deleteTaskByIDInColumnsID(idBoard, id, idTask);
-			getTasks();
+			getTasks(id);
 		}
 	};
 
 	useEffect(() => {
-		getTasks();
+		getTasks(id);
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
+	async function dropped(item: TaskInfo, BoardID: string, curColumnID: string, userID: string) {
+		await tasksToAPI.updateTaskByIDInColumnsID({
+			title: item.title,
+			order: item.order,
+			users: [''],
+			boardID: BoardID,
+			columnsID: id,
+			userId: userID,
+			description: item.description,
+			taskID: item._id,
+		});
+
+		getTasks(id);
+		getTasks(curColumnID);
+	}
+
+	const [{ isOver }, dropRef] = useDrop({
+		accept: 'task',
+		// eslint-disable-next-line @typescript-eslint/no-shadow
+		drop: (item: TaskInfo) => dropped(item, idBoard, id, user._id),
+		collect: (monitor) => ({
+			isOver: monitor.isOver(),
+		}),
+	});
+
 	return (
-		<div className={styles.wrapper}>
+		<div className={styles.wrapper} ref={dropRef}>
 			<div className={styles.listHeader}>
 				<h3 className={styles.listTitle}>{text}</h3>
 				<Button
@@ -66,9 +97,13 @@ export function ListTask(props: ListTaskInfo) {
 				{tasksList.map((task) => (
 					<Task
 						key={task._id}
-						id={task._id}
+						_id={task._id}
 						title={task.title}
 						callback={deleteTask}
+						columnsID={id}
+						users={task.users}
+						order={task.order}
+						description={task.description}
 					/>
 				))}
 			</div>

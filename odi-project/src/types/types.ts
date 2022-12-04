@@ -24,7 +24,7 @@ export type ParamsUpdateTasksInColumnID = {
 	users: string[];
 	boardID: string;
 	columnsID: string;
-	userId: number;
+	userId: string;
 	description: string;
 	taskID: string;
 }
