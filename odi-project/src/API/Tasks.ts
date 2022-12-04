@@ -75,7 +75,6 @@ class TasksToAPI {
 			columnId: `${columnsID}`,
 			userId: `${userId}`,
 			users: `${users}`,
-			columnId: `${columnsID}`,
 		});
 		return { data: res.data, status: res.status };
 	}

@@ -22,14 +22,12 @@ export function ListTask(props: ListTaskInfo) {
 	const [taskTitle, setTasksTitle] = useState('');
 	const [columnTitle, setColumnTitle] = useState(text);
 	const [taskDescription, setTasksDescription] = useState('');
-
 	const newLocal = useTranslation();
 	const { user } = useAppSelector((state) => state.userReducer);
 
 	const showModalDel = () => {
 		setShowModalDel(true);
 	};
-
 	const closeModalDel = () => {
 		setShowModalDel(false);
 	};
@@ -49,7 +47,6 @@ export function ListTask(props: ListTaskInfo) {
 	const showModalAddTask = () => {
 		setShowModalAddTask(true);
 	};
-
 	const showInputSwitch = () => {
 		if (showInput) {
 			setShowInput(false);
@@ -68,6 +65,7 @@ export function ListTask(props: ListTaskInfo) {
 	const getTasks = async (boardId: string, idColumn: string) => {
 		const { data } = await tasksToAPI.getTasksInColumnID(boardId, idColumn);
 		// data.sort((a, b) => a.order - b.order);
+		console.log(data);
 		setTasks(data);
 	};
 
@@ -133,9 +131,8 @@ export function ListTask(props: ListTaskInfo) {
 			description: item.description,
 			taskID: item._id,
 		});
-
-		// getTasks(id);
-		// getTasks(curColumnID);
+		getTasks(idBoard, id);
+		getTasks(idBoard, curColumnID);
 	}
 
 	const [{ isOver }, dropRef] = useDrop({
