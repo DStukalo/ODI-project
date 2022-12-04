@@ -37,7 +37,7 @@ export function BoardPage() {
 			await columnsToAPI.createColumnInBoardID({
 				title: columnName,
 				boardID: id,
-				order: 0,
+				order: columnList.length,
 			});
 			setShowModalAddColumn(false);
 			setColumnName('');
@@ -56,7 +56,7 @@ export function BoardPage() {
 		if (id) {
 			await columnsToAPI.updateColumnsByIDInBoardID({
 				title: columnTitle,
-				order: 0,
+				order: 1,
 				boardID: id,
 				columnsID: idColumn,
 			});

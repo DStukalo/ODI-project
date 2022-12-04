@@ -61,6 +61,27 @@ export function ListTask(props: ListTaskInfo) {
 		}
 	};
 
+	const getTasks = async (boardId: string, idColumn: string) => {
+		const { data } = await tasksToAPI.getTasksInColumnID(boardId, idColumn);
+		setTasks(data);
+	};
+
+	const updateTask = async (idTask: string, newTaskTitle: string, newTaskDescription: string) => {
+		if (id) {
+			await tasksToAPI.updateTaskByIDInColumnsID({
+				title: newTaskTitle,
+				order: 0,
+				users: [''],
+				boardID: idBoard,
+				columnsID: id,
+				userId: 0,
+				description: newTaskDescription,
+				taskID: idTask,
+			});
+			getTasks(idBoard, id);
+		}
+	};
+
 	const deleteColumn = async () => {
 		if (id) {
 			callback(id);
@@ -68,15 +89,10 @@ export function ListTask(props: ListTaskInfo) {
 		}
 	};
 
-	const getTasks = async (boardId: string, idColumn: string) => {
-		const { data } = await tasksToAPI.getTasksInColumnID(boardId, idColumn);
-		setTasks(data);
-	};
-
 	const addTask = async () => {
 		await tasksToAPI.createTasksInColumnID({
 			title: taskTitle,
-			order: 0,
+			order: tasksList.length,
 			users: [''],
 			boardID: idBoard,
 			columnsID: id,
@@ -170,7 +186,9 @@ export function ListTask(props: ListTaskInfo) {
 						key={task._id}
 						id={task._id}
 						title={task.title}
+						description={task.description}
 						callback={deleteTask}
+						update={updateTask}
 					/>
 				))}
 			</div>
