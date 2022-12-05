@@ -298,3 +298,19 @@
     height: 24px;
   }
 }
+
+.menu {
+  border: none;
+  background-color: transparent;
+  position: relative;
+  z-index: 15;
+  img {
+    background-color: var(--color-background-primary-grey-a1);
+  }
+}
+
+@media (min-width: 601px) {
+  .menu {
+    display: none;
+  }
+}
