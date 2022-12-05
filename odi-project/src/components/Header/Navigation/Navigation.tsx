@@ -5,13 +5,17 @@ import { changeLang } from '@/store/reducers/LanguageSlice';
 import localStorageService from '@/services/localStorageService';
 import { unLogged } from '@/store/reducers/UserSlice';
 import { useNavigate } from 'react-router-dom';
+import { Modal } from '@/components/Modal/Modal';
+import boardsToAPI from '@/API/Boards';
 import { useState } from 'react';
 import { NavItem } from './NavItem/NavItem';
 import { Logo } from './Logo/Logo';
 import styles from './Navigation.module.scss';
 
 export function Navigation() {
-
+	const [modalAdd, setShowModalAdd] = useState(false);
+	const [boardName, setBoardName] = useState('');
+	const { user } = useAppSelector((state) => state.userReducer);
 	const [menu, setMenu] = useState(false);
 
 	const dispatch = useAppDispatch();
@@ -41,11 +45,31 @@ export function Navigation() {
 		setMenu(false);
 	};
 
+	const showModalAdd = () => {
+		setShowModalAdd(true);
+	};
+
+	function handleChangeBoardName(e: React.FormEvent<HTMLInputElement>) {
+		setBoardName(e.currentTarget.value);
+	}
+
+	const addBoard = async () => {
+		await boardsToAPI.createNewBoard(boardName, user._id);
+		setShowModalAdd(false);
+		setBoardName('');
+		navigate('/main');
+	};
+
 	const navAuthItems = (
 		<div className={`${styles.nav_items} ${(menu ? styles.nav_overlay : '')}`}>
 			<ul className={`${styles.list} ${(menu ? styles.show : '')}`}>
 				<NavItem path="main" text={newLocal.main} callback={closeMenu} />
-				<NavItem path="main/board" text={newLocal.newBoard} callback={closeMenu} />
+				<NavItem
+					path=""
+					text={newLocal.newBoard}
+					callModal={showModalAdd}
+					callback={closeMenu}
+				/>
 				<NavItem
 					path="profile"
 					text={newLocal.profile}
@@ -58,6 +82,27 @@ export function Navigation() {
 					callback={() => dispatch(logOut(false))}
 				/>
 			</ul>
+      {modalAdd && (
+        <Modal
+          title={newLocal.createTitle}
+          onClose={setShowModalAdd}
+          classes="modal_create"
+        >
+          <input
+            type="text"
+            name="boardName"
+            value={boardName}
+            onChange={handleChangeBoardName}
+            id="boardName"
+            placeholder={newLocal.createPlaceholder}
+          />
+          <Button
+            classes="modalBoard__btn"
+            text={newLocal.create}
+            callback={addBoard}
+          />
+        </Modal>
+      )}
 		</div>
 	);
 
@@ -74,6 +119,7 @@ export function Navigation() {
 		</div>
 
 	);
+
 
 	return (
 		<nav role="navigation" className={styles.navigation}>

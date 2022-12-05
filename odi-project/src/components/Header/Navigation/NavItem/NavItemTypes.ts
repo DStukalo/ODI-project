@@ -1,5 +1,6 @@
 export type TNavItemProps = {
-	path: string;
+	path?: string;
 	text: string;
+	callModal?: () => void;
 	callback?: () => void;
 }

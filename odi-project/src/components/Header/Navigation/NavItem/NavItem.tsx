@@ -4,7 +4,16 @@ import styles from './NavItem.module.scss';
 import { TNavItemProps } from './NavItemTypes';
 
 export function NavItem(props: TNavItemProps) {
-	const { path, text, callback } = props;
+	const {
+		path, text, callback, callModal,
+	} = props;
+
+	const handlClick = () => {
+		if (callback && callModal) {
+			callback();
+			callModal();
+		}
+	};
 	return (
 		<li className={styles.list__item}>
 			<NavLink
@@ -12,7 +21,7 @@ export function NavItem(props: TNavItemProps) {
 					? `${styles.active}`
 					: `${styles.navigation__item}`)}
 				to={`/${path}`}
-				onClick={callback}
+				onClick={handlClick}
 			>
 				{text}
 			</NavLink>
