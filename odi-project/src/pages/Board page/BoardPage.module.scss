@@ -1,7 +1,7 @@
 .wrapper {
 	width: 100%;
 	height: auto;
-	min-height: calc(100vh - 90px - 90px);
+	min-height: calc(100vh - 90px - 60px);
 	background: var(--color-background-gradient-welcome);
 	display: flex;
 	align-items: center;
@@ -11,6 +11,7 @@
 
 .titleSection{
 	width:max(80%, 1200px);
+	height: 110px;
 	display: flex;
 	align-items:center;
 	justify-content:flex-start;
@@ -22,6 +23,7 @@
 
 .columList{
 	width:max(80%, 1200px);
+	min-height: calc(100vh - 90px - 60px - 110px - 10px);
 	margin: 0 auto;
 	display: flex;
 	align-items: flex-start;
@@ -60,4 +62,14 @@
 	.columList{
 		width:max(100%, 320px);
   }
+}
+
+@media (max-width: 600px) {
+  .columList{
+		min-height: calc(100vh - 90px - 90px - 110px - 10px);
+  }
+	.titleSection{
+		font-size: 14px;
+		gap: 20px;
+	}
 }

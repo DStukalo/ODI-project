@@ -79,3 +79,79 @@
 			background-image: url("../../assets/olgaPhoto.jpg");
 			}
 }
+
+@media (max-width: 900px) {
+  .about-card-left {
+    margin: 0.75rem 15% 0.75rem 1.5rem;
+    padding: 0 20px 0 30px;
+  }
+
+  .about-card-right {
+    margin: 0.75rem 1.5rem 0.75rem 15%;
+    padding: 0 30px 0 20px;
+  }
+
+  p {
+    font-size: 0.85rem;
+  }
+
+  .description{
+    width: 290px;
+  };
+}
+
+@media (max-width: 750px) {
+
+  .about-card-left {
+    margin: 0.75rem 10% 0.75rem 1rem;
+    padding: 0 10px 0 20px;
+  }
+
+  .about-card-right {
+    margin: 0.75rem 1rem 0.75rem 10%;
+    padding: 0 20px 0 10px;
+  }
+
+  .description{
+    width: 250px;
+  };
+
+  p {
+    font-size: 0.7rem;
+  }
+
+}
+
+@media (max-width: 600px) {
+  .about-card-right {
+    height: auto;
+    margin: 0.25rem 1.5rem 0.25rem 1.5rem;
+    background: linear-gradient(180deg, rgb(197, 222, 252) 10%, rgba(253,253,253,1) 45%, rgba(255,255,255,1) 100%);
+    flex-direction: column;
+    padding:10px;
+    gap:10px;
+  }
+  .about-card-left {
+    height: auto;
+    margin: 0.25rem 1.5rem 0.25rem 1.5rem;
+    background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(253,253,253,1) 55%, rgba(212,219,255,1) 90%);
+    flex-direction: column;
+    padding:10px;
+    gap:10px;
+  }
+  .description{
+    width: 90%;
+    order: 1;
+  };
+
+  h3 {
+    font-size: 1rem;
+  }
+  h4 {
+    text-align: center;
+  }
+
+  .img-wrapper-igor{
+    order: -1;
+  }
+}

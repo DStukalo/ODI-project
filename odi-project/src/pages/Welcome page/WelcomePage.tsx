@@ -1,5 +1,5 @@
-import { NavLink } from 'react-router-dom';
-
+import { useAppSelector } from '@/hooks/redux';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/Button/Button';
 import { AboutBlock } from '@/components/AboutBlock/AboutBlock';
 import { DescriptionBlock } from '@/components/DescriptionBlock/DescriptionBlock';
@@ -8,18 +8,19 @@ import { technologiesData } from '@/components/TechnologyBlock/TechnologiesData'
 import { useTranslation } from '@/locales/useTranslation';
 import styles from './WelcomePage.module.scss';
 
-let path = 'main';
-
-function switchPage() {
-	if (localStorage.getItem('isLogged') === 'false') {
-		path = 'main';
-	} else {
-		path = 'authorization';
-	}
-}
-
 export function WelcomePage() {
 	const newLocal = useTranslation();
+	const navigate = useNavigate();
+	const { isLogged } = useAppSelector((state) => state.userReducer);
+
+	const switchPage = () => {
+		if (isLogged) {
+			navigate('/main');
+		} else {
+			navigate('/authorization/login');
+		}
+	};
+
 	return (
 		<div className={styles.wrapper}>
 			<section className={styles.welcomeSection}>
@@ -28,14 +29,12 @@ export function WelcomePage() {
 					<p className={styles.description}>
 						{newLocal.welcomeDescription}
 					</p>
-					<NavLink to={`/${path}`}>
-						<Button
-							text={newLocal.welcomeButton}
-							classes="welcome__btn"
-							image="/images/icon-start.png"
-							callback={switchPage}
-						/>
-					</NavLink>
+					<Button
+						text={newLocal.welcomeButton}
+						classes="welcome__btn"
+						image="/images/icon-start.png"
+						callback={switchPage}
+					/>
 				</div>
 				<div className={styles.welcomeImg} />
 			</section>

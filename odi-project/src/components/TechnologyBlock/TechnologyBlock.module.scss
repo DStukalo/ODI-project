@@ -28,3 +28,48 @@
   transform:translateY(-5px)
 }
 
+@media (max-width: 1240px) {
+	.wrapper {
+		width: 11vw;
+    height: 11vw;
+    .description {
+      font-size: calc(var(--font-size-a2) - 4px);
+    }
+	}
+  .imgWrapper {
+    width: 6vw;
+    height: 6vw;
+  }
+}
+
+@media (max-width: 900px) {
+	.wrapper {
+    padding: 8px;
+    gap: 8px;
+		width: 11vw;
+    height: 11vw;
+    .description {
+      font-size: calc(var(--font-size-a2) - 10px);
+    }
+	}
+  .imgWrapper {
+    width: 5vw;
+    height: 5vw;
+  }
+}
+
+@media (max-width: 600px) {
+	.wrapper {
+    padding: 5px;
+    gap: 8px;
+		width: 80px;
+    height: 80px;
+    .description {
+      font-size: calc(var(--font-size-a2) - 12px);
+    }
+	}
+  .imgWrapper {
+    width: 30px;
+    height: 30px;
+  }
+}
