@@ -1,7 +1,8 @@
 import { useTranslation } from '@/locales/useTranslation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import AuthToAPI from '@/API/Authorization';
+import { isValidName, isValidPassword } from '@/functions/isValidForm';
 import styles from '../../pages/Authorization page/AuthorizationPage.module.scss';
 import { Modal } from '../Modal/Modal';
 
@@ -16,6 +17,17 @@ export function Register() {
 
 	const [showErrorModal, setShowErrorModal] = useState(false);
 	const [showSuccessModal, setShowSuccessModal] = useState(false);
+
+	const [isFormValid, setFormValid] = useState<boolean>(false);
+
+	useEffect(() => {
+		setFormValid(
+			isValidName(login)
+			&& isValidName(name)
+			&& isValidPassword(password),
+		);
+		setSubmit(true);
+	}, [name, login, password]);
 
 	function handleChangeName(e: React.FormEvent<HTMLInputElement>) {
 		setName(e.currentTarget.value);
@@ -52,7 +64,7 @@ export function Register() {
 			<h2>{newLocal.signup}</h2>
 			{showErrorModal && (
 				<Modal
-					title={newLocal.modalRegisterHeader}
+					title={`${newLocal.modalRegisterHeader} ${login}`}
 					buttonText={newLocal.modalButton}
 					onClose={setShowErrorModal}
 					classes="modal_auth"
@@ -62,7 +74,7 @@ export function Register() {
 			)}
 			{showSuccessModal && (
 				<Modal
-					title={newLocal.modalRegisterHeader}
+					title={`${newLocal.modalRegisterHeader} ${login}`}
 					buttonText={newLocal.modalButton}
 					onClose={setShowErrorModal}
 					classes="modal_auth"
@@ -72,7 +84,7 @@ export function Register() {
 			)}
 			<form onSubmit={handleSubmit} className={styles.form_auth}>
 				<fieldset className={styles.form_fieldset}>
-					{submit && !name && (
+					{submit && !isValidName(name) && (
 						<legend className={styles.error}>{newLocal.errorFirstName}</legend>
 					)}
 					<input
@@ -86,7 +98,7 @@ export function Register() {
 					/>
 				</fieldset>
 				<fieldset className={styles.form_fieldset}>
-					{submit && !login && (
+					{submit && !isValidName(login) && (
 						<legend className={styles.error}>{newLocal.errorUsername}</legend>
 					)}
 					<input
@@ -100,7 +112,7 @@ export function Register() {
 					/>
 				</fieldset>
 				<fieldset className={styles.form_fieldset}>
-					{submit && !password && (
+					{submit && !isValidPassword(password) && (
 						<legend className={styles.error}>{newLocal.errorpassword}</legend>
 					)}
 					<input
@@ -117,7 +129,13 @@ export function Register() {
 					<Link to="/authorization/login" className={styles.form_link}>
 						{newLocal.btnRgs}
 					</Link>
-					<button type="submit" className={styles.form_button}>{newLocal.signup}</button>
+					<button
+						type="submit"
+						className={styles.form_button}
+						disabled={!isFormValid}
+					>
+						{newLocal.signup}
+					</button>
 				</div>
 			</form>
 		</div>

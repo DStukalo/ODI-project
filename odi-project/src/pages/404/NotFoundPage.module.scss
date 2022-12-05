@@ -1,0 +1,33 @@
+.wrapper {
+	width: 100%;
+	height: auto;
+	min-height: calc(100vh - 90px - 90px);
+	background: var(--color-background-gradient-welcome);
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	padding-top: 90px;
+}
+
+.welcome {
+	padding: var(--padding-size-a1);
+}
+
+.text {
+	font-family: "Raleway", sans-serif;
+	font-weight: 400;
+	color: var(--color-background-primary-grey-a1);
+	font-size: var(--font-size-a2);
+	@media (max-width: 740px) {
+		font-size: var(--font-size-a3);
+	}
+}
+
+.time {
+	font-weight: 600;
+	color: var(--color-primary-orange-a1);
+	font-size: var(--font-size-a1);
+	@media (max-width: 740px) {
+		font-size: var(--font-size-a2);
+	}
+}

@@ -2,22 +2,30 @@
   --color-background-primary-grey-a1: #2c3e50;
   --color-background-primary-grey-a2: #4a5e72;
   --color-background-primary-grey-f3: rgba(128, 128, 128, 0.5);
-  --color-background-gradient-welcome: linear-gradient(#cfdbe7,rgb(240, 239, 234),rgb(240, 239, 234),#cfdbe7);
+  --color-background-gradient-welcome: linear-gradient(#cfdbe7, rgb(240, 239, 234), rgb(240, 239, 234), #cfdbe7);
 
   --color-primary-orange-a1: #c03b21;
   --color-primary-orange-a2: #b57118;
   --color-primary-orange-a3: #e2bd8d;
-  
+
   --color-primary-white-a1: #f4f1f0;
   --color-primary-white-a2: #ffffff;
 
-  --color-primary-blue-a1: #9FADBD;
+  --color-primary-blue-a1: #9fadbd;
 
   --color-primary-black-a1: #100d0c;
 
   --font-size-a1: 42px;
+  --font-size-a11: 36px;
   --font-size-a2: 24px;
+  --font-size-a22: 20px;
+  --font-size-a23: 18px;
   --font-size-a3: 16px;
+
+  --padding-size-a1: 16px;
+  @media (max-width: 1240px) {
+    --padding-size-a1: 8px;
+  }
 
   --color-disabled: #808080;
 }

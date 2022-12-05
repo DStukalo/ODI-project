@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { useTranslation } from '@/locales/useTranslation';
 import { authorizeUser } from '@/store/reducers/UserSlice';
 import { useAppDispatch } from '@/hooks/redux';
 import styles from '@/pages/Authorization page/AuthorizationPage.module.scss';
+import { isValidName, isValidPassword } from '@/functions/isValidForm';
 import { Modal } from '../Modal/Modal';
 
 export function Login() {
@@ -19,6 +20,13 @@ export function Login() {
 	const [showErrorModal, setShowErrorModal] = useState(false);
 	const [showSuccessModal, setShowSuccessModal] = useState(false);
 
+	const [isFormValid, setFormValid] = useState<boolean>(false);
+
+	useEffect(() => {
+		setFormValid(isValidName(login) && isValidPassword(password));
+		setSubmit(true);
+	}, [login, password]);
+
 	function handleChangeUsername(e: React.FormEvent<HTMLInputElement>) {
 		setLogin(e.currentTarget.value);
 	}
@@ -29,7 +37,9 @@ export function Login() {
 
 	async function loginUser(logUser: string, passwordUser: string) {
 		try {
-			const stateOfLogin = await dispatch(authorizeUser({ login: logUser, pass: passwordUser }));
+			const stateOfLogin = await dispatch(
+				authorizeUser({ login: logUser, pass: passwordUser }),
+			);
 			if (stateOfLogin.type === 'user/authorizeUser/rejected') {
 				setShowErrorModal(true);
 			} else {
@@ -59,7 +69,7 @@ export function Login() {
 					onClose={setShowErrorModal}
 					classes="modal_auth"
 				>
-					<h3>{newLocal.modalErrorRegisterText}</h3>
+					<h3>{newLocal.modalErrorLoginText}</h3>
 				</Modal>
 			)}
 			{showSuccessModal && (
@@ -74,7 +84,7 @@ export function Login() {
 			)}
 			<form onSubmit={handleSubmit} className={styles.form_auth}>
 				<fieldset className={styles.form_fieldset}>
-					{submit && !login && (
+					{submit && !isValidName(login) && (
 						<legend className={styles.error}>{newLocal.errorUsername}</legend>
 					)}
 					<input
@@ -88,7 +98,7 @@ export function Login() {
 					/>
 				</fieldset>
 				<fieldset className={styles.form_fieldset}>
-					{submit && !password && (
+					{submit && !isValidPassword(password) && (
 						<legend className={styles.error}>{newLocal.errorpassword}</legend>
 					)}
 					<input
@@ -104,7 +114,13 @@ export function Login() {
 				<Link to="/authorization/register" className={styles.form_link}>
 					{newLocal.btnLgn}
 				</Link>
-				<button type="submit" className={styles.form_button}>{newLocal.signin}</button>
+				<button
+					type="submit"
+					className={styles.form_button}
+					disabled={!isFormValid}
+				>
+					{newLocal.signin}
+				</button>
 			</form>
 		</div>
 	);
