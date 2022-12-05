@@ -1,0 +1,220 @@
+.wrapper {
+	width: 100%;
+	background: var(--color-background-gradient-welcome);
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	padding: 90px 0 20px 0;
+}
+
+.welcomeSection{
+	width:max(80%, 1200px);
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	height: 500px;
+	gap: 20px;
+	padding-bottom: 20px;
+}
+
+.descriptionBlock{
+	width: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+}
+
+.mainTittle{
+	font-family: "Raleway", sans-serif;
+	font-weight: 600;
+	color: var(--color-background-primary-grey-a1);
+	font-size: var(--font-size-a1);
+	text-shadow: 1px 2px 4px #6f7282;
+}
+
+.tittle{
+	align-self: center;
+	font-family: "Raleway", sans-serif;
+	font-weight: 700;
+	color: var(--color-background-primary-grey-a1);
+	font-size: var(--font-size-a2);
+	text-shadow: 1px 2px 4px #6f7282;
+	margin-bottom: 30px;
+}
+
+.description{
+	font-size: var(--font-size-a2);
+	padding-bottom: 24px;
+	text-align: left;
+}
+
+.welcomeImg{
+	width:600px;
+	height: 500px;
+	background-image: url("/assets/welcome-img.png");
+	background-size:contain;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.aboutWrapper {
+	width:max(80%, 1200px);
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem 0 1.5rem 0;
+}
+
+.descriptionWrapper {
+	width:max(80%, 1200px);
+  display: flex;
+  align-items: center;
+	justify-content: space-between;
+  padding: 40px 0;
+}
+
+.line {
+	width:max(80%, 1200px);
+	margin: 0.5rem 0;
+	border: 0;
+	border-top: 1px solid rgba(81,81,81,.195);
+}
+
+.technologyWrapper {
+	width:max(80%, 1200px);
+  display: flex;
+  align-items: center;
+	flex-direction: column;
+  padding: 40px 0;
+}
+
+.cardWrapper{
+	width: 100%;
+	display: flex;
+  align-items: center;
+	justify-content: space-between;
+	padding-top: 10px;
+}
+
+
+@media (max-width: 1240px) {
+	.wrapper {
+		padding: 90px 20px 20px 20px;
+		width: calc(100% - 40px);
+	}
+
+	.mainTittle{
+		font-size: calc(var(--font-size-a1) - 4px);
+	}
+
+	.description{
+		font-size: calc(var(--font-size-a2) - 2px);
+	}
+
+	.welcomeSection{
+		width:max(100%, 320px);
+	}
+
+	.aboutWrapper {
+		width:max(100%, 320px);
+	}
+
+	.descriptionWrapper {
+		width:max(100%, 320px);
+	}
+	
+	.line {
+		width:max(100%, 320px);
+	}
+	
+	.technologyWrapper {
+		width:max(100%, 320px);
+	}
+	.welcomeImg{
+		width:50vw;
+	}
+}
+
+@media (max-width: 900px) {
+
+	.welcomeSection{
+		height: 400px;
+	}
+	.mainTittle{
+		font-size: calc(var(--font-size-a1) - 12px);
+	}
+
+	.description{
+		font-size: calc(var(--font-size-a2) - 10px);
+	}
+	.welcomeImg{
+		width:45vw;
+	}
+}
+
+@media (max-width: 700px) {
+	.cardWrapper {
+		flex-wrap: wrap;
+		gap: 20px 14vw;
+		justify-content: center;
+	}
+
+	.mainTittle{
+		font-size: calc(var(--font-size-a1) - 16px);
+	}
+
+	.descriptionWrapper {
+		flex-wrap: wrap;
+		gap: 20px 70px;
+		justify-content: center
+	}
+
+}
+
+@media (max-width: 600px) {
+
+	.tittle{
+		font-size: calc(var(--font-size-a2) - 6px);
+	}
+
+	.cardWrapper {
+		flex-wrap: wrap;
+		gap: 20px 12vw;
+		justify-content: center;
+	}
+
+	.welcomeSection{
+		flex-direction: column;
+		height: auto;
+		padding-top: 20px;
+		gap: 20px;
+	}
+
+	.welcomeImg{
+		width: 90vw;
+		height: 40vw;
+		order: -1;
+	}
+
+	.descriptionBlock{
+		width: 90%;
+	}
+
+	.mainTittle{
+		font-size: calc(var(--font-size-a1) - 18px);
+		text-align:center;
+	}
+
+	.description{
+		font-size: calc(var(--font-size-a2) - 10px);
+		text-align:center;
+	}
+
+	.descriptionWrapper {
+		flex-wrap: wrap;
+		gap: 20px;
+		justify-content: center;
+		flex-direction: column;
+	}
+
+}

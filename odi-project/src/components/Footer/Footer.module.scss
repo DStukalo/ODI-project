@@ -1,0 +1,101 @@
+.footer {
+  padding: 4px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  background-color: var(--color-background-primary-grey-a2);
+  min-height: 60px;
+  .container {
+    width:max(80%, 1200px);
+    display: flex;
+    justify-content: space-between;
+    .year {
+      margin-left: 15px;
+    }
+    .year,
+    .github {
+      color: var(--color-primary-white-a1);
+      text-align: center;
+      font-size: var(--font-size-a22);
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      
+    }
+    .github {
+      gap: 15px;
+      .link {
+        display: flex;
+        align-items: center;
+        justify-items: center;
+        text-decoration: none;
+        text-align: center;
+        overflow: visible;
+        color: var(--color-primary-white-a1);
+        transition: all 1000ms linear;
+        &:hover {
+          color: var(--color-primary-orange-a1);
+          cursor: pointer;
+        }
+      }
+    }
+    .rsschool {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .rss_link {
+        .rss_image {
+          display: block;
+          width: 100%;
+          filter: invert(81%) sepia(68%) saturate(7%) hue-rotate(330deg) brightness(104%) contrast(95%);;
+          transition: all 1000ms linear;
+          &:hover {
+            filter: invert(37%) sepia(75%) saturate(2879%) hue-rotate(346deg) brightness(76%) contrast(96%);
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .footer {
+    min-height: 90px;
+    .container {
+      .year,
+      .github {
+        font-size: var(--font-size-a3);
+      }
+      .github {
+        flex-direction: column;
+        justify-content: center;
+        gap: 5px;
+      }
+      .rsschool {
+        .rss_link {
+          .rss_image {
+            width: 70%;
+          }
+        }
+      }
+    }
+  }
+
+}
+
+
+@media (max-width: 1200px) {
+  .footer {
+    width: max(100%, 300px);
+    .container {
+      .rsschool {
+        .rss_link {
+          .rss_image {
+            width: 80%;
+          }
+        }
+      }
+
+    }
+  }
+}

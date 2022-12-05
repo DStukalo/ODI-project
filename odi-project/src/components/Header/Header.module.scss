@@ -1,0 +1,22 @@
+.header {
+  background-color: var(--color-background-primary-grey-a1);
+  width: 100%;
+  position: fixed;
+  z-index: 3;
+}
+
+.is-sticky {
+  background-color: var(--color-background-primary-grey-a2);
+  position: fixed;
+  width: 100%;
+  z-index: 9;
+  transition: all 1000ms ease-in-out;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary-white-a1);
+  min-height: 90px;
+}
