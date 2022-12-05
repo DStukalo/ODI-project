@@ -24,6 +24,7 @@ export function Login() {
 
 	useEffect(() => {
 		setFormValid(isValidName(login) && isValidPassword(password));
+		setSubmit(true);
 	}, [login, password]);
 
 	function handleChangeUsername(e: React.FormEvent<HTMLInputElement>) {
@@ -83,7 +84,7 @@ export function Login() {
 			)}
 			<form onSubmit={handleSubmit} className={styles.form_auth}>
 				<fieldset className={styles.form_fieldset}>
-					{submit && !login && (
+					{submit && !isValidName(login) && (
 						<legend className={styles.error}>{newLocal.errorUsername}</legend>
 					)}
 					<input
@@ -97,7 +98,7 @@ export function Login() {
 					/>
 				</fieldset>
 				<fieldset className={styles.form_fieldset}>
-					{submit && !password && (
+					{submit && !isValidPassword(password) && (
 						<legend className={styles.error}>{newLocal.errorpassword}</legend>
 					)}
 					<input

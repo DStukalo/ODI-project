@@ -26,6 +26,7 @@ export function Register() {
 			&& isValidName(name)
 			&& isValidPassword(password),
 		);
+		setSubmit(true);
 	}, [name, login, password]);
 
 	function handleChangeName(e: React.FormEvent<HTMLInputElement>) {
@@ -83,7 +84,7 @@ export function Register() {
 			)}
 			<form onSubmit={handleSubmit} className={styles.form_auth}>
 				<fieldset className={styles.form_fieldset}>
-					{submit && !name && (
+					{submit && !isValidName(name) && (
 						<legend className={styles.error}>{newLocal.errorFirstName}</legend>
 					)}
 					<input
@@ -97,7 +98,7 @@ export function Register() {
 					/>
 				</fieldset>
 				<fieldset className={styles.form_fieldset}>
-					{submit && !login && (
+					{submit && !isValidName(login) && (
 						<legend className={styles.error}>{newLocal.errorUsername}</legend>
 					)}
 					<input
@@ -111,7 +112,7 @@ export function Register() {
 					/>
 				</fieldset>
 				<fieldset className={styles.form_fieldset}>
-					{submit && !password && (
+					{submit && !isValidPassword(password) && (
 						<legend className={styles.error}>{newLocal.errorpassword}</legend>
 					)}
 					<input
