@@ -8,6 +8,11 @@ interface Token {
 }
 
 export function isValidToken(token: string) {
+	if (token === 'undefined') 	{
+		return {
+			isValid: false,
+		};
+	}
 	if (token) {
 		const decodetToken = decodeToken<Token>(token) as Token;
 		const exp = Number(decodetToken.exp) * 1000;
