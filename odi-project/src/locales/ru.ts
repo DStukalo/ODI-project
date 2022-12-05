@@ -40,7 +40,7 @@ export const ru: TranslationPackage = {
 	modalLoginHeader: 'Привет',
 	modalSuccessLoginText: 'Авторизацмя прошла успешно',
 	modalErrorLoginText: 'Ошибка при авторизации',
-	deleteTitle: 'Удалть данную доску?',
+	deleteTitle: 'Удалить данную доску?',
 	yes: 'Да',
 	no: 'Нет',
 	boardsTitle: 'ВАШИ ДОСКИ',
@@ -72,4 +72,5 @@ export const ru: TranslationPackage = {
 	profileLegendName: 'Имя',
 	profileLegendLogin: 'Логин',
 	profileLegendPassword: 'Пароль',
+	profileModalDeleteUser: 'Вы действительно хотите удалить профиль?'
 };

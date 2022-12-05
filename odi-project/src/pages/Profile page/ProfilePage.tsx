@@ -11,14 +11,30 @@ import styles from './ProfilePage.module.scss';
 
 export function ProfilePage() {
 	const { user } = useAppSelector((state) => state.userReducer);
+
 	const navigate = useNavigate();
 	const newLocal = useTranslation();
+
 	const [name, setName] = useState('');
 	const [login, setLogin] = useState('');
 	const [password, setPassword] = useState('');
+
 	const [showErrorModal, setShowErrorModal] = useState(false);
 	const [showSuccessModal, setShowSuccessModal] = useState(false);
 	const [showDeleteModal, setShowDeleteModal] = useState(false);
+	const [modalDel, setShowModalDel] = useState(false);
+
+	const showModalDel = () => {
+		setShowModalDel(true);
+	};
+
+	const closeModalDel = () => {
+		setShowModalDel(false);
+	};
+	const deleteBoard = async () => {
+		setShowModalDel(false);
+		deleteUser();
+	};
 
 	const dispatch = useAppDispatch();
 
@@ -147,9 +163,29 @@ export function ProfilePage() {
 						onChange={handleChangePassword}
 					/>
 				</fieldset>
+				{modalDel && (
+					<Modal
+						title={newLocal.profileModalDeleteUser}
+						onClose={setShowModalDel}
+						classes="modal_delete"
+					>
+						<div>
+							<Button
+								classes="modalBoard__btn"
+								text={newLocal.yes}
+								callback={deleteUser}
+							/>
+							<Button
+								classes="modalBoard__btn"
+								text={newLocal.no}
+								callback={closeModalDel}
+							/>
+						</div>
+					</Modal>
+				)}
 				<div className={styles.form_buttons}>
 					<button type="submit">{newLocal.profileButtonSave}</button>
-					<Button classes="" text={newLocal.profileButtonDelete} callback={deleteUser} />
+					<Button classes="" text={newLocal.profileButtonDelete} callback={showModalDel} />
 				</div>
 			</form>
 		</div>

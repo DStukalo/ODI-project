@@ -39,7 +39,7 @@ export const en: TranslationPackage = {
 	modalButton: 'Close',
 	modalLoginHeader: 'Hello',
 	modalSuccessLoginText: 'Authorization was successful',
-	modalErrorLoginText: 'Authorization',
+	modalErrorLoginText: 'Authorization error',
 	deleteTitle: 'Delete this board?',
 	yes: 'Yes',
 	no: 'No',
@@ -72,4 +72,5 @@ export const en: TranslationPackage = {
 	profileLegendName: 'Name',
 	profileLegendLogin: 'Login',
 	profileLegendPassword: 'Password',
+	profileModalDeleteUser: 'Are you sure you want to delete your profile?'
 };
