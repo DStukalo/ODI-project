@@ -4,7 +4,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from '@/locales/useTranslation';
 import { authorizeUser } from '@/store/reducers/UserSlice';
 import { useAppDispatch } from '@/hooks/redux';
-import localStorageService from '@/services/localStorageService';
 import styles from '@/pages/Authorization page/AuthorizationPage.module.scss';
 import { Modal } from '../Modal/Modal';
 
@@ -30,9 +29,13 @@ export function Login() {
 
 	async function loginUser(logUser: string, passwordUser: string) {
 		try {
-			await dispatch(authorizeUser({ login: logUser, pass: passwordUser }));
-			setShowSuccessModal(true);
-			if (localStorageService.getValue('token'))	setTimeout(() => navigate('/main'), 1000);
+			const stateOfLogin = await dispatch(authorizeUser({ login: logUser, pass: passwordUser }));
+			if (stateOfLogin.type === 'user/authorizeUser/rejected') {
+				setShowErrorModal(true);
+			} else {
+				setShowSuccessModal(true);
+				setTimeout(() => navigate('/main'), 1000);
+			}
 		} catch (error) {
 			setShowErrorModal(true);
 		}
