@@ -48,6 +48,9 @@
 }
 
 @media (max-width: 600px) {
+	.wrapper{
+		min-height: calc(100vh - 90px - 90px);
+	}
 	.boardsList{
 		justify-content: center;
 	}
