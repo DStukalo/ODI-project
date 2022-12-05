@@ -72,4 +72,6 @@ export const en: TranslationPackage = {
 	profileLegendName: 'Name',
 	profileLegendLogin: 'Login',
 	profileLegendPassword: 'Password',
+	notFoundPage: 'This page Not Found.',
+	notFoundPageRedirect: 'You will be redirected to the home page via',
 };

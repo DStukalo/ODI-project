@@ -72,4 +72,6 @@ export const ru: TranslationPackage = {
 	profileLegendName: 'Имя',
 	profileLegendLogin: 'Логин',
 	profileLegendPassword: 'Пароль',
+	notFoundPage: 'Эта страница не найдена.',
+	notFoundPageRedirect: 'Вы будете перенаправлены на главную страницу через',
 };
