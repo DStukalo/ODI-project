@@ -1,5 +1,5 @@
 .navigation {
-  width: 1200px;
+  width:max(80%, 1200px);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -22,6 +22,7 @@
     &:hover {
       fill: var(--color-primary-orange-a1);
       cursor: pointer;
+      font-size: var(--font-size-a22);
     }
   }
 }
@@ -54,8 +55,7 @@
         background-color: var(--color-background-primary-grey-a1);
         height: 28vh;
         z-index: 10;
-        width: 290px;
-        
+        width: 290px;        
         right: -100%;
       }
       .show {
@@ -67,4 +67,8 @@
       right: 0;
     }
   }
+}
+
+@media (max-width: 1200px) {
+
 }

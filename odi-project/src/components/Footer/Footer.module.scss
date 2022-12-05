@@ -6,7 +6,7 @@
   background-color: var(--color-background-primary-grey-a2);
   min-height: 90px;
   .container {
-    width: 1200px;
+    width:max(80%, 1200px);
     display: flex;
     justify-content: space-between;
     .year {
@@ -14,17 +14,16 @@
     }
     .year,
     .github {
-      color: var(--color-primary-black-a1);
-      font-weight: 400;
+      color: var(--color-primary-white-a1);
       text-align: center;
-      font-size: calc(var(--font-size-a2) - 6px);
+      font-size: var(--font-size-a22);
       display: flex;
       align-items: center;
       justify-content: space-around;
       
     }
     .github {
-      width: 20%;
+      gap: 15px;
       .link {
         display: flex;
         align-items: center;
@@ -32,9 +31,7 @@
         text-decoration: none;
         text-align: center;
         overflow: visible;
-        width: 80px;
-        height: 80px;
-        color: var(--color-primary-black-a1);
+        color: var(--color-primary-white-a1);
         transition: all 1000ms linear;
         &:hover {
           color: var(--color-primary-orange-a1);
@@ -49,14 +46,55 @@
       .rss_link {
         .rss_image {
           display: block;
-          width: 80%;
-          filter: invert(6%) sepia(12%) saturate(467%) hue-rotate(329deg) brightness(98%) contrast(102%);
+          width: 100%;
+          filter: invert(81%) sepia(68%) saturate(7%) hue-rotate(330deg) brightness(104%) contrast(95%);;
           transition: all 1000ms linear;
           &:hover {
             filter: invert(37%) sepia(75%) saturate(2879%) hue-rotate(346deg) brightness(76%) contrast(96%);
           }
         }
       }
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .footer {
+    .container {
+      .github {
+        flex-direction: column;
+        justify-content: center;
+        gap: 5px;
+      }
+      .rsschool {
+        .rss_link {
+          .rss_image {
+            width: 70%;
+          }
+        }
+      }
+    }
+  }
+
+}
+
+
+@media (max-width: 1200px) {
+  .footer {
+    width: max(100%, 320px);
+    .container {
+      .year,
+      .github {
+        font-size: var(--font-size-a3);
+      }
+      .rsschool {
+        .rss_link {
+          .rss_image {
+            width: 80%;
+          }
+        }
+      }
+
     }
   }
 }

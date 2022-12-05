@@ -4,7 +4,7 @@
   color: var(---color-primary-white-a1);
   text-decoration: none;
   transition: color 1000ms linear;
-  font-size: var(--font-size-a3);
+  font-size: var(--font-size-a22);
 
   &:hover {
     color: var(--color-primary-orange-a2);
@@ -14,9 +14,19 @@
 .active {
   color: var(--color-primary-orange-a1);
   text-decoration: underline;
+  font-size: var(--font-size-a22);
 }
 
 .list__item {
   list-style: none;
 }
 
+@media (max-width: 1200px) {
+  .navigation__item {
+    font-size: var(--font-size-a3);
+  }
+  
+  .active {
+    font-size: var(--font-size-a3);
+  }
+}
