@@ -82,27 +82,27 @@ export function Navigation() {
 					callback={() => dispatch(logOut(false))}
 				/>
 			</ul>
-      {modalAdd && (
-        <Modal
-          title={newLocal.createTitle}
-          onClose={setShowModalAdd}
-          classes="modal_create"
-        >
-          <input
-            type="text"
-            name="boardName"
-            value={boardName}
-            onChange={handleChangeBoardName}
-            id="boardName"
-            placeholder={newLocal.createPlaceholder}
-          />
-          <Button
-            classes="modalBoard__btn"
-            text={newLocal.create}
-            callback={addBoard}
-          />
-        </Modal>
-      )}
+			{modalAdd && (
+				<Modal
+					title={newLocal.createTitle}
+					onClose={setShowModalAdd}
+					classes="modal_create"
+				>
+					<input
+						type="text"
+						name="boardName"
+						value={boardName}
+						onChange={handleChangeBoardName}
+						id="boardName"
+						placeholder={newLocal.createPlaceholder}
+					/>
+					<Button
+						classes="modalBoard__btn"
+						text={newLocal.create}
+						callback={addBoard}
+					/>
+				</Modal>
+			)}
 		</div>
 	);
 
@@ -119,7 +119,6 @@ export function Navigation() {
 		</div>
 
 	);
-
 
 	return (
 		<nav role="navigation" className={styles.navigation}>
