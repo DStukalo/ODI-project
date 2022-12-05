@@ -1,7 +1,8 @@
 import { useTranslation } from '@/locales/useTranslation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import AuthToAPI from '@/API/Authorization';
+import { isValidName, isValidPassword } from '@/functions/isValidForm';
 import styles from '../../pages/Authorization page/AuthorizationPage.module.scss';
 import { Modal } from '../Modal/Modal';
 
@@ -16,6 +17,16 @@ export function Register() {
 
 	const [showErrorModal, setShowErrorModal] = useState(false);
 	const [showSuccessModal, setShowSuccessModal] = useState(false);
+
+	const [isFormValid, setFormValid] = useState<boolean>(false);
+
+	useEffect(() => {
+		setFormValid(
+			isValidName(login)
+			&& isValidName(name)
+			&& isValidPassword(password),
+		);
+	}, [name, login, password]);
 
 	function handleChangeName(e: React.FormEvent<HTMLInputElement>) {
 		setName(e.currentTarget.value);
@@ -117,7 +128,13 @@ export function Register() {
 					<Link to="/authorization/login" className={styles.form_link}>
 						{newLocal.btnRgs}
 					</Link>
-					<button type="submit" className={styles.form_button}>{newLocal.signup}</button>
+					<button
+						type="submit"
+						className={styles.form_button}
+						disabled={!isFormValid}
+					>
+						{newLocal.signup}
+					</button>
 				</div>
 			</form>
 		</div>

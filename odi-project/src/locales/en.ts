@@ -72,5 +72,5 @@ export const en: TranslationPackage = {
 	profileLegendName: 'Name',
 	profileLegendLogin: 'Login',
 	profileLegendPassword: 'Password',
-	profileModalDeleteUser: 'Are you sure you want to delete your profile?'
+	profileModalDeleteUser: 'Are you sure you want to delete your profile?',
 };

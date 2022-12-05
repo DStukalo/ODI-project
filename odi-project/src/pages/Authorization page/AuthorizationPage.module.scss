@@ -104,6 +104,9 @@
   }
 }
 
+.form_button:disabled {
+  background-color: var(--color-disabled);
+}
 @media (max-width: 600px) {
   .auth {
     min-height: calc(100vh - 0px - 90px);

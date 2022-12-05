@@ -72,5 +72,5 @@ export const ru: TranslationPackage = {
 	profileLegendName: 'Имя',
 	profileLegendLogin: 'Логин',
 	profileLegendPassword: 'Пароль',
-	profileModalDeleteUser: 'Вы действительно хотите удалить профиль?'
+	profileModalDeleteUser: 'Вы действительно хотите удалить профиль?',
 };

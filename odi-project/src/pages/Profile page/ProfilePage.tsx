@@ -31,16 +31,13 @@ export function ProfilePage() {
 	const closeModalDel = () => {
 		setShowModalDel(false);
 	};
-	const deleteBoard = async () => {
-		setShowModalDel(false);
-		deleteUser();
-	};
 
 	const dispatch = useAppDispatch();
 
 	const deleteUser = async () => {
 		try {
 			await userToAPI.deleteUserByID(user._id);
+			setShowModalDel(false);
 			setShowDeleteModal(true);
 			dispatch(unLogged(false));
 			localStorage.removeItem('token');

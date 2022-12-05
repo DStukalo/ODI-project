@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { useTranslation } from '@/locales/useTranslation';
 import { authorizeUser } from '@/store/reducers/UserSlice';
 import { useAppDispatch } from '@/hooks/redux';
 import styles from '@/pages/Authorization page/AuthorizationPage.module.scss';
+import { isValidName, isValidPassword } from '@/functions/isValidForm';
 import { Modal } from '../Modal/Modal';
 
 export function Login() {
@@ -19,6 +20,12 @@ export function Login() {
 	const [showErrorModal, setShowErrorModal] = useState(false);
 	const [showSuccessModal, setShowSuccessModal] = useState(false);
 
+	const [isFormValid, setFormValid] = useState<boolean>(false);
+
+	useEffect(() => {
+		setFormValid(isValidName(login) && isValidPassword(password));
+	}, [login, password]);
+
 	function handleChangeUsername(e: React.FormEvent<HTMLInputElement>) {
 		setLogin(e.currentTarget.value);
 	}
@@ -29,7 +36,9 @@ export function Login() {
 
 	async function loginUser(logUser: string, passwordUser: string) {
 		try {
-			const stateOfLogin = await dispatch(authorizeUser({ login: logUser, pass: passwordUser }));
+			const stateOfLogin = await dispatch(
+				authorizeUser({ login: logUser, pass: passwordUser }),
+			);
 			if (stateOfLogin.type === 'user/authorizeUser/rejected') {
 				setShowErrorModal(true);
 			} else {
@@ -104,7 +113,13 @@ export function Login() {
 				<Link to="/authorization/register" className={styles.form_link}>
 					{newLocal.btnLgn}
 				</Link>
-				<button type="submit" className={styles.form_button}>{newLocal.signin}</button>
+				<button
+					type="submit"
+					className={styles.form_button}
+					disabled={!isFormValid}
+				>
+					{newLocal.signin}
+				</button>
 			</form>
 		</div>
 	);
