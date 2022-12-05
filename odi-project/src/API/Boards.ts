@@ -1,6 +1,8 @@
 import axios, { AxiosInstance } from 'axios';
 
-import {	AllUsersData, UserDataWithStatus, AllBoardsData } from '@/types/interfaces';
+import {
+	BoardData, AllUsersData, UserDataWithStatus, AllBoardsData,
+} from '@/types/interfaces';
 import localStorageService from '@/services/localStorageService';
 import { BASE_URL } from './consts';
 
@@ -39,9 +41,9 @@ export class BoardsToAPI {
 		return { data: res.data, status: res.status };
 	}
 
-	async getBoardByID(boardID: string): Promise< AllUsersData > {
+	async getBoardByID(boardID: string): Promise< BoardData > {
 		const res = await this.instance.get(`boards/${boardID}`);
-		return { data: res.data, status: res.status };
+		return res.data;
 	}
 
 	async updateBoardByID(

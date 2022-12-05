@@ -1,6 +1,6 @@
 export type ParamsUpdateColumnsByIDInBoardID = {
 	title: string;
-	order: string;
+	order: number;
 	boardID: string;
 	columnsID: string;
 }
@@ -24,7 +24,7 @@ export type ParamsUpdateTasksInColumnID = {
 	users: string[];
 	boardID: string;
 	columnsID: string;
-	userId: number;
+	userId: string;
 	description: string;
 	taskID: string;
 }

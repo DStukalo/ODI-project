@@ -29,9 +29,13 @@ export function Login() {
 
 	async function loginUser(logUser: string, passwordUser: string) {
 		try {
-			await dispatch(authorizeUser({ login: logUser, pass: passwordUser }));
-			setShowSuccessModal(true);
-			setTimeout(() => navigate('/main'), 2000);
+			const stateOfLogin = await dispatch(authorizeUser({ login: logUser, pass: passwordUser }));
+			if (stateOfLogin.type === 'user/authorizeUser/rejected') {
+				setShowErrorModal(true);
+			} else {
+				setShowSuccessModal(true);
+				setTimeout(() => navigate('/main'), 1000);
+			}
 		} catch (error) {
 			setShowErrorModal(true);
 		}

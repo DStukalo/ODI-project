@@ -6,31 +6,25 @@ import { UserParamToSignin, UserState } from './ReducersTypes';
 
 export const authorizeUser = createAsyncThunk(
 	'user/authorizeUser',
-	async ({ login, pass }: UserParamToSignin, { rejectWithValue }) => {
-		try {
-			const signinUser = await authToAPI.signin(login, pass);
-			const { token } = signinUser.data;
-			if ((signinUser).status !== 200) {
-				throw new Error('Uncorrect login or password.Server Error');
-			}
-			const validToken = isValidToken(token);
-			if (!validToken) {
-				throw new Error('Uncorrect Server Error');
-			}
-			return {
-				token,
-				login: validToken.login,
-				id: validToken.id,
-				expirationDate: validToken.expirationDate,
-			};
-		} catch (error) {
-			rejectWithValue(error);
+	async ({ login, pass }: UserParamToSignin) => {
+		const signinUser = await authToAPI.signin(login, pass);
+		if ((signinUser).status !== 200) {
 			return {
 				login: '',
 				id: '',
 				expirationDate: null,
+				logged: false,
 			};
 		}
+		const { token } = signinUser.data;
+		const validToken = isValidToken(token);
+		return {
+			token,
+			login: validToken.login,
+			id: validToken.id,
+			expirationDate: validToken.expirationDate,
+			logged: true,
+		};
 	},
 );
 
@@ -78,8 +72,11 @@ export const userSlice = createSlice({
 				state.user._id = action.payload.id as string;
 				state.user.login = action.payload.login as string;
 				state.expirationDate = action.payload.expirationDate as Date;
-				state.isLogged = true;
+				state.isLogged = action.payload.logged;
 				localStorageService.setValue('token', `${action.payload.token}`);
+			})
+			.addCase(authorizeUser.rejected, (state) => {
+				state.isLogged = false;
 			});
 	},
 });
