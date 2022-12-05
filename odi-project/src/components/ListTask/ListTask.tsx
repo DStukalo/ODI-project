@@ -1,16 +1,19 @@
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/Button/Button';
+import { useAppSelector } from '@/hooks/redux';
 import { Task } from '@/components/Task/Task';
 import tasksToAPI from '@/API/Tasks';
 import { TaskData } from '@/types/interfaces';
+import { useDrop } from 'react-dnd';
 import { Modal } from '@/components/Modal/Modal';
 import { ListTaskInfo } from './ListTaskTypes';
 import styles from './ListTask.module.scss';
 import { useTranslation } from '../../locales/useTranslation';
+import { TaskInfo } from '../Task/TaskTypes';
 
 export function ListTask(props: ListTaskInfo) {
 	const {
-		text, id, idBoard, callback, update,
+		text, id, idBoard, callback, update, updateList, drop,
 	} = props;
 	const [tasksList, setTasks] = useState<TaskData[]>([]);
 	const [modalAddTask, setShowModalAddTask] = useState(false);
@@ -19,13 +22,12 @@ export function ListTask(props: ListTaskInfo) {
 	const [taskTitle, setTasksTitle] = useState('');
 	const [columnTitle, setColumnTitle] = useState(text);
 	const [taskDescription, setTasksDescription] = useState('');
-
 	const newLocal = useTranslation();
+	const { user } = useAppSelector((state) => state.userReducer);
 
 	const showModalDel = () => {
 		setShowModalDel(true);
 	};
-
 	const closeModalDel = () => {
 		setShowModalDel(false);
 	};
@@ -45,7 +47,6 @@ export function ListTask(props: ListTaskInfo) {
 	const showModalAddTask = () => {
 		setShowModalAddTask(true);
 	};
-
 	const showInputSwitch = () => {
 		if (showInput) {
 			setShowInput(false);
@@ -63,6 +64,8 @@ export function ListTask(props: ListTaskInfo) {
 
 	const getTasks = async (boardId: string, idColumn: string) => {
 		const { data } = await tasksToAPI.getTasksInColumnID(boardId, idColumn);
+		// data.sort((a, b) => a.order - b.order);
+		// console.log(data);
 		setTasks(data);
 	};
 
@@ -74,7 +77,7 @@ export function ListTask(props: ListTaskInfo) {
 				users: [''],
 				boardID: idBoard,
 				columnsID: id,
-				userId: 0,
+				userId: user._id,
 				description: newTaskDescription,
 				taskID: idTask,
 			});
@@ -96,7 +99,7 @@ export function ListTask(props: ListTaskInfo) {
 			users: [''],
 			boardID: idBoard,
 			columnsID: id,
-			userId: 0,
+			userId: user._id,
 			description: taskDescription,
 		});
 		getTasks(idBoard, id);
@@ -115,10 +118,32 @@ export function ListTask(props: ListTaskInfo) {
 
 	useEffect(() => {
 		getTasks(idBoard, id);
-	}, [idBoard, id]);
+	}, [idBoard, id, drop]);
+
+	async function dropped(item: TaskInfo, BoardID: string, curColumnID: string, userID: string) {
+		await tasksToAPI.updateTaskByIDInColumnsID({
+			title: item.title,
+			order: item.order,
+			users: [''],
+			boardID: BoardID,
+			columnsID: id,
+			userId: userID,
+			description: item.description,
+			taskID: item._id,
+		});
+		updateList();
+	}
+
+	const [{ isOver }, dropRef] = useDrop({
+		accept: 'task',
+		drop: (item: TaskInfo) => dropped(item, idBoard, id, user._id),
+		collect: (monitor) => ({
+			isOver: monitor.isOver(),
+		}),
+	});
 
 	return (
-		<div className={styles.wrapper}>
+		<div className={styles.wrapper} ref={dropRef}>
 			<div className={styles.listHeader}>
 				{(showInput) ? (
 					<>
@@ -184,11 +209,14 @@ export function ListTask(props: ListTaskInfo) {
 				{tasksList.map((task) => (
 					<Task
 						key={task._id}
-						id={task._id}
+						_id={task._id}
 						title={task.title}
 						description={task.description}
 						callback={deleteTask}
 						update={updateTask}
+						columnsID={id}
+						users={task.users}
+						order={task.order}
 					/>
 				))}
 			</div>

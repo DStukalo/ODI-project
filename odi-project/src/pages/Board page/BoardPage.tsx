@@ -14,6 +14,7 @@ export function BoardPage() {
 	const [modalAddColumn, setShowModalAddColumn] = useState(false);
 	const [columnName, setColumnName] = useState('');
 	const [boardTitle, setBoardTitle] = useState('');
+	const [drop, setDrop] = useState(false);
 	const { id } = useParams();
 	const newLocal = useTranslation();
 
@@ -71,6 +72,14 @@ export function BoardPage() {
 		}
 	};
 
+	const updateTaskList = () => {
+		if (drop) {
+			setDrop(false);
+		} else {
+			setDrop(true);
+		}
+	};
+
 	useEffect(() => {
 		getBoard(id);
 		getColumns(id);
@@ -97,6 +106,8 @@ export function BoardPage() {
 						text={column.title}
 						callback={deleteColumn}
 						update={updateColumn}
+						updateList={updateTaskList}
+						drop={drop}
 					/>
 				))}
 				{modalAddColumn && (

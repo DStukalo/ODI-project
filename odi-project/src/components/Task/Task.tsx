@@ -1,3 +1,4 @@
+import { useDrag } from 'react-dnd';
 import { useState } from 'react';
 import { Modal } from '@/components/Modal/Modal';
 import { Button } from '@/components/Button/Button';
@@ -7,14 +8,25 @@ import { useTranslation } from '../../locales/useTranslation';
 
 export function Task(props: TaskInfo) {
 	const {
-		title, id, description, callback, update,
+		title, _id, description, callback, update, columnsID, order, users,
 	} = props;
+
 	const [modalDel, setShowModalDel] = useState(false);
 	const [modalTask, setShowModalTask] = useState(false);
 	const [showEdit, setShowEdit] = useState(false);
 	const [taskTitle, setTasksTitle] = useState(title);
 	const [taskDescription, setTasksDescription] = useState(description);
 	const newLocal = useTranslation();
+
+	const [, dragRef] = useDrag({
+		type: 'task',
+		item: {
+			_id, title, columnsID, order, description, users,
+		},
+		collect: (monitor) => ({
+			isDragging: monitor.isDragging(),
+		}),
+	});
 
 	const showModalDel = () => {
 		setShowModalDel(true);
@@ -33,7 +45,7 @@ export function Task(props: TaskInfo) {
 	};
 
 	const updateTask = () => {
-		update(id, taskTitle, taskDescription);
+		update(_id, taskTitle, taskDescription);
 		setShowEdit(false);
 	};
 
@@ -49,14 +61,15 @@ export function Task(props: TaskInfo) {
 	};
 
 	const deleteTask = async () => {
-		if (id) {
-			callback(id);
+		if (_id) {
+			callback(_id);
 			setShowModalDel(false);
+
 		}
 	};
 
 	return (
-		<div className={styles.taskWrapper}>
+		<div className={styles.taskWrapper} ref={dragRef}>
 			<h3 className={styles.taskTitle}>{title}</h3>
 			<Button
 				classes="button_input"
