@@ -7,27 +7,40 @@ import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { useTranslation } from '@/locales/useTranslation';
 import { Modal } from '@/components/Modal/Modal';
 import { unLogged } from '@/store/reducers/UserSlice';
-// import { useAppDispatch } from '@/hooks/redux';
 import styles from './ProfilePage.module.scss';
 
 export function ProfilePage() {
 	const { user } = useAppSelector((state) => state.userReducer);
+
 	const navigate = useNavigate();
 	const newLocal = useTranslation();
+
 	const [name, setName] = useState('');
 	const [login, setLogin] = useState('');
 	const [password, setPassword] = useState('');
+
 	const [showErrorModal, setShowErrorModal] = useState(false);
 	const [showSuccessModal, setShowSuccessModal] = useState(false);
 	const [showDeleteModal, setShowDeleteModal] = useState(false);
+	const [modalDel, setShowModalDel] = useState(false);
+
+	const showModalDel = () => {
+		setShowModalDel(true);
+	};
+
+	const closeModalDel = () => {
+		setShowModalDel(false);
+	};
 
 	const dispatch = useAppDispatch();
 
 	const deleteUser = async () => {
 		try {
 			await userToAPI.deleteUserByID(user._id);
+			setShowModalDel(false);
 			setShowDeleteModal(true);
 			dispatch(unLogged(false));
+			localStorage.removeItem('token');
 			setTimeout(() => navigate('/'), 2000);
 		} catch (error) {
 			setShowErrorModal(true);
@@ -101,7 +114,7 @@ export function ProfilePage() {
 					onClose={setShowErrorModal}
 					classes="modal_auth"
 				>
-					<h3>{newLocal.modalErrorRegisterText}</h3>
+					<h3>{newLocal.profileModalError}</h3>
 				</Modal>
 			)}
 			{showSuccessModal && (
@@ -147,9 +160,29 @@ export function ProfilePage() {
 						onChange={handleChangePassword}
 					/>
 				</fieldset>
+				{modalDel && (
+					<Modal
+						title={newLocal.profileModalDeleteUser}
+						onClose={setShowModalDel}
+						classes="modal_delete"
+					>
+						<div>
+							<Button
+								classes="modalBoard__btn"
+								text={newLocal.yes}
+								callback={deleteUser}
+							/>
+							<Button
+								classes="modalBoard__btn"
+								text={newLocal.no}
+								callback={closeModalDel}
+							/>
+						</div>
+					</Modal>
+				)}
 				<div className={styles.form_buttons}>
 					<button type="submit">{newLocal.profileButtonSave}</button>
-					<Button classes="" text={newLocal.profileButtonDelete} callback={deleteUser} />
+					<Button classes="" text={newLocal.profileButtonDelete} callback={showModalDel} />
 				</div>
 			</form>
 		</div>

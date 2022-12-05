@@ -105,10 +105,12 @@
   transition: all 900ms linear;
   background-color: var(--color-background-primary-grey-a1);
   color: var(--color-primary-black-a1);
+  font-size: var(--font-size-a22);
   &:hover {
     cursor: pointer;
     background-color: var(--color-primary-orange-a2);
     color: var(--color-primary-white-a1);
+    font-size: var(--font-size-a22);
   }
 }
 
@@ -316,5 +318,32 @@
   img {
     width: 24px;
     height: 24px;
+  }
+}
+
+.menu {
+  border: none;
+  background-color: transparent;
+  position: relative;
+  z-index: 15;
+  padding-top: 5px;
+  img {
+    background-color: var(--color-background-primary-grey-a1);
+  }
+}
+
+@media (min-width: 601px) {
+  .menu {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .navigation__btn {
+    font-size: var(--font-size-a3);
+    &:hover {
+      cursor: pointer;
+      font-size: var(--font-size-a3);
+    }
   }
 }
