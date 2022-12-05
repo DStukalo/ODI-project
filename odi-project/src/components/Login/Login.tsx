@@ -44,7 +44,12 @@ export function Login() {
 				setShowErrorModal(true);
 			} else {
 				setShowSuccessModal(true);
-				setTimeout(() => navigate('/main'), 1000);
+				const timerId = setInterval(() => {
+					if (localStorage.getItem('token')) {
+						clearInterval(timerId);
+						navigate('/main');
+					}
+				}, 1000);
 			}
 		} catch (error) {
 			setShowErrorModal(true);
