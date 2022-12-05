@@ -318,3 +318,15 @@
     height: 24px;
   }
 }
+
+@media (max-width: 600px) {
+  .welcome__btn {
+    padding: 5px 10px;
+    gap: 5px;
+    font-size: 14px;
+    img {
+      width: 18px;
+      height: 18px;
+    }
+  }
+}
