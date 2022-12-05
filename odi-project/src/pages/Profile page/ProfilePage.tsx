@@ -21,7 +21,6 @@ export function ProfilePage() {
 
 	const [showErrorModal, setShowErrorModal] = useState(false);
 	const [showSuccessModal, setShowSuccessModal] = useState(false);
-	const [showDeleteModal, setShowDeleteModal] = useState(false);
 	const [modalDel, setShowModalDel] = useState(false);
 
 	const showModalDel = () => {
@@ -37,8 +36,6 @@ export function ProfilePage() {
 	const deleteUser = async () => {
 		try {
 			await userToAPI.deleteUserByID(user._id);
-			setShowModalDel(false);
-			setShowDeleteModal(true);
 			dispatch(unLogged(false));
 			localStorage.removeItem('token');
 			setTimeout(() => navigate('/'), 2000);
@@ -97,16 +94,6 @@ export function ProfilePage() {
 	return (
 		<div className={styles.profile_container}>
 			<h2>{newLocal.profileHeader}</h2>
-			{showDeleteModal && (
-				<Modal
-					title={`${newLocal.modalLoginHeader} ${login}`}
-					buttonText={newLocal.modalButton}
-					onClose={setShowDeleteModal}
-					classes="modal_auth"
-				>
-					<h3>{newLocal.profileModalDelete}</h3>
-				</Modal>
-			)}
 			{showErrorModal && (
 				<Modal
 					title={`${newLocal.modalLoginHeader} ${login}`}
