@@ -41,44 +41,45 @@ export function Navigation() {
 		setMenu(false);
 	};
 
+	const navAuthItems = (
+		<div className={`${styles.nav_items} ${(menu ? styles.nav_overlay : '')}`}>
+			<ul className={`${styles.list} ${(menu ? styles.show : '')}`}>
+				<NavItem path="main" text={newLocal.main} callback={closeMenu} />
+				<NavItem path="main/board" text={newLocal.newBoard} callback={closeMenu} />
+				<NavItem
+					path="profile"
+					text={newLocal.profile}
+					callback={closeMenu}
+				/>
+				<Button
+					text={newLocal.signout}
+					classes="navigation__btn"
+					image="/images/icon-return.png"
+					callback={() => dispatch(logOut(false))}
+				/>
+			</ul>
+		</div>
+	);
+
+	const navItems = (
+		<div className={`${styles.nav_items} ${(menu ? styles.nav_overlay : '')}`}>
+			<ul className={`${styles.list} ${(menu ? styles.show : '')}`}>
+				<NavItem path="authorization/login" text={newLocal.signin} callback={closeMenu} />
+				<NavItem
+					path="authorization/register"
+					text={newLocal.signup}
+					callback={closeMenu}
+				/>
+			</ul>
+		</div>
+
+	);
+
 	return (
 		<nav role="navigation" className={styles.navigation}>
 			<Logo />
 			<div className={styles.nav_container}>
-				{
-					isLogged
-						? 		(
-							<div className={`${styles.nav_items} ${(menu ? styles.nav_overlay : '')}`}>
-								<ul className={`${styles.list} ${(menu ? styles.show : '')}`}>
-									<NavItem path="main" text={newLocal.main} callback={closeMenu} />
-									<NavItem path="main/board" text={newLocal.newBoard} callback={closeMenu} />
-									<NavItem
-										path="profile"
-										text={newLocal.profile}
-										callback={closeMenu}
-									/>
-									<Button
-										text={newLocal.signout}
-										classes="navigation__btn"
-										image="/images/icon-return.png"
-										callback={() => dispatch(logOut(false))}
-									/>
-								</ul>
-							</div>
-						)
-						: 					(
-							<div className={`${styles.nav_items} ${(menu ? styles.nav_overlay : '')}`}>
-								<ul className={`${styles.list} ${(menu ? styles.show : '')}`}>
-									<NavItem path="authorization/login" text={newLocal.signin} callback={closeMenu} />
-									<NavItem
-										path="authorization/register"
-										text={newLocal.signup}
-										callback={closeMenu}
-									/>
-								</ul>
-							</div>
-						)
-				}
+				{ isLogged ? navAuthItems : navItems }
 				<div className={styles.nav_buttons}>
 					{languages.map((lang) => (
 						<Button
