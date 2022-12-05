@@ -12,6 +12,8 @@ export function NavItem(props: TNavItemProps) {
 		if (callback && callModal) {
 			callback();
 			callModal();
+		} else if (callback) {
+			callback();
 		}
 	};
 	return (
