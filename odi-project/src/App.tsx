@@ -10,6 +10,8 @@ import { NotFoundPage } from './pages/404/NotFoundPage';
 import { Register } from './components/Register/Register';
 import { Login } from './components/Login/Login';
 import { setupStore } from './store/store';
+import { RequireAuth } from './hoc/RequireAuth';
+import { RequireNotAuth } from './hoc/RequireNotAuth';
 
 const store = setupStore();
 
@@ -19,13 +21,48 @@ function App() {
 			<Routes>
 				<Route path="/" element={<Layout />}>
 					<Route index element={<WelcomePage />} />
-					<Route path="main" element={<MainPage />} />
-					<Route path="main/board/:id" element={<BoardPage />} />
+					<Route
+						path="main"
+						element={(
+							<RequireAuth>
+								<MainPage />
+							</RequireAuth>
+						)}
+					/>
+					<Route
+						path="main/board/:id"
+						element={(
+							<RequireAuth>
+								<BoardPage />
+							</RequireAuth>
+						)}
+					/>
 					<Route path="authorization" element={<AuthorizationPage />}>
-						<Route path="login" element={<Login />} />
-						<Route path="register" element={<Register />} />
+						<Route
+							path="login"
+							element={(
+								<RequireNotAuth>
+									<Login />
+								</RequireNotAuth>
+							)}
+						/>
+						<Route
+							path="register"
+							element={(
+								<RequireNotAuth>
+									<Register />
+								</RequireNotAuth>
+							)}
+						/>
 					</Route>
-					<Route path="profile" element={<ProfilePage />} />
+					<Route
+						path="profile"
+						element={(
+							<RequireAuth>
+								<ProfilePage />
+							</RequireAuth>
+						)}
+					/>
 					<Route path="*" element={<NotFoundPage />} />
 				</Route>
 			</Routes>
