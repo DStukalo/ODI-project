@@ -306,6 +306,7 @@
   background-color: transparent;
   position: relative;
   z-index: 15;
+  padding-top: 5px;
   img {
     background-color: var(--color-background-primary-grey-a1);
   }
@@ -317,7 +318,7 @@
   }
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 600px) {
   .navigation__btn {
     font-size: var(--font-size-a3);
     &:hover {

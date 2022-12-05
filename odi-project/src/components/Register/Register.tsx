@@ -52,7 +52,7 @@ export function Register() {
 			<h2>{newLocal.signup}</h2>
 			{showErrorModal && (
 				<Modal
-					title={newLocal.modalRegisterHeader}
+					title={`{newLocal.modalRegisterHeader} ${login}`}
 					buttonText={newLocal.modalButton}
 					onClose={setShowErrorModal}
 					classes="modal_auth"
@@ -62,7 +62,7 @@ export function Register() {
 			)}
 			{showSuccessModal && (
 				<Modal
-					title={newLocal.modalRegisterHeader}
+					title={`{newLocal.modalRegisterHeader} ${login}`}
 					buttonText={newLocal.modalButton}
 					onClose={setShowErrorModal}
 					classes="modal_auth"

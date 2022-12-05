@@ -101,7 +101,7 @@ export function ProfilePage() {
 					onClose={setShowErrorModal}
 					classes="modal_auth"
 				>
-					<h3>{newLocal.modalErrorRegisterText}</h3>
+					<h3>{newLocal.profileModalError}</h3>
 				</Modal>
 			)}
 			{showSuccessModal && (

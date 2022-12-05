@@ -4,7 +4,7 @@
   display: flex;
   justify-content: center;
   background-color: var(--color-background-primary-grey-a2);
-  min-height: 90px;
+  min-height: 60px;
   .container {
     width:max(80%, 1200px);
     display: flex;
@@ -60,7 +60,12 @@
 
 @media (max-width: 600px) {
   .footer {
+    min-height: 90px;
     .container {
+      .year,
+      .github {
+        font-size: var(--font-size-a3);
+      }
       .github {
         flex-direction: column;
         justify-content: center;
@@ -83,10 +88,6 @@
   .footer {
     width: max(100%, 320px);
     .container {
-      .year,
-      .github {
-        font-size: var(--font-size-a3);
-      }
       .rsschool {
         .rss_link {
           .rss_image {

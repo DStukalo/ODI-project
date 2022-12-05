@@ -7,21 +7,24 @@
   z-index: 1;
   left: 0;
   top: 0;
-  width: 100%;
+  width: max(100%, 320px);
   height: 100%;
   overflow: auto;
   background: var(--color-background-primary-grey-f3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   div {
     position: relative;
     border-radius: 10px;
     border: 1px solid var(--color-background-primary-grey-a2);
     margin: 0 auto;
-    max-width: 450px;
     padding: 20px 10px;
+    max-width: 450px;
     width: 100%;
+    box-sizing: border-box;
     height: 20%;
     background-color: var(--color-primary-white-a2);
-    margin: 9% auto 15% auto;
     border: 1px solid var(--color-background-primary-grey-a1);
     display: flex;
     align-items: center;
@@ -114,6 +117,14 @@
     }
     h2 {
       font-weight: 400;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .modal_auth {
+    div {
+      max-width: 300px;
     }
   }
 }

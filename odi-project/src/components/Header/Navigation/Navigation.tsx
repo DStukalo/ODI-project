@@ -67,7 +67,7 @@ export function Navigation() {
 							</div>
 						)
 						: 					(
-							<div className={styles.nav_items}>
+							<div className={`${styles.nav_items} ${(menu ? styles.nav_overlay : '')}`}>
 								<ul className={`${styles.list} ${(menu ? styles.show : '')}`}>
 									<NavItem path="authorization/login" text={newLocal.signin} callback={closeMenu} />
 									<NavItem
