@@ -26,7 +26,6 @@
     }
   }
 }
-
 .list {
   display: flex;
   justify-content: space-between;
@@ -51,15 +50,15 @@
         gap: 8px;
         position: absolute;
         top: 0;
-        right: 0;
         background-color: var(--color-background-primary-grey-a1);
         height: 28vh;
         z-index: 10;
-        width: 290px;        
-        right: -100%;
+        width: 100%;
+        right: -100%;       
       }
       .show {
         right: 0;
+        left: 0;
       }
     }
     .nav_overlay {
